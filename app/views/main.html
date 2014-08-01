@@ -1,9 +1,38 @@
 <div class="row marketing">
-  <h4>test data</h4>
-  <p>
-      {{ awesomeThings }}
-  </p>
     <p>
-        {{ emoteInfo }}
+        <pre>{{ emoteInfo | json }}</pre>
+
+
+        <br><br>
+
+        <input type="text" ng-model="emoteInfo.emoteName" placeholder="emoteName" ng-change="serializeEmoteInfo()"><br/>
+
+        <input type="checkbox" ng-model="emoteInfo.vibrate" ng-change="serializeEmoteInfo()">vibrate</checkbox><br/>
+        <input type="checkbox" ng-model="emoteInfo.reverse" ng-change="serializeEmoteInfo()">reverse</checkbox><br/>
+        <input type="checkbox" ng-model="emoteInfo.brody" ng-change="serializeEmoteInfo()">brody</checkbox><br/>
+        <input type="checkbox" ng-model="emoteInfo.invert" ng-change="serializeEmoteInfo()">invert</checkbox><br/>
+        <input type="checkbox" ng-model="emoteInfo.hueRotate" ng-change="serializeEmoteInfo()">hueRotate</checkbox><br/>
+
+        <input type="text" ng-model="emoteInfo.speed" placeholder="speed" ng-change="serializeEmoteInfo()"><br/>
+        <input type="text" ng-model="emoteInfo.slide" placeholder="slide" ng-change="serializeEmoteInfo()"><br/>
+        <input type="text" ng-model="emoteInfo.spin" placeholder="spin" ng-change="serializeEmoteInfo()"><br/>
+
+        <input type="number" ng-model="emoteInfo.rotateDegrees" placeholder="rotateDegrees" ng-change="serializeEmoteInfo()"><br/>
+        <input type="number" ng-model="emoteInfo.xAxisTranspose" placeholder="xAxisTranspose" ng-change="serializeEmoteInfo()"><br/>
+        <input type="number" ng-model="emoteInfo.zAxisTranspose" placeholder="zAxisTranspose" ng-change="serializeEmoteInfo()"><br/>
+
+        <button ng-click="serializeEmoteInfo()">Serialize emote info</button>
+    </p>
+    <p>
+        <label for="before-expansion">Serialized Emote Info</label>
+    </p>
+    <p>
+        <div id="afterSerialize"></div>
+    </p>
+    <p>
+        <div id="after-expansion"></div>
+    </p>
+    <p>
+        <div id="after-expansion-escaped"></div>
     </p>
 </div>

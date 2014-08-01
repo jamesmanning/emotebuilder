@@ -9,14 +9,24 @@
  */
 angular.module('emotebuilderApp')
     .controller('MainCtrl', function ($scope) {
-        $scope.awesomeThings = [
-          'HTML5 Boilerplate',
-          'AngularJS',
-          'Karma'
-        ];
 
         $scope.emoteInfo = new EmoteInfo();
 
+//        $scope.emoteInfo.emoteName = "ierage";
+//
+//        $scope.emoteInfo.vibrate = true;
+//        $scope.emoteInfo.reverse = true;
+//        $scope.emoteInfo.brody = true;
+//
+//        $scope.emoteInfo.speed = 'fastest';
+//        $scope.emoteInfo.slide = 'slide';
+//        $scope.emoteInfo.spin = 'zspin';
+//        $scope.emoteInfo.rotateDegrees = 90;
+//        $scope.emoteInfo.xAxisTranspose = 20;
+//        $scope.emoteInfo.zAxisTranspose = 20;
+
+
+        $scope.emoteInfoSerializer = new EmoteInfoSerializer();
 
         $scope.sampleData = [
             {
@@ -65,14 +75,18 @@ angular.module('emotebuilderApp')
             return div.innerHTML;
         };
 
-        $scope.expandText = function () {
-            var beforeElement = $('#before-expansion');
+        $scope.serializeEmoteInfo = function() {
+            var afterSerialize = $('#afterSerialize');
+            var serialized = $scope.emoteInfoSerializer.Serialize($scope.emoteInfo);
+            afterSerialize.text(serialized);
+
             var afterElement = $('#after-expansion');
             var afterEscapedElement = $('#after-expansion-escaped');
-            var beforeText = beforeElement.val();
-            var afterHtml = expander.expand(beforeText);
+            var beforeText = serialized;
+            console.log('running expansion on', beforeText);
+            var afterHtml = $scope.expander.expand(beforeText);
             afterElement.html('<p>Text <b>' + beforeText + '</b> expanded to</p>' + afterHtml);
-            var escapedHtml = escapeHtml(afterHtml);
+            var escapedHtml = $scope.escapeHtml(afterHtml);
             afterEscapedElement.html(escapedHtml);
         };
     });
