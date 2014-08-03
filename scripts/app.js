@@ -99,7 +99,8 @@ angular
             var beforeText = serialized;
             console.log('running expansion on', beforeText);
             var afterHtml = $scope.expander.expand(beforeText);
-            afterElement.html('<p>Text <b>' + beforeText + '</b> expanded to</p>' + afterHtml);
+//            afterElement.html('<p>Text <b>' + beforeText + '</b> expanded to</p>' + afterHtml);
+            afterElement.html(afterHtml);
             var escapedHtml = $scope.escapeHtml(afterHtml);
             afterEscapedElement.html(escapedHtml);
         };
