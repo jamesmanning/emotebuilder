@@ -1,6 +1,6 @@
 <!doctype html>
 <html class="no-js">
-  <head>
+<head>
     <meta charset="utf-8">
     <title>Emote Builder</title>
     <meta name="description" content="simple emote builder for markdown-style emotes">
@@ -15,109 +15,137 @@
     <link rel="stylesheet" href="styles/pygment_trac.css">
     <!-- endbuild -->
 
-      <link rel="stylesheet" type="text/css" href="http://backstage.berrytube.tv/marminator/berryemotecore.css">
-  </head>
-  <body ng-app="emotebuilderApp" ng-controller="MainCtrl">
-    <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="http://backstage.berrytube.tv/marminator/berryemotecore.css">
+</head>
+<body ng-app="emotebuilderApp" ng-controller="MainCtrl">
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-            <a id="forkme_banner" href="https://github.com/jamesmanning/emotebuilder">View on GitHub</a>
+<!-- HEADER -->
+<div id="header_wrap" class="outer">
+    <header class="inner">
+        <a id="forkme_banner" href="https://github.com/jamesmanning/emotebuilder">View on GitHub</a>
 
-            <h1 id="project_title">Emote Builder</h1>
+        <h1 id="project_title">Emote Builder</h1>
 
-        </header>
-    </div>
+    </header>
+</div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-        <section id="main_content" class="inner">
+<!-- MAIN CONTENT -->
+<div id="main_content_wrap" class="outer">
+    <section id="main_content" class="inner">
 
-            <div class="row marketing">
-                <p>
-                    <b>NOTE:</b> There is currently no code to add animated png support for non-supporting browsers,
+        <div class="row marketing">
+            <p>
+                <span style="font-weight: bold">Caveats</span>
+            <ul>
+                <li>There is currently no code to add animated png support for non-supporting browsers,
                     so to see animated emotes actually animate, you should either use Firefox or Chrome with
-                    <a href="https://chrome.google.com/webstore/detail/apng/ehkepjiconegkhpodgoaeamnpckdbblp" target="_blank">the APNG extension</a>a> installed.
-                </p>
-                <p>
+                    <a href="https://chrome.google.com/webstore/detail/apng/ehkepjiconegkhpodgoaeamnpckdbblp"
+                       target="_blank">the APNG extension</a> installed.
+                </li>
+                <li>There is currently nothing to disable NSFW emotes, so they show up here as well</li>
+                <li>The coloring modifiers (-i and -invert) don't currently render into the rendered emote, just into the emote text</li>
+                <li>There is currently no support for the lines of text you can add to some emotes like the 'sign' emotes</li>
+                <li>There is only support for one emote currently, but having 2 or 3 emotes (especially trying to combine them) will be added</li>
+            </ul>
+            </p>
+            <p>
 
-                <label>Emote Name: <input type="text" ng-model="emoteInfo.emoteName" placeholder="emoteName" ng-change="serializeEmoteInfo()"></label><br/>
+                <label>Emote Name: <input type="text" ng-model="emoteInfo.emoteName" placeholder="emoteName"
+                                          ng-change="serializeEmoteInfo()"></label><br/>
 
-                <label><input type="checkbox" ng-model="emoteInfo.vibrate" ng-change="serializeEmoteInfo()">vibrate</label><br/>
-                <label><input type="checkbox" ng-model="emoteInfo.reverse" ng-change="serializeEmoteInfo()">reverse</label><br/>
-                <label><input type="checkbox" ng-model="emoteInfo.brody" ng-change="serializeEmoteInfo()">brody</label><br/>
-                <label><input type="checkbox" ng-model="emoteInfo.slide" ng-change="serializeEmoteInfo()">slide</label><br/>
+                <label><input type="checkbox" ng-model="emoteInfo.vibrate"
+                              ng-change="serializeEmoteInfo()">vibrate</label><br/>
+                <label><input type="checkbox" ng-model="emoteInfo.reverse"
+                              ng-change="serializeEmoteInfo()">reverse</label><br/>
+                <label><input type="checkbox" ng-model="emoteInfo.brody"
+                              ng-change="serializeEmoteInfo()">brody</label><br/>
+                <label><input type="checkbox" ng-model="emoteInfo.slide"
+                              ng-change="serializeEmoteInfo()">slide</label><br/>
 
-                <select ng-model="emoteInfo.spin" ng-options="spin.name for spin in spinOptions" ng-change="serializeEmoteInfo()">
+                <select ng-model="emoteInfo.spin" ng-options="spin.name for spin in spinOptions"
+                        ng-change="serializeEmoteInfo()">
                     <option value="">-- optional spin --</option>
                 </select><br/>
-                <select ng-model="emoteInfo.speed" ng-options="speed for speed in speedOptions" ng-change="serializeEmoteInfo()">
+                <select ng-model="emoteInfo.speed" ng-options="speed for speed in speedOptions"
+                        ng-change="serializeEmoteInfo()">
                     <option value="">-- optional speed modifier --</option>
                 </select><br/>
-                <select ng-model="emoteInfo.coloring" ng-options="coloring.name for coloring in coloringOptions" ng-change="serializeEmoteInfo()">
+                <select ng-model="emoteInfo.coloring" ng-options="coloring.name for coloring in coloringOptions"
+                        ng-change="serializeEmoteInfo()">
                     <option value="">-- optional coloring modifier --</option>
                 </select><br/>
 
-                <label>degrees to rotate: <input type="number" ng-model="emoteInfo.rotateDegrees" placeholder="rotateDegrees" ng-change="serializeEmoteInfo()"></label><br/>
-                <label>pixels to move along x axis: <input type="number" ng-model="emoteInfo.xAxisTranspose" placeholder="xAxisTranspose" ng-change="serializeEmoteInfo()"></label><br/>
-                <label>assigned z index: <input type="number" ng-model="emoteInfo.zAxisTranspose" placeholder="zAxisTranspose" ng-change="serializeEmoteInfo()"></label><br/>
+                <label>degrees to rotate: <input type="number" ng-model="emoteInfo.rotateDegrees"
+                                                 placeholder="rotateDegrees"
+                                                 ng-change="serializeEmoteInfo()"></label><br/>
+                <label>pixels to move along x axis (can be from -150 to 150 pixels): <input type="number" ng-model="emoteInfo.xAxisTranspose"
+                                                           placeholder="xAxisTranspose"
+                                                           ng-change="serializeEmoteInfo()"></label><br/>
+                <label>assigned z index (can be from 0 to 10): <input type="number" ng-model="emoteInfo.zAxisTranspose"
+                                                placeholder="zAxisTranspose"
+                                                ng-change="serializeEmoteInfo()"></label><br/>
 
-                </p>
-                <p>
-                <div id="afterSerialize"></div>
-                </p>
-                <p>
-                <div id="after-expansion"></div>
-                </p>
-                <h3>Debug info</h3>
-                <pre>{{ emoteInfo | json }}</pre>
-                <p>
-                    <div id="after-expansion-escaped"></div>
-                </p>
-            </div>
-        </section>
-    </div>
+            </p>
+            <p>
+                <input id="afterSerialize" type="text" readonly>
+            </p>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-        <footer class="inner">
-            <p class="copyright">Emotebuilder maintained by <a href="https://github.com/jamesmanning">James Manning</a></p>
-            <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-        </footer>
-    </div>
+            <p>
+
+            <div id="after-expansion"></div>
+            </p>
+            <h3>Debug info</h3>
+            <pre>{{ emoteInfo | json }}</pre>
+            <p>
+
+            <div id="after-expansion-escaped"></div>
+            </p>
+        </div>
+    </section>
+</div>
+
+<!-- FOOTER  -->
+<div id="footer_wrap" class="outer">
+    <footer class="inner">
+        <p class="copyright">Emotebuilder maintained by <a href="https://github.com/jamesmanning">James Manning</a></p>
+
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+    </footer>
+</div>
 
 
-    <!-- build:js(.) scripts/oldieshim.js -->
-    <!--[if lt IE 9]>
-    <script src="bower_components/es5-shim/es5-shim.js"></script>
-    <script src="bower_components/json3/lib/json3.min.js"></script>
-    <![endif]-->
-    <!-- endbuild -->
+<!-- build:js(.) scripts/oldieshim.js -->
+<!--[if lt IE 9]>
+<script src="bower_components/es5-shim/es5-shim.js"></script>
+<script src="bower_components/json3/lib/json3.min.js"></script>
+<![endif]-->
+<!-- endbuild -->
 
-    <!-- build:js(.) scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/json3/lib/json3.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/angular-touch/angular-touch.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/underscore/underscore.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
+<!-- build:js(.) scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/json3/lib/json3.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-touch/angular-touch.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/underscore/underscore.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
 
-    <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="scripts/EmoteInfo.js"></script>
-    <script src="scripts/EmoteInfoSerializer.js"></script>
-    <script src="scripts/emote-expansion.js"></script>
-    <script src="scripts/app.js"></script>
-    <!-- endbuild -->
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/EmoteInfo.js"></script>
+<script src="scripts/EmoteInfoSerializer.js"></script>
+<script src="scripts/emote-expansion.js"></script>
+<script src="scripts/app.js"></script>
+<!-- endbuild -->
 
 </body>
 </html>

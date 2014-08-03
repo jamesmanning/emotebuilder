@@ -93,6 +93,7 @@ angular
             var afterSerialize = $('#afterSerialize');
             var serialized = $scope.emoteInfoSerializer.Serialize($scope.emoteInfo);
             afterSerialize.text(serialized);
+            afterSerialize.val(serialized);
 
             var afterElement = $('#after-expansion');
             var afterEscapedElement = $('#after-expansion-escaped');
