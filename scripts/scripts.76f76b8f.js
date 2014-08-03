@@ -1,148 +1,99 @@
-'use strict';
-
-/**
- * @ngdoc overview
- * @name emotebuilderApp
- * @description
- * # emotebuilderApp
- *
- * Main module of the application.
- */
-
-angular
-  .module('emotebuilderApp', [
-    'ngAnimate',
-    'ngCookies',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch'
-  ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });
-
-'use strict';
-
-/**
- * @ngdoc function
- * @name emotebuilderApp.controller:MainCtrl
- * @description
- * # MainCtrl
- * Controller of the emotebuilderApp
- */
-angular.module('emotebuilderApp')
-    .controller('MainCtrl', function ($scope) {
-
-        $scope.emoteInfo = new EmoteInfo();
-
-//        $scope.emoteInfo.emoteName = "ierage";
-//
-//        $scope.emoteInfo.vibrate = true;
-//        $scope.emoteInfo.reverse = true;
-//        $scope.emoteInfo.brody = true;
-//
-//        $scope.emoteInfo.speed = 'fastest';
-//        $scope.emoteInfo.slide = 'slide';
-//        $scope.emoteInfo.spin = 'zspin';
-//        $scope.emoteInfo.rotateDegrees = 90;
-//        $scope.emoteInfo.xAxisTranspose = 20;
-//        $scope.emoteInfo.zAxisTranspose = 20;
-
-
-        $scope.emoteInfoSerializer = new EmoteInfoSerializer();
-
-        $scope.sampleData = [
-            {
-                "apng_url": "http://backstage.berrytube.tv/marminator/images/a/-UJ20dLxrm_8r4kr.png",
-                "background-image": "http://a.thumbs.redditmedia.com/-UJ20dLxrm_8r4kr.png",
-                "height": 140,
-                "names": ["welliwashungryandwhenyoucravehands"],
-                "sr": "marmemotes",
-                "tags": ["lyra"],
-                "width": 126
-            },
-            {
-                "apng_url": "http://backstage.berrytube.tv/marminator/images/a/1ERLWojxsUO7nFQT.png",
-                "background-image": "http://a.thumbs.redditmedia.com/1ERLWojxsUO7nFQT.png",
-                "height": 140,
-                "names": ["doodoodooluna"],
-                "sr": "marmemotes",
-                "tags": ["luna", ""],
-                "width": 121
-            },
-            {
-                "apng_url": "http://backstage.berrytube.tv/marminator/images/a/84ozl2WMmiYp6Euf.png",
-                "background-image": "http://a.thumbs.redditmedia.com/84ozl2WMmiYp6Euf.png",
-                "height": 140,
-                "names": ["ivyrage", "ierage"],
-                "sr": "marmemotes",
-                "tags": ["oc", ""],
-                "width": 200
-            },
-            {
-                "apng_url": "http://backstage.berrytube.tv/marminator/images/a/E1FnMA0PMGL9qnwx.png",
-                "background-image": "http://a.thumbs.redditmedia.com/E1FnMA0PMGL9qnwx.png",
-                "height": 140,
-                "names": ["keystrokeguitar"],
-                "sr": "marmemotes",
-                "tags": ["oc", "berrytube"],
-                "width": 118
-            }
-        ];
-        $scope.options = new EmoteExpansionOptions();
-        $scope.expander = new EmoteExpander($scope.sampleData, $scope.options);
-
-        $scope.escapeHtml = function(str) {
-            var div = document.createElement('div');
-            div.appendChild(document.createTextNode(str));
-            return div.innerHTML;
-        };
-
-        $scope.serializeEmoteInfo = function() {
-            var afterSerialize = $('#afterSerialize');
-            var serialized = $scope.emoteInfoSerializer.Serialize($scope.emoteInfo);
-            afterSerialize.text(serialized);
-
-            var afterElement = $('#after-expansion');
-            var afterEscapedElement = $('#after-expansion-escaped');
-            var beforeText = serialized;
-            console.log('running expansion on', beforeText);
-            var afterHtml = $scope.expander.expand(beforeText);
-            afterElement.html('<p>Text <b>' + beforeText + '</b> expanded to</p>' + afterHtml);
-            var escapedHtml = $scope.escapeHtml(afterHtml);
-            afterEscapedElement.html(escapedHtml);
-        };
-    });
-
-'use strict';
-
-/**
- * @ngdoc function
- * @name emotebuilderApp.controller:AboutCtrl
- * @description
- * # AboutCtrl
- * Controller of the emotebuilderApp
- */
-angular.module('emotebuilderApp')
-  .controller('AboutCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
+var EmoteFlagInfo = (function () {
+    function EmoteFlagInfo(name, emoteFlag) {
+        this.name = name;
+        this.emoteFlag = emoteFlag;
+    }
+    return EmoteFlagInfo;
+})();
+var EmoteInfo = (function () {
+    function EmoteInfo(emoteName, vibrate, reverse, brody, //        public invert: boolean = false,
+    //        public hueRotate: boolean = false,
+    slide, speed, spin, coloring, rotateDegrees, xAxisTranspose, zAxisTranspose) {
+        if (typeof emoteName === "undefined") { emoteName = ''; }
+        if (typeof vibrate === "undefined") { vibrate = false; }
+        if (typeof reverse === "undefined") { reverse = false; }
+        if (typeof brody === "undefined") { brody = false; }
+        if (typeof slide === "undefined") { slide = false; }
+        if (typeof speed === "undefined") { speed = ''; }
+        if (typeof spin === "undefined") { spin = null; }
+        if (typeof coloring === "undefined") { coloring = null; }
+        if (typeof rotateDegrees === "undefined") { rotateDegrees = 0; }
+        if (typeof xAxisTranspose === "undefined") { xAxisTranspose = 0; }
+        if (typeof zAxisTranspose === "undefined") { zAxisTranspose = 0; }
+        this.emoteName = emoteName;
+        this.vibrate = vibrate;
+        this.reverse = reverse;
+        this.brody = brody;
+        this.slide = slide;
+        this.speed = speed;
+        this.spin = spin;
+        this.coloring = coloring;
+        this.rotateDegrees = rotateDegrees;
+        this.xAxisTranspose = xAxisTranspose;
+        this.zAxisTranspose = zAxisTranspose;
+    }
+    EmoteInfo.speedOptions = ['slowest', 'slower', 'slow', 'fast', 'faster', 'fastest'];
+    EmoteInfo.spinOptions = [
+        { name: 'spin clockwise around x axis', emoteFlag: 'xspin' },
+        { name: 'spin clockwise around y axis', emoteFlag: 'yspin' },
+        { name: 'spin clockwise around z axis', emoteFlag: 'zspin' },
+        { name: 'spin clockwise around all 3 axes ', emoteFlag: 'spin' },
+        { name: 'spin counterclockwise around x axis', emoteFlag: '!xspin' },
+        { name: 'spin counterclockwise around y axis', emoteFlag: '!yspin' },
+        { name: 'spin counterclockwise around z axis', emoteFlag: '!zspin' },
+        { name: 'spin counterclockwise around all 3 axes ', emoteFlag: '!spin' }
     ];
-  });
+    EmoteInfo.coloringOptions = [
+        { name: 'hue rotate', emoteFlag: 'i' },
+        { name: 'invert', emoteFlag: 'invert' }
+    ];
+    return EmoteInfo;
+})();
+//# sourceMappingURL=EmoteInfo.js.map
+
+/// <reference path="EmoteInfo.ts" />
+var EmoteInfoSerializer = (function () {
+    function EmoteInfoSerializer() {
+    }
+    EmoteInfoSerializer.prototype.Serialize = function (emoteInfo) {
+        return '[](/' + emoteInfo.emoteName + this.SerializeFlags(emoteInfo) + ')';
+    };
+
+    EmoteInfoSerializer.prototype.SerializeFlags = function (emoteInfo) {
+        var ret = '';
+
+        if (emoteInfo.vibrate)
+            ret += '-v';
+        if (emoteInfo.reverse)
+            ret += '-r';
+        if (emoteInfo.brody)
+            ret += '-brody';
+        if (emoteInfo.slide)
+            ret += '-slide';
+
+        if (emoteInfo.speed)
+            ret += '-' + emoteInfo.speed;
+        if (emoteInfo.spin)
+            ret += '-' + emoteInfo.spin.emoteFlag;
+        if (emoteInfo.rotateDegrees)
+            ret += '-' + emoteInfo.rotateDegrees;
+        if (emoteInfo.coloring)
+            ret += '-' + emoteInfo.coloring.emoteFlag;
+
+        if (emoteInfo.xAxisTranspose > 0) {
+            ret += '-x' + emoteInfo.xAxisTranspose;
+        }
+        if (emoteInfo.xAxisTranspose < 0) {
+            ret += '-x!' + emoteInfo.xAxisTranspose;
+        }
+        if (emoteInfo.zAxisTranspose > 0) {
+            ret += '-z' + emoteInfo.zAxisTranspose;
+        }
+        return ret;
+    };
+    return EmoteInfoSerializer;
+})();
+//# sourceMappingURL=EmoteInfoSerializer.js.map
 
 var EmoteEffectsModifier = (function () {
     function EmoteEffectsModifier() {
@@ -434,11 +385,6 @@ var EmoteHtml = (function () {
     };
     return EmoteHtml;
 })();
-var EmoteInfo = (function () {
-    function EmoteInfo() {
-    }
-    return EmoteInfo;
-})();
 /// <reference path="EmoteInfo.ts"/>
 var EmoteInfoParser = (function () {
     function EmoteInfoParser() {
@@ -538,47 +484,111 @@ var EmoteMap = (function () {
     return EmoteMap;
 })();
 
-/// <reference path="EmoteInfo.ts" />
-var EmoteInfoSerializer = (function () {
-    function EmoteInfoSerializer() {
-    }
-    EmoteInfoSerializer.prototype.Serialize = function (emoteInfo) {
-        return '[](/' + emoteInfo.emoteName + this.SerializeFlags(emoteInfo) + ')';
-    };
+'use strict';
 
-    EmoteInfoSerializer.prototype.SerializeFlags = function (emoteInfo) {
-        var ret = '';
+/**
+ * @ngdoc overview
+ * @name emotebuilderApp
+ * @description
+ * # emotebuilderApp
+ *
+ * Main module of the application.
+ */
 
-        if (emoteInfo.vibrate)
-            ret += '-v';
-        if (emoteInfo.reverse)
-            ret += '-r';
-        if (emoteInfo.brody)
-            ret += '-brody';
-        if (emoteInfo.invert)
-            ret += '-invert';
-        if (emoteInfo.hueRotate)
-            ret += '-i';
+angular
+    .module('emotebuilderApp', [
+        'ngAnimate',
+        'ngCookies',
+        'ngResource',
+        'ngSanitize',
+        'ngTouch'
+    ])
+    .controller('MainCtrl', function ($scope) {
 
-        if (emoteInfo.speed)
-            ret += '-' + emoteInfo.speed;
-        if (emoteInfo.slide)
-            ret += '-slide';
-        if (emoteInfo.spin)
-            ret += '-' + emoteInfo.spin;
-        if (emoteInfo.rotateDegrees)
-            ret += '-' + emoteInfo.rotateDegrees;
-        if (emoteInfo.xAxisTranspose > 0) {
-            ret += '-x' + emoteInfo.xAxisTranspose;
-        }
-        if (emoteInfo.xAxisTranspose < 0) {
-            ret += '-x!' + emoteInfo.xAxisTranspose;
-        }
-        if (emoteInfo.zAxisTranspose > 0) {
-            ret += '-z' + emoteInfo.zAxisTranspose;
-        }
-        return ret;
-    };
-    return EmoteInfoSerializer;
-})();
-//# sourceMappingURL=EmoteInfoSerializer.js.map
+        $scope.emoteInfo = new EmoteInfo('ierage');
+//        {
+//            emoteName: "ierage",
+//
+//            vibrate: false,
+//            reverse: false,
+//            brody: false,
+//
+//            speed: null,
+//            slide: null,
+//            spin: null,
+//
+//            rotateDegrees: 90,
+//            xAxisTranspose: 20,
+//            zAxisTranspose: 20
+//        };
+
+        $scope.spinOptions = EmoteInfo.spinOptions;
+        $scope.speedOptions = EmoteInfo.speedOptions;
+        $scope.coloringOptions = EmoteInfo.coloringOptions;
+
+        $scope.emoteInfoSerializer = new EmoteInfoSerializer();
+
+        $scope.sampleData = [
+            {
+                "apng_url": "http://backstage.berrytube.tv/marminator/images/a/-UJ20dLxrm_8r4kr.png",
+                "background-image": "http://a.thumbs.redditmedia.com/-UJ20dLxrm_8r4kr.png",
+                "height": 140,
+                "names": ["welliwashungryandwhenyoucravehands"],
+                "sr": "marmemotes",
+                "tags": ["lyra"],
+                "width": 126
+            },
+            {
+                "apng_url": "http://backstage.berrytube.tv/marminator/images/a/1ERLWojxsUO7nFQT.png",
+                "background-image": "http://a.thumbs.redditmedia.com/1ERLWojxsUO7nFQT.png",
+                "height": 140,
+                "names": ["doodoodooluna"],
+                "sr": "marmemotes",
+                "tags": ["luna", ""],
+                "width": 121
+            },
+            {
+                "apng_url": "http://backstage.berrytube.tv/marminator/images/a/84ozl2WMmiYp6Euf.png",
+                "background-image": "http://a.thumbs.redditmedia.com/84ozl2WMmiYp6Euf.png",
+                "height": 140,
+                "names": ["ivyrage", "ierage"],
+                "sr": "marmemotes",
+                "tags": ["oc", ""],
+                "width": 200
+            },
+            {
+                "apng_url": "http://backstage.berrytube.tv/marminator/images/a/E1FnMA0PMGL9qnwx.png",
+                "background-image": "http://a.thumbs.redditmedia.com/E1FnMA0PMGL9qnwx.png",
+                "height": 140,
+                "names": ["keystrokeguitar"],
+                "sr": "marmemotes",
+                "tags": ["oc", "berrytube"],
+                "width": 118
+            }
+        ];
+        $scope.options = new EmoteExpansionOptions();
+        $scope.expander = new EmoteExpander($scope.sampleData, $scope.options);
+
+        $scope.escapeHtml = function (str) {
+            var div = document.createElement('div');
+            div.appendChild(document.createTextNode(str));
+            return div.innerHTML;
+        };
+
+        $scope.serializeEmoteInfo = function () {
+            var afterSerialize = $('#afterSerialize');
+            var serialized = $scope.emoteInfoSerializer.Serialize($scope.emoteInfo);
+            afterSerialize.text(serialized);
+
+            var afterElement = $('#after-expansion');
+            var afterEscapedElement = $('#after-expansion-escaped');
+            var beforeText = serialized;
+            console.log('running expansion on', beforeText);
+            var afterHtml = $scope.expander.expand(beforeText);
+            afterElement.html('<p>Text <b>' + beforeText + '</b> expanded to</p>' + afterHtml);
+            var escapedHtml = $scope.escapeHtml(afterHtml);
+            afterEscapedElement.html(escapedHtml);
+        };
+
+        $scope.serializeEmoteInfo();
+    });
