@@ -19,21 +19,26 @@ angular
     ])
     .controller('MainCtrl', function ($scope) {
 
-        $scope.emoteInfo =
-        {
-            emoteName: "ierage",
+        $scope.emoteInfo = new EmoteInfo('ierage');
+//        {
+//            emoteName: "ierage",
+//
+//            vibrate: false,
+//            reverse: false,
+//            brody: false,
+//
+//            speed: null,
+//            slide: null,
+//            spin: null,
+//
+//            rotateDegrees: 90,
+//            xAxisTranspose: 20,
+//            zAxisTranspose: 20
+//        };
 
-            vibrate: true,
-            reverse: true,
-            brody: true,
-
-            speed: 'fastest',
-            slide: 'slide',
-            spin: 'zspin',
-            rotateDegrees: 90,
-            xAxisTranspose: 20,
-            zAxisTranspose: 20
-        };
+        $scope.spinOptions = EmoteInfo.spinOptions;
+        $scope.speedOptions = EmoteInfo.speedOptions;
+        $scope.coloringOptions = EmoteInfo.coloringOptions;
 
         $scope.emoteInfoSerializer = new EmoteInfoSerializer();
 
@@ -98,4 +103,6 @@ angular
             var escapedHtml = $scope.escapeHtml(afterHtml);
             afterEscapedElement.html(escapedHtml);
         };
+
+        $scope.serializeEmoteInfo();
     });

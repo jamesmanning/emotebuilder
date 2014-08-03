@@ -288,11 +288,6 @@ var EmoteHtml = (function () {
     };
     return EmoteHtml;
 })();
-var EmoteInfo = (function () {
-    function EmoteInfo() {
-    }
-    return EmoteInfo;
-})();
 /// <reference path="EmoteInfo.ts"/>
 var EmoteInfoParser = (function () {
     function EmoteInfoParser() {

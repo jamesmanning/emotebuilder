@@ -14,13 +14,13 @@ class EmoteInfoSerializer {
         if (emoteInfo.vibrate)    ret += '-v';
         if (emoteInfo.reverse)    ret += '-r';
         if (emoteInfo.brody)      ret += '-brody';
-        if (emoteInfo.invert)     ret += '-invert';
-        if (emoteInfo.hueRotate)  ret += '-i';
+        if (emoteInfo.slide)         ret += '-slide';
 
         if (emoteInfo.speed)         ret += '-' + emoteInfo.speed;
-        if (emoteInfo.slide)         ret += '-slide';
-        if (emoteInfo.spin)          ret += '-' + emoteInfo.spin;
+        if (emoteInfo.spin)          ret += '-' + emoteInfo.spin.emoteFlag;
         if (emoteInfo.rotateDegrees) ret += '-' + emoteInfo.rotateDegrees;
+        if (emoteInfo.coloring)      ret += '-' + emoteInfo.coloring.emoteFlag;
+
         if (emoteInfo.xAxisTranspose > 0) {
             ret += '-x' + emoteInfo.xAxisTranspose;
         }

@@ -41,31 +41,32 @@
 
             <div class="row marketing">
                 <p>
-                <pre>{{ emoteInfo | json }}</pre>
 
 
                 <br><br>
 
-                <input type="text" ng-model="emoteInfo.emoteName" placeholder="emoteName" ng-change="serializeEmoteInfo()"><br/>
+                <label>Emote Name: <input type="text" ng-model="emoteInfo.emoteName" placeholder="emoteName" ng-change="serializeEmoteInfo()"></label><br/>
 
-                <input type="checkbox" ng-model="emoteInfo.vibrate" ng-change="serializeEmoteInfo()">vibrate</checkbox><br/>
-                <input type="checkbox" ng-model="emoteInfo.reverse" ng-change="serializeEmoteInfo()">reverse</checkbox><br/>
-                <input type="checkbox" ng-model="emoteInfo.brody" ng-change="serializeEmoteInfo()">brody</checkbox><br/>
-                <input type="checkbox" ng-model="emoteInfo.invert" ng-change="serializeEmoteInfo()">invert</checkbox><br/>
-                <input type="checkbox" ng-model="emoteInfo.hueRotate" ng-change="serializeEmoteInfo()">hueRotate</checkbox><br/>
+                <label><input type="checkbox" ng-model="emoteInfo.vibrate" ng-change="serializeEmoteInfo()">vibrate</label><br/>
+                <label><input type="checkbox" ng-model="emoteInfo.reverse" ng-change="serializeEmoteInfo()">reverse</label><br/>
+                <label><input type="checkbox" ng-model="emoteInfo.brody" ng-change="serializeEmoteInfo()">brody</label><br/>
+                <label><input type="checkbox" ng-model="emoteInfo.slide" ng-change="serializeEmoteInfo()">slide</label><br/>
 
-                <input type="text" ng-model="emoteInfo.speed" placeholder="speed" ng-change="serializeEmoteInfo()"><br/>
-                <input type="text" ng-model="emoteInfo.slide" placeholder="slide" ng-change="serializeEmoteInfo()"><br/>
-                <input type="text" ng-model="emoteInfo.spin" placeholder="spin" ng-change="serializeEmoteInfo()"><br/>
+                <select ng-model="emoteInfo.spin" ng-options="spin.name for spin in spinOptions" ng-change="serializeEmoteInfo()">
+                    <option value="">-- optional spin --</option>
+                </select><br/>
+                <select ng-model="emoteInfo.speed" ng-options="speed for speed in speedOptions" ng-change="serializeEmoteInfo()">
+                    <option value="">-- optional speed modifier --</option>
+                </select><br/>
+                <select ng-model="emoteInfo.coloring" ng-options="coloring.name for coloring in coloringOptions" ng-change="serializeEmoteInfo()">
+                    <option value="">-- optional coloring modifier --</option>
+                </select><br/>
 
-                <input type="number" ng-model="emoteInfo.rotateDegrees" placeholder="rotateDegrees" ng-change="serializeEmoteInfo()"><br/>
-                <input type="number" ng-model="emoteInfo.xAxisTranspose" placeholder="xAxisTranspose" ng-change="serializeEmoteInfo()"><br/>
-                <input type="number" ng-model="emoteInfo.zAxisTranspose" placeholder="zAxisTranspose" ng-change="serializeEmoteInfo()"><br/>
+                <label>degrees to rotate: <input type="number" ng-model="emoteInfo.rotateDegrees" placeholder="rotateDegrees" ng-change="serializeEmoteInfo()"></label><br/>
+                <label>pixels to move along x axis: <input type="number" ng-model="emoteInfo.xAxisTranspose" placeholder="xAxisTranspose" ng-change="serializeEmoteInfo()"></label><br/>
+                <label>assigned z index: <input type="number" ng-model="emoteInfo.zAxisTranspose" placeholder="zAxisTranspose" ng-change="serializeEmoteInfo()"></label><br/>
 
-                <button ng-click="serializeEmoteInfo()">Serialize emote info</button>
-                </p>
-                <p>
-                    <label for="before-expansion">Serialized Emote Info</label>
+                <!--<button ng-click="serializeEmoteInfo()">Serialize emote info</button>-->
                 </p>
                 <p>
                 <div id="afterSerialize"></div>
@@ -76,6 +77,7 @@
                 <p>
                 <div id="after-expansion-escaped"></div>
                 </p>
+                <pre>{{ emoteInfo | json }}</pre>
             </div>
         </section>
     </div>
@@ -124,9 +126,10 @@
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="scripts/app.js"></script>
-    <script src="scripts/emote-expansion.js"></script>
+    <script src="scripts/EmoteInfo.js"></script>
     <script src="scripts/EmoteInfoSerializer.js"></script>
+    <script src="scripts/emote-expansion.js"></script>
+    <script src="scripts/app.js"></script>
     <!-- endbuild -->
 
 </body>
