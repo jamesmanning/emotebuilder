@@ -67,7 +67,6 @@
                 <label>pixels to move along x axis: <input type="number" ng-model="emoteInfo.xAxisTranspose" placeholder="xAxisTranspose" ng-change="serializeEmoteInfo()"></label><br/>
                 <label>assigned z index: <input type="number" ng-model="emoteInfo.zAxisTranspose" placeholder="zAxisTranspose" ng-change="serializeEmoteInfo()"></label><br/>
 
-                <!--<button ng-click="serializeEmoteInfo()">Serialize emote info</button>-->
                 </p>
                 <p>
                 <div id="afterSerialize"></div>
@@ -75,10 +74,11 @@
                 <p>
                 <div id="after-expansion"></div>
                 </p>
-                <p>
-                <div id="after-expansion-escaped"></div>
-                </p>
+                <h3>Debug info</h3>
                 <pre>{{ emoteInfo | json }}</pre>
+                <p>
+                    <div id="after-expansion-escaped"></div>
+                </p>
             </div>
         </section>
     </div>
@@ -86,7 +86,7 @@
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
         <footer class="inner">
-            <p class="copyright">Emotebuilder maintained by <a href="https://github.com/jamesmanning">jamesmanning</a></p>
+            <p class="copyright">Emotebuilder maintained by <a href="https://github.com/jamesmanning">James Manning</a></p>
             <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
         </footer>
     </div>
