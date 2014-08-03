@@ -17,7 +17,7 @@ angular
         'ngSanitize',
         'ngTouch'
     ])
-    .controller('MainCtrl', function ($scope) {
+    .controller('MainCtrl', function ($scope, $http) {
 
         $scope.emoteInfo = new EmoteInfo('ierage');
 //        {
@@ -42,7 +42,8 @@ angular
 
         $scope.emoteInfoSerializer = new EmoteInfoSerializer();
 
-        $scope.sampleData = [
+        // populate with a few inline so the page can render one by default
+        $scope.emoteData = [
             {
                 "apng_url": "http://backstage.berrytube.tv/marminator/images/a/-UJ20dLxrm_8r4kr.png",
                 "background-image": "http://a.thumbs.redditmedia.com/-UJ20dLxrm_8r4kr.png",
@@ -81,7 +82,7 @@ angular
             }
         ];
         $scope.options = new EmoteExpansionOptions();
-        $scope.expander = new EmoteExpander($scope.sampleData, $scope.options);
+        $scope.expander = new EmoteExpander($scope.emoteData, $scope.options);
 
         $scope.escapeHtml = function (str) {
             var div = document.createElement('div');
@@ -89,6 +90,15 @@ angular
             return div.innerHTML;
         };
 
+        $scope.populateEmoteData = function () {
+            console.log('making call to load emote data');
+            $http.get('//berrymotes.com/assets/berrymotes_json_data.json')
+                .then(function(res) {
+                    $scope.emoteData = res.data;
+                    $scope.expander = new EmoteExpander($scope.emoteData, $scope.options);
+                    console.log('loaded ' + $scope.emoteData.length + ' emotes');
+                });
+        };
         $scope.serializeEmoteInfo = function () {
             var afterSerialize = $('#afterSerialize');
             var serialized = $scope.emoteInfoSerializer.Serialize($scope.emoteInfo);
@@ -107,4 +117,5 @@ angular
         };
 
         $scope.serializeEmoteInfo();
+        $scope.populateEmoteData();
     });

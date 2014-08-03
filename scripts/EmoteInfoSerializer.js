@@ -3,6 +3,10 @@ var EmoteInfoSerializer = (function () {
     function EmoteInfoSerializer() {
     }
     EmoteInfoSerializer.prototype.Serialize = function (emoteInfo) {
+        // if no emote name populated, nothing to write
+        if (!emoteInfo.emoteName)
+            return '';
+
         return '[](/' + emoteInfo.emoteName + this.SerializeFlags(emoteInfo) + ')';
     };
 

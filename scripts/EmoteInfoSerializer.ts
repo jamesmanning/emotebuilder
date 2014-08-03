@@ -2,6 +2,9 @@
 
 class EmoteInfoSerializer {
     Serialize(emoteInfo: EmoteInfo): string {
+        // if no emote name populated, nothing to write
+        if (!emoteInfo.emoteName) return '';
+
         return '[](/' +
             emoteInfo.emoteName +
             this.SerializeFlags(emoteInfo) +
