@@ -1,8 +1,3 @@
-class EmoteFlagInfo {
-    constructor(
-        public name: string,
-        public emoteFlag: string) {}
-}
 class EmoteInfo {
 
 
@@ -18,7 +13,7 @@ class EmoteInfo {
 
 
     public static speedOptions: string[] = ['slowest', 'slower', 'slow', 'fast', 'faster', 'fastest'];
-    public static spinOptions: EmoteFlagInfo[] = [
+    public static spinOptions: { name: string; emoteFlag: string }[] = [
         { name: 'spin clockwise around x axis', emoteFlag: 'xspin' },
         { name: 'spin clockwise around y axis', emoteFlag: 'yspin' },
         { name: 'spin clockwise around z axis', emoteFlag: 'zspin' },
@@ -29,7 +24,7 @@ class EmoteInfo {
         { name: 'spin counterclockwise around z axis', emoteFlag: '!zspin' },
         { name: 'spin counterclockwise around all 3 axes ', emoteFlag: '!spin' },
     ];
-    public static coloringOptions: EmoteFlagInfo[] = [
+    public static coloringOptions: { name: string; emoteFlag: string }[] = [
         { name: 'hue rotate', emoteFlag: 'i' },
         { name: 'invert', emoteFlag: 'invert' },
     ];
@@ -45,9 +40,8 @@ class EmoteInfo {
         public slide: boolean = false,
 
         public speed: string = '',
-
-        public spin: EmoteFlagInfo = null,
-        public coloring: EmoteFlagInfo = null,
+        public spin: string = '',
+        public coloring: string = '',
 
         public rotateDegrees: number = 0,
         public xAxisTranspose: number = 0,
