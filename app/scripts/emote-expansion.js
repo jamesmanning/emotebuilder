@@ -252,9 +252,11 @@ var EmoteHtml = (function () {
     EmoteHtml.prototype.addBackgroundImage = function ($emote, emoteDataEntry) {
         this.debugLog('Adding bgimage to ', $emote);
 
+        var image = emoteDataEntry['apng_url'] || emoteDataEntry['background-image'];
+
         var positionString = (emoteDataEntry['background-position'] || ['0px', '0px']).join(' ');
         $emote.css('background-position', positionString);
-        $emote.css('background-image', ['url(', emoteDataEntry['background-image'], ')'].join(''));
+        $emote.css('background-image', ['url(', image, ')'].join(''));
     };
 
     EmoteHtml.prototype.getEmoteHtml = function (emoteName, flags) {
