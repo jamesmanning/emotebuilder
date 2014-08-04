@@ -39,21 +39,8 @@
 
         <div class="row marketing">
             <p>
-                <span style="font-weight: bold">Caveats</span>
-            <ul>
-                <li>There is currently no code to add animated png support for non-supporting browsers,
-                    so to see animated emotes actually animate, you should either use Firefox or Chrome with
-                    <a href="https://chrome.google.com/webstore/detail/apng/ehkepjiconegkhpodgoaeamnpckdbblp"
-                       target="_blank">the APNG extension</a> installed.
-                </li>
-                <li>There is currently nothing to disable NSFW emotes, so they show up here as well</li>
-                <li>The coloring modifiers (-i and -invert) don't currently render into the rendered emote, just into the emote text</li>
-                <li>There is currently no support for the lines of text you can add to some emotes like the 'sign' emotes</li>
-                <li>There is only support for one emote currently, but having 2 or 3 emotes (especially trying to combine them) will be added</li>
-            </ul>
-            </p>
-            <p>
 
+                <h3>Inputs</h3>
                 <label>Emote Name: <input type="text" ng-model="emoteInfo.emoteName" placeholder="emoteName"
                                           ng-change="serializeEmoteInfo()"></label><br/>
 
@@ -91,11 +78,9 @@
 
             </p>
             <p>
-                <label>Resulting emote (copy this): <input id="afterSerialize" type="text" readonly></label>
-            </p>
 
-            <p>
-
+            <h3>Output</h3>
+            <label>Resulting emote (copy this): <input id="afterSerialize" type="text" readonly></label>
             <div id="after-expansion"></div>
             </p>
             <h3>Debug info</h3>
@@ -103,6 +88,20 @@
             <p>
 
             <div id="after-expansion-escaped"></div>
+            </p>
+            <p>
+                <span style="font-weight: bold">Caveats</span>
+            <ul>
+                <li>There is currently no code to add animated png support for non-supporting browsers,
+                    so to see animated emotes actually animate, you should either use Firefox or Chrome with
+                    <a href="https://chrome.google.com/webstore/detail/apng/ehkepjiconegkhpodgoaeamnpckdbblp"
+                       target="_blank">the APNG extension</a> installed.
+                </li>
+                <li>There is currently nothing to disable NSFW emotes, so they show up here as well</li>
+                <li>The coloring modifiers (-i and -invert) don't currently render into the rendered emote, just into the emote text</li>
+                <li>There is currently no support for the lines of text you can add to some emotes like the 'sign' emotes</li>
+                <li>There is only support for one emote currently, but having 2 or 3 emotes (especially trying to combine them) will be added</li>
+            </ul>
             </p>
         </div>
     </section>
