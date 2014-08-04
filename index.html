@@ -51,22 +51,23 @@
                 <label><input type="checkbox" ng-model="emoteInfo.brody"
                               ng-change="serializeEmoteInfo()">brody</label><br/>
                 <label><input type="checkbox" ng-model="emoteInfo.slide"
-                              ng-change="serializeEmoteInfo()">slide</label><br/>
+                              ng-change="serializeEmoteInfo()">slide</label>
+
+            <select ng-model="emoteInfo.speed" ng-options="speed for speed in speedOptions" ng-show="emoteInfo.slide"
+                    ng-change="serializeEmoteInfo()">
+                <option value="">-- optional slide speed modifier --</option>
+            </select><br/>
 
                 <select ng-model="emoteInfo.spin" ng-options="spin.name for spin in spinOptions"
                         ng-change="serializeEmoteInfo()">
                     <option value="">-- optional spin --</option>
                 </select><br/>
-                <select ng-model="emoteInfo.speed" ng-options="speed for speed in speedOptions"
-                        ng-change="serializeEmoteInfo()">
-                    <option value="">-- optional speed modifier --</option>
-                </select><br/>
-                <select ng-model="emoteInfo.coloring" ng-options="coloring.name for coloring in coloringOptions"
+                <select ng-model="emoteInfo.coloring" ng-options="coloring.emoteFlag as coloring.name for coloring in coloringOptions"
                         ng-change="serializeEmoteInfo()">
                     <option value="">-- optional coloring modifier --</option>
                 </select><br/>
 
-                <label>degrees to rotate: <input type="number" ng-model="emoteInfo.rotateDegrees"
+                <label>degrees to rotate (can be from 0 to 359): <input type="number" ng-model="emoteInfo.rotateDegrees"
                                                  placeholder="rotateDegrees"
                                                  ng-change="serializeEmoteInfo()"></label><br/>
                 <label>pixels to move along x axis (can be from -150 to 150 pixels): <input type="number" ng-model="emoteInfo.xAxisTranspose"
@@ -81,7 +82,7 @@
 
             <h3>Output</h3>
             <label>Resulting emote (copy this): <input id="afterSerialize" type="text" readonly></label>
-            <div id="after-expansion"></div>
+            <div id="after-expansion" style="background-color: white"></div>
             </p>
 
             <p>
