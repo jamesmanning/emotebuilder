@@ -169,8 +169,8 @@ var EmoteHtmlBuilder = (function () {
 var EmoteExpander = (function () {
     function EmoteExpander(emoteData) {
         this.regexp = /\[([^\]]*)\]\(\/([\w:!#\/]+)([-\w!]*)([^)]*)\)/gi;
-        var emoteMap = new EmoteMap(emoteData);
-        this.emoteHtmlBuilder = new EmoteHtmlBuilder(emoteMap);
+        this.emoteMap = new EmoteMap(emoteData);
+        this.emoteHtmlBuilder = new EmoteHtmlBuilder(this.emoteMap);
         this.boundEmoteReplacer = this.emoteReplacer.bind(this);
     }
     EmoteExpander.prototype.expand = function (input) {
@@ -640,7 +640,8 @@ if (isNode) {
     module.exports = {
         EmoteExpander: EmoteExpander,
         EmoteInfoSerializer: EmoteInfoSerializer,
-        EmoteInfo: EmoteInfo
+        EmoteInfo: EmoteInfo,
+        EmoteMap: EmoteMap
     };
 }
 //# sourceMappingURL=emote-expansion.js.map
