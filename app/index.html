@@ -155,5 +155,19 @@
 <script src="scripts/app.js"></script>
 <!-- endbuild -->
 
+<script>
+    var invertScript;
+    if (document.body.style.webkitFilter !== undefined) {
+        invertScript = document.createElement('script');
+        invertScript.type = 'text/javascript';
+        invertScript.src = 'http://berrymotes.com/assets/berrymotes.webkit.invert.js';
+        document.body.appendChild(invertScript);
+    } else {
+        invertScript = document.createElement('script');
+        invertScript.type = 'text/javascript';
+        invertScript.src = 'http://berrymotes.com/assets/berrymotes.invertfilter.js';
+        document.body.appendChild(invertScript);
+    }
+</script>
 </body>
 </html>
