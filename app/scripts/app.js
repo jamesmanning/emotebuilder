@@ -98,12 +98,11 @@ angular
             var beforeText = serialized;
             console.log('running expansion on', beforeText);
             var afterHtml = $scope.expander.expand(beforeText);
-//            afterElement.html('<p>Text <b>' + beforeText + '</b> expanded to</p>' + afterHtml);
-            afterElement.html(afterHtml);
+
             // TODO: get rid of this stupid hack and figure out how to get jquery or angular to do this for us
-            if (afterElement.css('animation')) {
-                afterElement.css('-webkit-animation', afterElement.css('animation'));
-            }
+            afterHtml = afterHtml.replace(/; animation: ([^;]+);/g, '; animation: $1; -webkit-animation: $1;');
+
+            afterElement.html(afterHtml);
             var escapedHtml = $scope.escapeHtml(afterHtml);
             afterEscapedElement.html(escapedHtml);
         };
