@@ -1,3 +1,4 @@
+/* global EmoteInfo, EmoteInfoSerializer, EmoteExpander, $ */
 'use strict';
 
 /**
@@ -9,6 +10,7 @@
  * Main module of the application.
  */
 
+
 angular
     .module('emotebuilderApp', [
         'ngAnimate',
@@ -19,22 +21,8 @@ angular
     ])
     .controller('MainCtrl', function ($scope, $http) {
 
-        $scope.emoteInfo = new EmoteInfo('ierage');
-//        {
-//            emoteName: "ierage",
-//
-//            vibrate: false,
-//            reverse: false,
-//            brody: false,
-//
-//            speed: null,
-//            slide: null,
-//            spin: null,
-//
-//            rotateDegrees: 90,
-//            xAxisTranspose: 20,
-//            zAxisTranspose: 20
-//        };
+        $scope.emoteInfo = new EmoteInfo();
+        $scope.emoteInfo.emoteName = 'ierage';
 
         $scope.spinOptions = EmoteInfo.spinOptions;
         $scope.speedOptions = EmoteInfo.speedOptions;
@@ -45,44 +33,43 @@ angular
         // populate with a few inline so the page can render one by default
         $scope.emoteData = [
             {
-                "apng_url": "http://backstage.berrytube.tv/marminator/images/a/-UJ20dLxrm_8r4kr.png",
-                "background-image": "http://a.thumbs.redditmedia.com/-UJ20dLxrm_8r4kr.png",
-                "height": 140,
-                "names": ["welliwashungryandwhenyoucravehands"],
-                "sr": "marmemotes",
-                "tags": ["lyra"],
-                "width": 126
+                'apng_url': 'http://backstage.berrytube.tv/marminator/images/a/-UJ20dLxrm_8r4kr.png',
+                'background-image': 'http://a.thumbs.redditmedia.com/-UJ20dLxrm_8r4kr.png',
+                'height': 140,
+                'names': ['welliwashungryandwhenyoucravehands'],
+                'sr': 'marmemotes',
+                'tags': ['lyra'],
+                'width': 126
             },
             {
-                "apng_url": "http://backstage.berrytube.tv/marminator/images/a/1ERLWojxsUO7nFQT.png",
-                "background-image": "http://a.thumbs.redditmedia.com/1ERLWojxsUO7nFQT.png",
-                "height": 140,
-                "names": ["doodoodooluna"],
-                "sr": "marmemotes",
-                "tags": ["luna", ""],
-                "width": 121
+                'apng_url': 'http://backstage.berrytube.tv/marminator/images/a/1ERLWojxsUO7nFQT.png',
+                'background-image': 'http://a.thumbs.redditmedia.com/1ERLWojxsUO7nFQT.png',
+                'height': 140,
+                'names': ['doodoodooluna'],
+                'sr': 'marmemotes',
+                'tags': ['luna', ''],
+                'width': 121
             },
             {
-                "apng_url": "http://backstage.berrytube.tv/marminator/images/a/84ozl2WMmiYp6Euf.png",
-                "background-image": "http://a.thumbs.redditmedia.com/84ozl2WMmiYp6Euf.png",
-                "height": 140,
-                "names": ["ivyrage", "ierage"],
-                "sr": "marmemotes",
-                "tags": ["oc", ""],
-                "width": 200
+                'apng_url': 'http://backstage.berrytube.tv/marminator/images/a/84ozl2WMmiYp6Euf.png',
+                'background-image': 'http://a.thumbs.redditmedia.com/84ozl2WMmiYp6Euf.png',
+                'height': 140,
+                'names': ['ivyrage', 'ierage'],
+                'sr': 'marmemotes',
+                'tags': ['oc', ''],
+                'width': 200
             },
             {
-                "apng_url": "http://backstage.berrytube.tv/marminator/images/a/E1FnMA0PMGL9qnwx.png",
-                "background-image": "http://a.thumbs.redditmedia.com/E1FnMA0PMGL9qnwx.png",
-                "height": 140,
-                "names": ["keystrokeguitar"],
-                "sr": "marmemotes",
-                "tags": ["oc", "berrytube"],
-                "width": 118
+                'apng_url': 'http://backstage.berrytube.tv/marminator/images/a/E1FnMA0PMGL9qnwx.png',
+                'background-image': 'http://a.thumbs.redditmedia.com/E1FnMA0PMGL9qnwx.png',
+                'height': 140,
+                'names': ['keystrokeguitar'],
+                'sr': 'marmemotes',
+                'tags': ['oc', 'berrytube'],
+                'width': 118
             }
         ];
-        $scope.options = new EmoteExpansionOptions();
-        $scope.expander = new EmoteExpander($scope.emoteData, $scope.options);
+        $scope.expander = new EmoteExpander($scope.emoteData);
 
         $scope.escapeHtml = function (str) {
             var div = document.createElement('div');
@@ -99,9 +86,10 @@ angular
                     console.log('loaded ' + $scope.emoteData.length + ' emotes');
                 });
         };
+
         $scope.serializeEmoteInfo = function () {
             var afterSerialize = $('#afterSerialize');
-            var serialized = $scope.emoteInfoSerializer.Serialize($scope.emoteInfo);
+            var serialized = $scope.emoteInfoSerializer.serialize($scope.emoteInfo);
             afterSerialize.text(serialized);
             afterSerialize.val(serialized);
 
@@ -112,6 +100,10 @@ angular
             var afterHtml = $scope.expander.expand(beforeText);
 //            afterElement.html('<p>Text <b>' + beforeText + '</b> expanded to</p>' + afterHtml);
             afterElement.html(afterHtml);
+            // TODO: get rid of this stupid hack and figure out how to get jquery or angular to do this for us
+            if (afterElement.css('animation')) {
+                afterElement.css('-webkit-animation', afterElement.css('animation'));
+            }
             var escapedHtml = $scope.escapeHtml(afterHtml);
             afterEscapedElement.html(escapedHtml);
         };

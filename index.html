@@ -44,6 +44,13 @@
                 <label>Emote Name: <input type="text" ng-model="emoteInfo.emoteName" placeholder="emoteName"
                                           ng-change="serializeEmoteInfo()"></label><br/>
 
+                <label>First line of text: <input type="text" ng-model="emoteInfo.firstLineText" placeholder="first line of text"
+                                                  ng-change="serializeEmoteInfo()"></label><br/>
+                <label>Second line of text: <input type="text" ng-model="emoteInfo.secondLineText" placeholder="first line of text"
+                                                   ng-change="serializeEmoteInfo()"></label><br/>
+                <label>Regular alt text: <input type="text" ng-model="emoteInfo.regularAltText" placeholder="first line of text"
+                                                ng-change="serializeEmoteInfo()"></label><br/>
+
                 <label><input type="checkbox" ng-model="emoteInfo.vibrate"
                               ng-change="serializeEmoteInfo()">vibrate</label><br/>
                 <label><input type="checkbox" ng-model="emoteInfo.reverse"
@@ -144,8 +151,6 @@
 <!-- endbuild -->
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
-<script src="scripts/EmoteInfo.js"></script>
-<script src="scripts/EmoteInfoSerializer.js"></script>
 <script src="scripts/emote-expansion.js"></script>
 <script src="scripts/app.js"></script>
 <!-- endbuild -->
