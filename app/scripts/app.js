@@ -19,22 +19,8 @@ angular
     ])
     .controller('MainCtrl', function ($scope, $http) {
 
-        $scope.emoteInfo = new EmoteInfo('ierage');
-//        {
-//            emoteName: "ierage",
-//
-//            vibrate: false,
-//            reverse: false,
-//            brody: false,
-//
-//            speed: null,
-//            slide: null,
-//            spin: null,
-//
-//            rotateDegrees: 90,
-//            xAxisTranspose: 20,
-//            zAxisTranspose: 20
-//        };
+        $scope.emoteInfo = new EmoteInfo();
+        $scope.emoteInfo.emoteName = "ierage";
 
         $scope.spinOptions = EmoteInfo.spinOptions;
         $scope.speedOptions = EmoteInfo.speedOptions;
@@ -81,8 +67,7 @@ angular
                 "width": 118
             }
         ];
-        $scope.options = new EmoteExpansionOptions();
-        $scope.expander = new EmoteExpander($scope.emoteData, $scope.options);
+        $scope.expander = new EmoteExpander($scope.emoteData);
 
         $scope.escapeHtml = function (str) {
             var div = document.createElement('div');
@@ -102,7 +87,7 @@ angular
 
         $scope.serializeEmoteInfo = function () {
             var afterSerialize = $('#afterSerialize');
-            var serialized = $scope.emoteInfoSerializer.Serialize($scope.emoteInfo);
+            var serialized = $scope.emoteInfoSerializer.serialize($scope.emoteInfo);
             afterSerialize.text(serialized);
             afterSerialize.val(serialized);
 
