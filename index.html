@@ -41,14 +41,14 @@
             <p>
 
                 <h3>Inputs</h3>
-                <label>Emote Name: <input type="text" ng-model="emoteInfo.emoteName" placeholder="emoteName"
+                <label>Emote Name: <input type="text" ng-model="emoteInfo.emoteName" placeholder="emote name (bpsign, ajlie, etc)"
                                           ng-change="serializeEmoteInfo()"></label><br/>
 
-                <label>First line of text: <input type="text" ng-model="emoteInfo.firstLineText" placeholder="first line of text"
+                <label ng-show="currentEmotreDataEntotery">First line of text: <input type="text" ng-model="emoteInfo.firstLineText" placeholder="first line of text"
                                                   ng-change="serializeEmoteInfo()"></label><br/>
-                <label>Second line of text: <input type="text" ng-model="emoteInfo.secondLineText" placeholder="first line of text"
+                <label>Second line of text: <input type="text" ng-model="emoteInfo.secondLineText" placeholder="second line of text"
                                                    ng-change="serializeEmoteInfo()"></label><br/>
-                <label>Regular alt text: <input type="text" ng-model="emoteInfo.regularAltText" placeholder="first line of text"
+                <label>Regular alt text: <input type="text" ng-model="emoteInfo.regularAltText" placeholder="regular alt text"
                                                 ng-change="serializeEmoteInfo()"></label><br/>
 
                 <label><input type="checkbox" ng-model="emoteInfo.vibrate"

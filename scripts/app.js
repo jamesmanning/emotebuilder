@@ -22,13 +22,18 @@ angular
     .controller('MainCtrl', function ($scope, $http) {
 
         $scope.emoteInfo = new EmoteInfo();
-        $scope.emoteInfo.emoteName = 'ierage';
+        $scope.emoteInfo.emoteName = 'adviceajlie';
+        $scope.emoteInfo.firstLineText = 'apples?';
+        $scope.emoteInfo.secondLineText = 'I didn\'t see any apples';
+
 
         $scope.spinOptions = EmoteInfo.spinOptions;
         $scope.speedOptions = EmoteInfo.speedOptions;
         $scope.coloringOptions = EmoteInfo.coloringOptions;
 
         $scope.emoteInfoSerializer = new EmoteInfoSerializer();
+
+        $scope.currentEmoteDataEntry = null;
 
         // populate with a few inline so the page can render one by default
         $scope.emoteData = [
@@ -58,6 +63,36 @@ angular
                 'sr': 'marmemotes',
                 'tags': ['oc', ''],
                 'width': 200
+            },
+            {
+                'text-text-align': 'center',
+                'text-font-size': '26px',
+                'text-font-family': 'Impact,sans-serif',
+                'tags': ['applejack', 'meme'],
+                'strong-bottom': '5px',
+                'text-text-shadow': '2px 2px 2px black,-2px -2px 2px black,-2px 2px 2px black,2px -2px 2px black',
+                'height': 300,
+                'em-width': '280px',
+                'strong-left': '50%',
+                'names': ['adviceajlie'],
+                'em-position': 'absolute',
+                'strong-position': 'absolute',
+                'background-image': 'http://b.thumbs.redditmedia.com/5g6WH3RD7F5aMC-O.png',
+                'em-font-style': 'normal',
+                'em-color': 'white',
+                'em-top': '5px',
+                'width': 300,
+                'sr': 'adviceponies',
+                'strong-color': 'white',
+                'strong-margin-left': '-140px',
+                'text-color': 'white',
+                'strong-width': '280px',
+                'em-left': '50%',
+                'text-text-transform': 'uppercase',
+                'strong-font-weight': 'normal',
+                'background-position': ['-2px', '-2px'],
+                'text-line-height': '26px',
+                'em-margin-left': '-140px'
             },
             {
                 'apng_url': 'http://backstage.berrytube.tv/marminator/images/a/E1FnMA0PMGL9qnwx.png',
@@ -90,6 +125,9 @@ angular
         $scope.serializeEmoteInfo = function () {
             var afterSerialize = $('#afterSerialize');
             var serialized = $scope.emoteInfoSerializer.serialize($scope.emoteInfo);
+
+            $scope.currentEmoteDataEntry = $scope.expander.emoteMap.findEmote($scope.emoteInfo.emoteName);
+
             afterSerialize.text(serialized);
             afterSerialize.val(serialized);
 
