@@ -41,8 +41,8 @@ var EmoteEffectsModifier = (function () {
         if (emoteInfo.xAxisTranspose) {
             emoteHtml.left = emoteInfo.xAxisTranspose;
         }
-        if (emoteInfo.zAxisTranspose) {
-            emoteHtml.zIndex = emoteInfo.zAxisTranspose;
+        if (emoteInfo.zIndex) {
+            emoteHtml.zIndex = emoteInfo.zIndex;
         }
         if (emoteInfo.vibrate) {
             emoteHtml.animations.unshift('0.05s linear 0s normal none infinite vibrate');
@@ -378,7 +378,7 @@ var EmoteHtmlSerializer = (function () {
 var EmoteInfo = (function () {
     function EmoteInfo(emoteDataEntry, emoteName, originalFlagsString, originalAltTextString, firstLineText, secondLineText, regularAltText, vibrate, reverse, brody, //        public invert: boolean = false,
     //        public hueRotate: boolean = false,
-    slide, speed, spin, coloring, rotateDegrees, xAxisTranspose, zAxisTranspose) {
+    slide, speed, spin, coloring, rotateDegrees, xAxisTranspose, zIndex) {
         if (typeof emoteDataEntry === "undefined") { emoteDataEntry = null; }
         if (typeof emoteName === "undefined") { emoteName = ''; }
         if (typeof originalFlagsString === "undefined") { originalFlagsString = ''; }
@@ -395,7 +395,7 @@ var EmoteInfo = (function () {
         if (typeof coloring === "undefined") { coloring = ''; }
         if (typeof rotateDegrees === "undefined") { rotateDegrees = 0; }
         if (typeof xAxisTranspose === "undefined") { xAxisTranspose = 0; }
-        if (typeof zAxisTranspose === "undefined") { zAxisTranspose = 0; }
+        if (typeof zIndex === "undefined") { zIndex = 0; }
         this.emoteDataEntry = emoteDataEntry;
         this.emoteName = emoteName;
         this.originalFlagsString = originalFlagsString;
@@ -412,7 +412,7 @@ var EmoteInfo = (function () {
         this.coloring = coloring;
         this.rotateDegrees = rotateDegrees;
         this.xAxisTranspose = xAxisTranspose;
-        this.zAxisTranspose = zAxisTranspose;
+        this.zIndex = zIndex;
     }
     EmoteInfo.speedOptions = ['slowest', 'slower', 'slow', 'fast', 'faster', 'fastest'];
     EmoteInfo.spinOptions = [
@@ -443,7 +443,20 @@ var EmoteInfoParser = (function () {
             'fastest': '2s'
         };
         this.berryEmoteSpinAnimations = ['spin', 'zspin', 'xspin', 'yspin', '!spin', '!zspin', '!xspin', '!yspin'];
+        this.regexp = /\[([^\]]*)\]\(\/([\w:!#\/]+)([-\w!]*)([^)]*)\)/gi;
     }
+    EmoteInfoParser.prototype.parseEmoteString = function (emoteString) {
+        var matches = this.regexp.exec(emoteString);
+
+        if (!matches) {
+            // invalid emote string, cannot parse EmoteInfo for it
+            return null;
+        }
+        var emoteInfo = this.parseTextAndNameAndFlags(null, matches[1], matches[2], matches[3]);
+
+        return emoteInfo;
+    };
+
     EmoteInfoParser.prototype.parseTextAndNameAndFlags = function (emoteDataEntry, textPart, emoteName, emoteFlags) {
         var emoteInfo = new EmoteInfo();
 
@@ -521,7 +534,7 @@ var EmoteInfoParser = (function () {
         } else if (emoteFlag.match(/^z\d+$/)) {
             var zIndex = +emoteFlag.replace('z', '');
             if (zIndex <= 10) {
-                emoteInfo.zAxisTranspose = zIndex;
+                emoteInfo.zIndex = zIndex;
             }
         } else {
             console.log('failed to parse emoteFlag', emoteFlag);
@@ -573,8 +586,8 @@ var EmoteInfoSerializer = (function () {
         if (emoteInfo.xAxisTranspose < 0 && emoteInfo.xAxisTranspose >= -150) {
             ret += '-x!' + Math.abs(emoteInfo.xAxisTranspose);
         }
-        if (emoteInfo.zAxisTranspose > 0 && emoteInfo.zAxisTranspose <= 10) {
-            ret += '-z' + emoteInfo.zAxisTranspose;
+        if (emoteInfo.zIndex > 0 && emoteInfo.zIndex <= 10) {
+            ret += '-z' + emoteInfo.zIndex;
         }
         return ret;
     };
@@ -641,6 +654,7 @@ if (isNode) {
         EmoteExpander: EmoteExpander,
         EmoteInfoSerializer: EmoteInfoSerializer,
         EmoteInfo: EmoteInfo,
+        EmoteInfoParser: EmoteInfoParser,
         EmoteMap: EmoteMap
     };
 }
