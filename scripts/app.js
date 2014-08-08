@@ -23,8 +23,8 @@ angular
 
         $scope.emoteInfo = new EmoteInfo();
         $scope.emoteInfo.emoteName = 'adviceajlie';
-        $scope.emoteInfo.firstLineText = 'apples?';
-        $scope.emoteInfo.secondLineText = 'I didn\'t see any apples';
+//        $scope.emoteInfo.firstLineText = 'apples?';
+//        $scope.emoteInfo.secondLineText = 'I didn\'t see any apples';
 
 
         $scope.spinOptions = EmoteInfo.spinOptions;
@@ -34,6 +34,8 @@ angular
         $scope.emoteInfoSerializer = new EmoteInfoSerializer();
 
         $scope.currentEmoteDataEntry = null;
+
+        $scope.existingEmoteString = null;
 
         // populate with a few inline so the page can render one by default
         $scope.emoteData = [
@@ -143,6 +145,17 @@ angular
             afterElement.html(afterHtml);
             var escapedHtml = $scope.escapeHtml(afterHtml);
             afterEscapedElement.html(escapedHtml);
+        };
+
+        $scope.importExistingEmoteString = function() {
+            var emoteInfoParser = new EmoteInfoParser();
+            var emoteInfo = emoteInfoParser.parseEmoteString($scope.existingEmoteString);
+
+            if (emoteInfo) {
+                $scope.emoteInfo = emoteInfo;
+                $scope.existingEmoteString = null;
+                $scope.serializeEmoteInfo();
+            }
         };
 
         $scope.serializeEmoteInfo();
