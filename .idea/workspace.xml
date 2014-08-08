@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c4335727-a28b-45ee-8f71-c1a8cfeb4a55" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/index.html" afterPath="$PROJECT_DIR$/app/index.html" />
-    </list>
+    <list default="true" id="c4335727-a28b-45ee-8f71-c1a8cfeb4a55" name="Default" comment="" />
     <ignored path="emotebuilder.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />

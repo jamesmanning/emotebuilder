@@ -285,7 +285,7 @@ var EmoteHtmlSerializer = (function () {
         var emoteSpan = '<span ' + htmlAttributesString + '>' + emoteSpanContents + '</span>';
 
         if (emoteHtml.wrapperEmoteHeight > 0) {
-            emoteSpan = this.addRotationWrapper(emoteSpan, emoteHtml.wrapperEmoteHeight, emoteHtml.wrapperEmoteMarginTop);
+            emoteSpan = this.addRotationWrapper(emoteSpan, emoteHtml.wrapperEmoteHeight, emoteHtml.wrapperEmoteMarginTop, emoteHtml.wrapperAnimations);
         }
         return emoteSpan;
     };
@@ -315,13 +315,17 @@ var EmoteHtmlSerializer = (function () {
         return spanContents;
     };
 
-    EmoteHtmlSerializer.prototype.addRotationWrapper = function (emoteSpan, wrapperEmoteHeight, wrapperEmoteMarginTop) {
-        var styleAttributeValue = this.createStyleAttributeValue({
+    EmoteHtmlSerializer.prototype.addRotationWrapper = function (emoteSpan, wrapperEmoteHeight, wrapperEmoteMarginTop, wrapperAnimations) {
+        var cssAttributes = {
             height: wrapperEmoteHeight + 'px',
             display: 'inline-block',
             'margin-top': wrapperEmoteMarginTop + 'px',
             position: 'relative'
-        });
+        };
+        if (wrapperAnimations.length > 0) {
+            cssAttributes.animation = wrapperAnimations.join(',').replace('!', '-');
+        }
+        var styleAttributeValue = this.createStyleAttributeValue(cssAttributes);
 
         var htmlAttributesString = this.createHtmlAttributesString({
             class: 'rotation-wrapper',
