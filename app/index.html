@@ -44,6 +44,13 @@
                 <label>Emote Name: <input type="text" ng-model="emoteInfo.emoteName" placeholder="emoteName"
                                           ng-change="serializeEmoteInfo()"></label><br/>
 
+                <label>First line of text: <input type="text" ng-model="emoteInfo.firstLineText" placeholder="first line of text"
+                                                  ng-change="serializeEmoteInfo()"></label><br/>
+                <label>Second line of text: <input type="text" ng-model="emoteInfo.secondLineText" placeholder="first line of text"
+                                                   ng-change="serializeEmoteInfo()"></label><br/>
+                <label>Regular alt text: <input type="text" ng-model="emoteInfo.regularAltText" placeholder="first line of text"
+                                                ng-change="serializeEmoteInfo()"></label><br/>
+
                 <label><input type="checkbox" ng-model="emoteInfo.vibrate"
                               ng-change="serializeEmoteInfo()">vibrate</label><br/>
                 <label><input type="checkbox" ng-model="emoteInfo.reverse"
@@ -66,9 +73,6 @@
                         ng-change="serializeEmoteInfo()">
                     <option value="">-- optional coloring modifier --</option>
                 </select><br/>
-
-                <label><input type="text" ng-model="emoteInfo.coloring" readonly
-                              ng-change="serializeEmoteInfo()">coloring debug</label><br/>
 
                 <label>degrees to rotate (can be from 0 to 359): <input type="number" ng-model="emoteInfo.rotateDegrees"
                                                  placeholder="rotateDegrees"
