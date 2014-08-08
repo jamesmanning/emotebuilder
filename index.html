@@ -65,7 +65,7 @@
                 <option value="">-- optional slide speed modifier --</option>
             </select><br/>
 
-                <select ng-model="emoteInfo.spin" ng-options="spin.name for spin in spinOptions"
+                <select ng-model="emoteInfo.spin" ng-options="spin.emoteFlag as spin.name for spin in spinOptions"
                         ng-change="serializeEmoteInfo()">
                     <option value="">-- optional spin --</option>
                 </select><br/>

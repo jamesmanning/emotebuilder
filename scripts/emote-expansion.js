@@ -263,7 +263,7 @@ var EmoteHtmlSerializer = (function () {
         }
 
         if (emoteHtml.animations.length > 0) {
-            cssAttributes.animation = emoteHtml.animations.join(',').replace('!', '-');
+            cssAttributes['-webkit-animation'] = emoteHtml.animations.join(',').replace('!', '-');
         }
 
         if (emoteHtml.transforms.length > 0) {
