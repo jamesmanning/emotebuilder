@@ -97,7 +97,7 @@ angular
         ];
         $scope.emoteExpander = new EmoteExpander($scope.emoteData);
 
-        $scope.numberOfEmotes = 2;
+        $scope.numberOfEmotes = 1;
 
         $scope.$watch('numberOfEmotes', function() {
             if ($scope.numberOfEmotes == 1) {
@@ -122,8 +122,9 @@ angular
             }
         });
 
-        $scope.emoteInfo2 = new EmoteInfo();
-        $scope.emoteInfo2.emoteName = 'ierage';
+        $scope.emoteInfo2 = null;
+//        $scope.emoteInfo2 = new EmoteInfo();
+//        $scope.emoteInfo2.emoteName = 'ierage';
         $scope.currentEmoteDataEntry2 = null;
         $scope.$watch('emoteInfo2.emoteName', function() {
             if ($scope.emoteInfo2 && $scope.emoteInfo2.emoteName) {
@@ -168,7 +169,7 @@ angular
 
             $scope.serializedEmotes = $scope.emoteInfoSerializer.serialize($scope.emoteInfo1);
 
-            if ($scope.numberOfEmotes == 2) {
+            if ($scope.emoteInfo2) {
                 var serialized2 = $scope.emoteInfoSerializer.serialize($scope.emoteInfo2);
                 $scope.serializedEmotes += ' ' + serialized2;
             }
