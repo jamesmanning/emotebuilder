@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c4335727-a28b-45ee-8f71-c1a8cfeb4a55" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/app.js" afterPath="$PROJECT_DIR$/app/scripts/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/emote-expansion.js.map" afterPath="$PROJECT_DIR$/app/scripts/emote-expansion.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/emote-expansion.js" afterPath="$PROJECT_DIR$/app/scripts/emote-expansion.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/index.html" afterPath="$PROJECT_DIR$/app/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="c4335727-a28b-45ee-8f71-c1a8cfeb4a55" name="Default" comment="" />
     <ignored path="emotebuilder.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
