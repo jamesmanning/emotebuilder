@@ -444,10 +444,23 @@ var EmoteInfoParser = (function () {
             'fastest': '2s'
         };
         this.berryEmoteSpinAnimations = ['spin', 'zspin', 'xspin', 'yspin', '!spin', '!zspin', '!xspin', '!yspin'];
-        this.regexp = /\[([^\]]*)\]\(\/([\w:!#\/]+)([-\w!]*)([^)]*)\)/gi;
+        this.regexpForMultipleEmotesInString = /\[([^\]]*)\]\(\/([\w:!#\/]+)([-\w!]*)\)/g;
+        this.regexpForGettingPartsOfSingleEmote = /\[([^\]]*)\]\(\/([\w:!#\/]+)([-\w!]*)\)/;
     }
+    EmoteInfoParser.prototype.parseEmotesFromString = function (stringWithMultipleEmotes) {
+        var _this = this;
+        var individualEmoteStrings = stringWithMultipleEmotes.match(this.regexpForMultipleEmotesInString);
+        var emoteInfos = individualEmoteStrings.map(function (es) {
+            return _this.parseEmoteString(es);
+        });
+        var validEmoteInfos = emoteInfos.filter(function (ei) {
+            return ei != null;
+        });
+        return validEmoteInfos;
+    };
+
     EmoteInfoParser.prototype.parseEmoteString = function (emoteString) {
-        var matches = this.regexp.exec(emoteString);
+        var matches = this.regexpForGettingPartsOfSingleEmote.exec(emoteString);
 
         if (!matches) {
             // invalid emote string, cannot parse EmoteInfo for it
@@ -585,7 +598,7 @@ var EmoteInfoSerializer = (function () {
             ret += '-x' + emoteInfo.xAxisTranspose;
         }
         if (emoteInfo.xAxisTranspose < 0 && emoteInfo.xAxisTranspose >= -150) {
-            ret += '-x!' + Math.abs(emoteInfo.xAxisTranspose);
+            ret += '-!x' + Math.abs(emoteInfo.xAxisTranspose);
         }
         if (emoteInfo.zIndex > 0 && emoteInfo.zIndex <= 10) {
             ret += '-z' + emoteInfo.zIndex;
