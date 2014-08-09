@@ -103,8 +103,10 @@ angular
             if ($scope.numberOfEmotes == 1) {
                 $scope.emoteInfo2 = null;
             } else if ($scope.numberOfEmotes == 2) {
-                $scope.emoteInfo2 = new EmoteInfo();
-                $scope.emoteInfo2.emoteName = 'ierage';
+                if ($scope.emoteInfo2 == null) {
+                    $scope.emoteInfo2 = new EmoteInfo();
+                    $scope.emoteInfo2.emoteName = 'ierage';
+                }
             }
             $scope.serializeEmoteInfos();
         });
@@ -189,8 +191,8 @@ angular
                 if (emoteInfos.length == 1) {
                     $scope.numberOfEmotes = 1;
                 } else {
-                    $scope.emoteInfo2 = emoteInfos[1];
                     $scope.numberOfEmotes = 2;
+                    $scope.emoteInfo2 = emoteInfos[1];
                 }
                 $scope.existingEmoteString = null;
             }
