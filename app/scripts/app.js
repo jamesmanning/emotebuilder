@@ -113,8 +113,8 @@ angular
 
         $scope.emoteInfo1 = new EmoteInfo();
         $scope.emoteInfo1.emoteName = 'adviceajlie';
-//        $scope.emoteInfo1.firstLineText = 'apples?';
-//        $scope.emoteInfo1.secondLineText = 'I didn\'t see any apples';
+        $scope.emoteInfo1.firstLineText = 'apples?';
+        $scope.emoteInfo1.secondLineText = 'I didn\'t see any apples';
         $scope.currentEmoteDataEntry1 = null;
         $scope.$watch('emoteInfo1.emoteName', function() {
             if ($scope.emoteInfo1 && $scope.emoteInfo1.emoteName) {
