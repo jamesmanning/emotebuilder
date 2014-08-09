@@ -163,10 +163,6 @@ angular
         $scope.expandedEmotes = null;
 
         $scope.serializeEmoteInfos = function () {
-            var afterSerialize = $('#afterSerialize');
-            var afterElement = $('#after-expansion');
-            var afterEscapedElement = $('#after-expansion-escaped1');
-
             $scope.serializedEmotes = $scope.emoteInfoSerializer.serialize($scope.emoteInfo1);
 
             if ($scope.emoteInfo2) {
@@ -190,9 +186,13 @@ angular
 
             if (emoteInfos && emoteInfos.length > 0) {
                 $scope.emoteInfo1 = emoteInfos[0];
-                if (emoteInfos.length > 1) {
+                if (emoteInfos.length == 1) {
+                    $scope.numberOfEmotes = 1;
+                } else {
                     $scope.emoteInfo2 = emoteInfos[1];
+                    $scope.numberOfEmotes = 2;
                 }
+                $scope.existingEmoteString = null;
             }
         };
 
