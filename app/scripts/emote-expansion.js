@@ -354,8 +354,9 @@ var EmoteHtmlSerializer = (function () {
     //    }
     EmoteHtmlSerializer.prototype.createStyleAttributeValue = function (cssAttributes) {
         var _this = this;
+        // since we're using double-quotes for the overall html attribute, need to remove them (or, maybe change them to single quotes) in the attribute value here
         var cssAttributeStrings = Object.keys(cssAttributes).map(function (name) {
-            return _this.createCssAttributeString(name, cssAttributes[name]);
+            return _this.createCssAttributeString(name, cssAttributes[name].replace(/"/g, ''));
         });
 
         var cssAttributesJoined = cssAttributeStrings.join('; ') + ';';
