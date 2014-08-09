@@ -119,6 +119,16 @@ angular
         $scope.$watch('emoteInfo1.emoteName', function() {
             if ($scope.emoteInfo1 && $scope.emoteInfo1.emoteName) {
                 $scope.currentEmoteDataEntry1 = $scope.emoteExpander.emoteMap.findEmote($scope.emoteInfo1.emoteName);
+                if ($scope.currentEmoteDataEntry1) {
+                    if ($scope.currentEmoteDataEntry1['em-top'] == undefined) {
+                        $scope.emoteInfo1.firstLineText = '';
+                        $scope.serializeEmoteInfos();
+                    }
+                    if ($scope.currentEmoteDataEntry1['strong-bottom'] == undefined) {
+                        $scope.emoteInfo1.secondLineText = '';
+                        $scope.serializeEmoteInfos();
+                    }
+                }
             } else {
                 $scope.currentEmoteDataEntry1 = null;
             }
@@ -131,6 +141,16 @@ angular
         $scope.$watch('emoteInfo2.emoteName', function() {
             if ($scope.emoteInfo2 && $scope.emoteInfo2.emoteName) {
                 $scope.currentEmoteDataEntry2 = $scope.emoteExpander.emoteMap.findEmote($scope.emoteInfo2.emoteName);
+                if ($scope.currentEmoteDataEntry2) {
+                    if ($scope.currentEmoteDataEntry2['em-top'] == undefined) {
+                        $scope.emoteInfo2.firstLineText = '';
+                        $scope.serializeEmoteInfos();
+                    }
+                    if ($scope.currentEmoteDataEntry2['strong-bottom'] == undefined) {
+                        $scope.emoteInfo2.secondLineText = '';
+                        $scope.serializeEmoteInfos();
+                    }
+                }
             } else {
                 $scope.currentEmoteDataEntry2 = null;
             }
