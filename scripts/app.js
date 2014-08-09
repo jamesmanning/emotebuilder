@@ -1,4 +1,4 @@
-/* global EmoteInfo, EmoteInfoSerializer, EmoteExpander, $ */
+/* global EmoteInfo, EmoteInfoParser, EmoteInfoSerializer, EmoteExpander, $ */
 'use strict';
 
 /**
@@ -19,23 +19,12 @@ angular
         'ngSanitize',
         'ngTouch'
     ])
+    .filter('renderAsHtml', ['$sce', function($sce){
+        return function(val) {
+            return $sce.trustAsHtml(val);
+        };
+    }])
     .controller('MainCtrl', function ($scope, $http) {
-
-        $scope.emoteInfo = new EmoteInfo();
-        $scope.emoteInfo.emoteName = 'adviceajlie';
-//        $scope.emoteInfo.firstLineText = 'apples?';
-//        $scope.emoteInfo.secondLineText = 'I didn\'t see any apples';
-
-
-        $scope.spinOptions = EmoteInfo.spinOptions;
-        $scope.speedOptions = EmoteInfo.speedOptions;
-        $scope.coloringOptions = EmoteInfo.coloringOptions;
-
-        $scope.emoteInfoSerializer = new EmoteInfoSerializer();
-
-        $scope.currentEmoteDataEntry = null;
-
-        $scope.existingEmoteString = null;
 
         // populate with a few inline so the page can render one by default
         $scope.emoteData = [
@@ -106,7 +95,52 @@ angular
                 'width': 118
             }
         ];
-        $scope.expander = new EmoteExpander($scope.emoteData);
+        $scope.emoteExpander = new EmoteExpander($scope.emoteData);
+
+        $scope.numberOfEmotes = 2;
+
+        $scope.$watch('numberOfEmotes', function() {
+            if ($scope.numberOfEmotes == 1) {
+                $scope.emoteInfo2 = null;
+            } else if ($scope.numberOfEmotes == 2) {
+                $scope.emoteInfo2 = new EmoteInfo();
+                $scope.emoteInfo2.emoteName = 'ierage';
+            }
+            $scope.serializeEmoteInfos();
+        });
+
+        $scope.emoteInfo1 = new EmoteInfo();
+        $scope.emoteInfo1.emoteName = 'adviceajlie';
+//        $scope.emoteInfo1.firstLineText = 'apples?';
+//        $scope.emoteInfo1.secondLineText = 'I didn\'t see any apples';
+        $scope.currentEmoteDataEntry1 = null;
+        $scope.$watch('emoteInfo1.emoteName', function() {
+            if ($scope.emoteInfo1 && $scope.emoteInfo1.emoteName) {
+                $scope.currentEmoteDataEntry1 = $scope.emoteExpander.emoteMap.findEmote($scope.emoteInfo1.emoteName);
+            } else {
+                $scope.currentEmoteDataEntry1 = null;
+            }
+        });
+
+        $scope.emoteInfo2 = new EmoteInfo();
+        $scope.emoteInfo2.emoteName = 'ierage';
+        $scope.currentEmoteDataEntry2 = null;
+        $scope.$watch('emoteInfo2.emoteName', function() {
+            if ($scope.emoteInfo2 && $scope.emoteInfo2.emoteName) {
+                $scope.currentEmoteDataEntry2 = $scope.emoteExpander.emoteMap.findEmote($scope.emoteInfo2.emoteName);
+            } else {
+                $scope.currentEmoteDataEntry2 = null;
+            }
+        });
+
+        $scope.spinOptions = EmoteInfo.spinOptions;
+        $scope.speedOptions = EmoteInfo.speedOptions;
+        $scope.coloringOptions = EmoteInfo.coloringOptions;
+
+        $scope.emoteInfoSerializer = new EmoteInfoSerializer();
+        $scope.emoteInfoParser = new EmoteInfoParser();
+
+        $scope.existingEmoteString = null;
 
         $scope.escapeHtml = function (str) {
             var div = document.createElement('div');
@@ -119,45 +153,48 @@ angular
             $http.get('//berrymotes.com/assets/berrymotes_json_data.json')
                 .then(function(res) {
                     $scope.emoteData = res.data;
-                    $scope.expander = new EmoteExpander($scope.emoteData, $scope.options);
+                    $scope.emoteExpander = new EmoteExpander($scope.emoteData);
                     console.log('loaded ' + $scope.emoteData.length + ' emotes');
                 });
         };
 
-        $scope.serializeEmoteInfo = function () {
+        $scope.serializedEmotes = null;
+        $scope.expandedEmotes = null;
+
+        $scope.serializeEmoteInfos = function () {
             var afterSerialize = $('#afterSerialize');
-            var serialized = $scope.emoteInfoSerializer.serialize($scope.emoteInfo);
-
-            $scope.currentEmoteDataEntry = $scope.expander.emoteMap.findEmote($scope.emoteInfo.emoteName);
-
-            afterSerialize.text(serialized);
-            afterSerialize.val(serialized);
-
             var afterElement = $('#after-expansion');
-            var afterEscapedElement = $('#after-expansion-escaped');
-            var beforeText = serialized;
-            console.log('running expansion on', beforeText);
-            var afterHtml = $scope.expander.expand(beforeText);
+            var afterEscapedElement = $('#after-expansion-escaped1');
+
+            $scope.serializedEmotes = $scope.emoteInfoSerializer.serialize($scope.emoteInfo1);
+
+            if ($scope.numberOfEmotes == 2) {
+                var serialized2 = $scope.emoteInfoSerializer.serialize($scope.emoteInfo2);
+                $scope.serializedEmotes += ' ' + serialized2;
+            }
+
+            console.log('running expansion on', $scope.serializedEmotes);
+            $scope.expandedEmotes = $scope.emoteExpander.expand($scope.serializedEmotes);
 
             // TODO: get rid of this stupid hack and figure out how to get jquery or angular to do this for us
-            afterHtml = afterHtml.replace(/; animation: ([^;]+);/g, '; animation: $1; -webkit-animation: $1;');
+            $scope.expandedEmotes = $scope.expandedEmotes.replace(/; animation: ([^;]+);/g, '; animation: $1; -webkit-animation: $1;');
 
-            afterElement.html(afterHtml);
-            var escapedHtml = $scope.escapeHtml(afterHtml);
-            afterEscapedElement.html(escapedHtml);
+            // TODO: figure out the problem with renderAsHtml firing constantly
+            $('#expandedEmotes').html($scope.expandedEmotes);
         };
 
         $scope.importExistingEmoteString = function() {
-            var emoteInfoParser = new EmoteInfoParser();
-            var emoteInfo = emoteInfoParser.parseEmoteString($scope.existingEmoteString);
+            // TODO: in ES6, use destructuring
+            var emoteInfos = $scope.emoteInfoParser.parseEmotesFromString($scope.existingEmoteString);
 
-            if (emoteInfo) {
-                $scope.emoteInfo = emoteInfo;
-                $scope.existingEmoteString = null;
-                $scope.serializeEmoteInfo();
+            if (emoteInfos && emoteInfos.length > 0) {
+                $scope.emoteInfo1 = emoteInfos[0];
+                if (emoteInfos.length > 1) {
+                    $scope.emoteInfo2 = emoteInfos[1];
+                }
             }
         };
 
-        $scope.serializeEmoteInfo();
+        $scope.serializeEmoteInfos();
         $scope.populateEmoteData();
     });
