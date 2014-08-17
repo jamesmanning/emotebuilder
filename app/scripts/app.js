@@ -179,6 +179,7 @@ angular
                     $scope.emoteInfo2 = emoteInfos[1];
                 }
                 $scope.existingEmoteString = null;
+                $scope.serializeEmoteInfos();
             }
         };
 
