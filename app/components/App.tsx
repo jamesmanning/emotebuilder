@@ -1,20 +1,27 @@
-import * as React from 'react'; 
-import * as ReactDOM from 'react-dom';
+import * as React from 'react';
+import {default as EmoteDataHolder} from './EmoteDataHolder';
 
-import {default as ItemList} from './ItemList';
- 
-var data = [
-  {id: 1, name: "item 1"},
-  {id: 2, name: "item 2"},
-  {id: 3, name: "item 3"},
-  {id: 4, name: "item 4"}  
-];
+import {EmoteMap, EmoteExpansionOptions, EmoteHtml, IEmoteDataEntry} from 'emotes';
+import {emoteData} from './SampleData';
+
+// // const emotes = require('emotes');
+// // const IEmoteDataEntry = emotes.IEmoteDataEntry;
+// // const EmoteMap = emotes.EmoteMap;
+const emoteMap = new EmoteMap(emoteData);
+const emoteExpansionOptions = new EmoteExpansionOptions();
+const emoteHtml = new EmoteHtml(emoteMap, emoteExpansionOptions);
+
 
 export default class App extends React.Component<any, any> {
 	constructor(props: any) {
     super(props);
   }
+	// <ItemList items={data} />
 	render() {
-		return (<ItemList items={data} />);
+    return (
+			<div>
+				<EmoteDataHolder emoteMap={emoteMap} />
+			</div>
+		);
 	}
 }

@@ -4,7 +4,7 @@ module.exports = {
         publicPath: 'http://localhost:8080/',
         filename: 'dist/bundle.js'
     },
-    devtool: 'eval',
+    devtool: 'source-map',
     module: {
         preLoaders: [
             {
@@ -29,7 +29,7 @@ module.exports = {
                 exclude: /(node_modules)/,
                 loaders: [
                     'react-hot',
-                    'babel?presets[]=es2015',                  
+                    'babel?presets[]=es2015',
                     'ts-loader'
                 ]
             }

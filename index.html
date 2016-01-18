@@ -1,9 +1,24 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="http://berrymotes.com/assets/berrymotes.core.css">
     </head>
     <body>
         <div id="content"></div>
         <script type="text/javascript" src="dist/bundle.js" charset="utf-8"></script>
+        <script type="text/javascript">
+        // copied from http://berrymotes.com/berrymotes.berrytube.js
+        if (document.body.style.webkitFilter !== undefined) {
+            invertScript = document.createElement('script');
+            invertScript.type = 'text/javascript';
+            invertScript.src = 'http://berrymotes.com/assets/berrymotes.webkit.invert.js';
+            document.body.appendChild(invertScript);
+        } else {
+            invertScript = document.createElement('script');
+            invertScript.type = 'text/javascript';
+            invertScript.src = 'http://berrymotes.com/assets/berrymotes.invertfilter.js';
+            document.body.appendChild(invertScript);
+        }
+        </script>
     </body>
 </html>
