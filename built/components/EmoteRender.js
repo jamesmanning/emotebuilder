@@ -12,8 +12,8 @@ class EmoteRender extends React.Component {
         if (!htmlOutputData) {
             return React.createElement("span", null, this.props.emoteObject.originalString);
         }
-        let emoteData = htmlOutputData.emoteData;
-        let textNodes = [];
+        const emoteData = htmlOutputData.emoteData;
+        const textNodes = [];
         if (htmlOutputData.emText) {
             textNodes.push(React.createElement("em", {style: htmlOutputData.emStyles}, htmlOutputData.emText));
         }
@@ -28,14 +28,14 @@ class EmoteRender extends React.Component {
             emoteNode = (React.createElement("span", {className: htmlOutputData.cssClassesForParentNode.join(' '), style: htmlOutputData.cssStylesForParentNode}, emoteNode));
         }
         if (emoteData.height > MAX_HEIGHT) {
-            let scale = MAX_HEIGHT / emoteData.height;
-            let outerWrapperStyle = {
+            const scale = MAX_HEIGHT / emoteData.height;
+            const outerWrapperStyle = {
                 height: MAX_HEIGHT,
                 width: emoteData.width * scale,
                 position: "relative",
                 display: "inline-block"
             };
-            let innerWrapperStyle = {
+            const innerWrapperStyle = {
                 transform: `scale(${scale})`,
                 transformOrigin: "left top 0px",
                 position: "absolute",

@@ -18,13 +18,13 @@ export default class EmoteRender extends React.Component<EmoteRenderProps, any> 
 
   render() {
 		const htmlOutputData = this.emoteHtml.getEmoteHtmlMetadataForObject(this.props.emoteObject);
-		if(!htmlOutputData) {
+		if (!htmlOutputData) {
 			return <span>{this.props.emoteObject.originalString}</span>
 		}
 
-		let emoteData = htmlOutputData.emoteData
+		const emoteData = htmlOutputData.emoteData
 
-		let textNodes = []
+		const textNodes = []
 
 		if (htmlOutputData.emText) {
 			textNodes.push(<em style={htmlOutputData.emStyles}>{htmlOutputData.emText}</em>)
@@ -56,16 +56,16 @@ export default class EmoteRender extends React.Component<EmoteRenderProps, any> 
 
 		// provide wrapping to implement scaling down to meet MAX_HEIGHT requirement
 		if (emoteData.height > MAX_HEIGHT) {
-			let scale = MAX_HEIGHT/emoteData.height
+			const scale = MAX_HEIGHT/emoteData.height
 
-			let outerWrapperStyle = {
+			const outerWrapperStyle = {
 				height: MAX_HEIGHT,
 				width: emoteData.width * scale,
 				position: "relative",
 				display: "inline-block"
 			}
 
-			let innerWrapperStyle = {
+			const innerWrapperStyle = {
 				transform: `scale(${scale})`,
 				transformOrigin: "left top 0px",
 				position: "absolute",
@@ -81,7 +81,18 @@ export default class EmoteRender extends React.Component<EmoteRenderProps, any> 
 				</span>
 			)
 		}
-
+    // useful for debugging
+    // emoteNode = (
+    //   <span>
+    //     <pre>
+    //       {JSON.stringify(htmlOutputData, null, 4)}
+    //     </pre>
+    //     <span>
+    //       {emoteNode}
+    //     </span>
+    //   </span>
+    // );
+    
 		return emoteNode
 	}
 }

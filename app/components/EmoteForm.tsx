@@ -37,14 +37,14 @@ export default class EmoteForm extends React.Component<EmoteFormProps, any> {
       }
       {!this.props.emoteObject.slide ? '' :
         <label>speed:
-          <select defaultValue="{this.props.emoteObject.speed}" onChange={this.props.speedChangeHandler}>
+          <select defaultValue={this.props.emoteObject.speed} onChange={this.props.speedChangeHandler}>
             <option value="">-- optional slide speed modifier --</option>
-            <option>slowest</option>
-            <option>slower</option>
-            <option>slow</option>
-            <option>fast</option>
-            <option>faster</option>
-            <option>fastest</option>
+            <option value="slowest">slowest</option>
+            <option value="slower">slower</option>
+            <option value="slow">slow</option>
+            <option value="fast">fast</option>
+            <option value="faster">faster</option>
+            <option value="fastest">fastest</option>
           </select>
         </label>
       }
@@ -55,7 +55,7 @@ export default class EmoteForm extends React.Component<EmoteFormProps, any> {
       <label>hueRotate: <input type="checkbox" checked={this.props.emoteObject.hueRotate} onChange={this.props.hueRotateChangeHandler} /></label><br/>
       <label>invertColors: <input type="checkbox" checked={this.props.emoteObject.invertColors} onChange={this.props.invertColorsChangeHandler} /></label><br/>
       <label>spin:
-        <select defaultValue="{this.props.emoteObject.spin}" onChange={this.props.spinChangeHandler}>
+        <select defaultValue={this.props.emoteObject.spin} onChange={this.props.spinChangeHandler}>
           <option value="">-- optional spin --</option>
           <option value="xspin">spin clockwise around x axis</option>
           <option value="yspin">spin clockwise around y axis</option>
