@@ -23,7 +23,7 @@ const emoteObject = {
 
   speed: "fastest",
   slide: true,
-  
+
   vibrate: true,
   reverse: true,
   hueRotate: true,
@@ -140,7 +140,7 @@ export default class EmoteDataHolder extends React.Component<EmoteDataHolderProp
 
 
     rotateDegreesChangeHandler(event) {
-      this.state.emoteObject.rotateDegrees = event.target.value;
+      this.state.emoteObject.rotateDegrees = Number(event.target.value);
       this.refreshEmoteState();
     }
 
@@ -152,13 +152,13 @@ export default class EmoteDataHolder extends React.Component<EmoteDataHolderProp
 
 
     xAxisTransposeChangeHandler(event) {
-      this.state.emoteObject.xAxisTranspose = event.target.value;
+      this.state.emoteObject.xAxisTranspose = Number(event.target.value);
       this.refreshEmoteState();
     }
 
 
     zAxisTransposeChangeHandler(event) {
-      this.state.emoteObject.zAxisTranspose = event.target.value;
+      this.state.emoteObject.zAxisTranspose = Number(event.target.value);
       this.refreshEmoteState();
     }
 
