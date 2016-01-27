@@ -212,11 +212,6 @@ export default class EmoteDataHolder extends React.Component<EmoteDataHolderProp
         <br />
         <br />
         <EmoteText emoteObject={this.state.emoteObject} />
-        <br />
-        <br />
-        <br />
-        <br />
-        <pre>{JSON.stringify(this.state.emoteObject, null, 4)}</pre>
       </div>
     );
 	}
