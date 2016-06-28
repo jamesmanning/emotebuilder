@@ -1,3 +1,186 @@
-<h1>
+<!-- <h1>
   {{title}}
-</h1>
+</h1> -->
+
+<!-- HEADER -->
+<div id="header_wrap" class="outer">
+    <header class="inner">
+        <a id="forkme_banner" href="https://github.com/jamesmanning/emotebuilder">View on GitHub</a>
+
+        <h1 id="project_title">Emote Builder</h1>
+
+    </header>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="main_content_wrap" class="outer">
+    <section id="main_content" class="inner">
+
+        <div class="row marketing">
+
+                <form ng-submit="importExistingEmoteString()">
+                    <label>Import existing emote string (can contain either 1 or 2 emotes):
+                        <input type="text" ng-model="existingEmoteString" placeholder="like [](/ajlie)">
+                    </label>
+                    <input type="submit" value="Import">
+
+                </form>
+
+                <label>Number of emotes:
+                    <select ng-model="numberOfEmotes">
+                        <option>1</option>
+                        <option>2</option>
+                    </select></label><br/>
+
+                <button  ng-if="numberOfEmotes == 2" ng-click="swapEmotes()">Swap emote 1 and emote 2</button>
+
+<table>
+    <tr>
+        <td>
+            <h3>Emote #1</h3>
+            <label>Emote Name: <input type="text" ng-model="emoteInfo1.emoteName"
+                                      placeholder="emote name (bpsign, ajlie, etc)"
+                                      ng-change="serializeEmoteObjects()"></label><br/>
+
+            <label ng-if="currentEmoteDataEntry1['em-top']">First line of text: <input type="text"
+                                                                                       ng-model="emoteInfo1.firstLineText"
+                                                                                       placeholder="first line of text"
+                                                                                       ng-change="serializeEmoteObjects()"></label><br/>
+            <label ng-if="currentEmoteDataEntry1['strong-bottom']">Second line of text: <input type="text"
+                                                                                               ng-model="emoteInfo1.secondLineText"
+                                                                                               placeholder="second line of text"
+                                                                                               ng-change="serializeEmoteObjects()"></label><br/>
+            <label>Regular alt text: <input type="text" ng-model="emoteInfo1.regularAltText"
+                                            placeholder="regular alt text"
+                                            ng-change="serializeEmoteObjects()"></label><br/>
+
+            <label><input type="checkbox" ng-model="emoteInfo1.vibrate"
+                          ng-change="serializeEmoteObjects()">vibrate</label><br/>
+            <label><input type="checkbox" ng-model="emoteInfo1.reverse"
+                          ng-change="serializeEmoteObjects()">reverse</label><br/>
+            <label><input type="checkbox" ng-model="emoteInfo1.brody"
+                          ng-change="serializeEmoteObjects()">brody</label><br/>
+            <label><input type="checkbox" ng-model="emoteInfo1.slide"
+                          ng-change="serializeEmoteObjects()">slide</label>
+
+            <select ng-model="emoteInfo1.speed" ng-options="speed for speed in speedOptions" ng-if="emoteInfo1.slide"
+                    ng-change="serializeEmoteObjects()">
+                <option value="">-- optional slide speed modifier --</option>
+            </select><br/>
+
+            <select ng-model="emoteInfo1.spin" ng-options="spin.emoteFlag as spin.name for spin in spinOptions"
+                    ng-change="serializeEmoteObjects()">
+                <option value="">-- optional spin --</option>
+            </select><br/>
+            <select ng-model="emoteInfo1.coloring"
+                    ng-options="coloring.emoteFlag as coloring.name for coloring in coloringOptions"
+                    ng-change="serializeEmoteObjects()">
+                <option value="">-- optional coloring modifier --</option>
+            </select><br/>
+
+            <label>rotate (0 to 359): <input type="number"
+                                                                    ng-model="emoteInfo1.rotateDegrees"
+                                                                    placeholder="rotateDegrees"
+                                                                    ng-change="serializeEmoteObjects()"></label><br/>
+            <label>x shift (-150 to 150): <input type="number"
+                                                                                        ng-model="emoteInfo1.xAxisTranspose"
+                                                                                        placeholder="xAxisTranspose"
+                                                                                        ng-change="serializeEmoteObjects()"></label><br/>
+            <label>z index (0 to 10): <input type="number" ng-model="emoteInfo1.zIndex"
+                                                                  placeholder="z index"
+                                                                  ng-change="serializeEmoteObjects()"></label><br/>
+
+        </td>
+        <td ng-if="numberOfEmotes == 2">
+            <h3>Emote #2</h3>
+            <label>Emote Name: <input type="text" ng-model="emoteInfo2.emoteName"
+                                      placeholder="emote name (bpsign, ajlie, etc)"
+                                      ng-change="serializeEmoteObjects()"></label><br/>
+
+            <label ng-if="currentEmoteDataEntry2['em-top']">First line of text: <input type="text"
+                                                                                       ng-model="emoteInfo2.firstLineText"
+                                                                                       placeholder="first line of text"
+                                                                                       ng-change="serializeEmoteObjects()"></label><br/>
+            <label ng-if="currentEmoteDataEntry2['strong-bottom']">Second line of text: <input type="text"
+                                                                                               ng-model="emoteInfo2.secondLineText"
+                                                                                               placeholder="second line of text"
+                                                                                               ng-change="serializeEmoteObjects()"></label><br/>
+            <label>Regular alt text: <input type="text" ng-model="emoteInfo2.regularAltText"
+                                            placeholder="regular alt text"
+                                            ng-change="serializeEmoteObjects()"></label><br/>
+
+            <label><input type="checkbox" ng-model="emoteInfo2.vibrate"
+                          ng-change="serializeEmoteObjects()">vibrate</label><br/>
+            <label><input type="checkbox" ng-model="emoteInfo2.reverse"
+                          ng-change="serializeEmoteObjects()">reverse</label><br/>
+            <label><input type="checkbox" ng-model="emoteInfo2.brody"
+                          ng-change="serializeEmoteObjects()">brody</label><br/>
+            <label><input type="checkbox" ng-model="emoteInfo2.slide"
+                          ng-change="serializeEmoteObjects()">slide</label>
+
+            <select ng-model="emoteInfo2.speed" ng-options="speed for speed in speedOptions" ng-if="emoteInfo2.slide"
+                    ng-change="serializeEmoteObjects()">
+                <option value="">-- optional slide speed modifier --</option>
+            </select><br/>
+
+            <select ng-model="emoteInfo2.spin" ng-options="spin.emoteFlag as spin.name for spin in spinOptions"
+                    ng-change="serializeEmoteObjects()">
+                <option value="">-- optional spin --</option>
+            </select><br/>
+            <select ng-model="emoteInfo2.coloring"
+                    ng-options="coloring.emoteFlag as coloring.name for coloring in coloringOptions"
+                    ng-change="serializeEmoteObjects()">
+                <option value="">-- optional coloring modifier --</option>
+            </select><br/>
+
+            <label>rotate (0 to 359): <input type="number"
+                                                                    ng-model="emoteInfo2.rotateDegrees"
+                                                                    placeholder="rotateDegrees"
+                                                                    ng-change="serializeEmoteObjects()"></label><br/>
+            <label>x shift (-150 to 150): <input type="number"
+                                                                                        ng-model="emoteInfo2.xAxisTranspose"
+                                                                                        placeholder="xAxisTranspose"
+                                                                                        ng-change="serializeEmoteObjects()"></label><br/>
+            <label>z index (0 to 10): <input type="number" ng-model="emoteInfo2.zIndex"
+                                                                  placeholder="z index"
+                                                                  ng-change="serializeEmoteObjects()"></label><br/>
+
+        </td>
+    </tr>
+</table>
+
+            <h3>Output</h3>
+            <label>Resulting emote (copy this): <input type="text" ng-model="serializedEmotes" readonly size="75"></label>
+
+            <div id="expandedEmotes" style="background-color: white"></div>
+
+            <hr>
+
+                <span style="font-weight: bold">Caveats</span>
+            <ul>
+                <li>There is currently no code to add animated png support for non-supporting browsers,
+                    so to see animated emotes actually animate, you should either use Firefox or Chrome with
+                    <a href="https://chrome.google.com/webstore/detail/apng/ehkepjiconegkhpodgoaeamnpckdbblp"
+                       target="_blank">the APNG extension</a> installed.
+                </li>
+                <li>There is currently nothing to disable NSFW emotes, so they show up here as well</li>
+                <li>Found a bug or want to report a problem? <a
+                        href="https://github.com/jamesmanning/emotebuilder/issues/new">Create a GitHub issue!</a></li>
+            </ul>
+
+            <h3>Debug info</h3>
+            <pre>{{ emoteInfo1 | json }}</pre>
+            <pre ng-if="emoteInfo2">{{ emoteInfo2 | json }}</pre>
+            <div ng-bind="expandedEmotes"></div>
+        </div>
+    </section>
+</div>
+
+<!-- FOOTER  -->
+<div id="footer_wrap" class="outer">
+    <footer class="inner">
+        <p class="copyright">Emotebuilder maintained by <a href="https://github.com/jamesmanning">James Manning</a></p>
+
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+    </footer>
+</div>
