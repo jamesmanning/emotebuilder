@@ -18,130 +18,142 @@
 
         <div class="row marketing">
 
-                <form ng-submit="importExistingEmoteString()">
+                <form ng-submit="importExistingEmoteString()" ngNoForm>
                     <label>Import existing emote string (can contain either 1 or 2 emotes):
-                        <input type="text" ng-model="existingEmoteString" placeholder="like [](/ajlie)">
+                        <input type="text" [(ngModel)]="existingEmoteString" placeholder="like [](/ajlie)">
                     </label>
                     <input type="submit" value="Import">
 
                 </form>
 
                 <label>Number of emotes:
-                    <select ng-model="numberOfEmotes">
+                    <select [(ngModel)]="numberOfEmotes">
                         <option>1</option>
                         <option>2</option>
-                    </select></label><br/>
+                    </select>
+                </label>
+                
+                <br/>
 
-                <button  ng-if="numberOfEmotes == 2" ng-click="swapEmotes()">Swap emote 1 and emote 2</button>
+                <button  *ngIf="numberOfEmotes == 2" (click)="swapEmotes()">Swap emote 1 and emote 2</button>
 
 <table>
     <tr>
         <td>
             <h3>Emote #1</h3>
-            <label>Emote Name: <input type="text" ng-model="emoteInfo1.emoteName"
+            <label>Emote Name: <input type="text" [(ngModel)]="emoteObject1.emoteIdentifier"
                                       placeholder="emote name (bpsign, ajlie, etc)"
                                       ng-change="serializeEmoteObjects()"></label><br/>
 
-            <label ng-if="currentEmoteDataEntry1['em-top']">First line of text: <input type="text"
-                                                                                       ng-model="emoteInfo1.firstLineText"
+            <label *ngIf="currentEmoteDataEntry1 != null && currentEmoteDataEntry1['em-top']">First line of text: <input type="text"
+                                                                                       [(ngModel)]="emoteObject1.firstLineText"
                                                                                        placeholder="first line of text"
                                                                                        ng-change="serializeEmoteObjects()"></label><br/>
-            <label ng-if="currentEmoteDataEntry1['strong-bottom']">Second line of text: <input type="text"
-                                                                                               ng-model="emoteInfo1.secondLineText"
+            <label *ngIf="currentEmoteDataEntry1 != null && currentEmoteDataEntry1['strong-bottom']">Second line of text: <input type="text"
+                                                                                               [(ngModel)]="emoteObject1.secondLineText"
                                                                                                placeholder="second line of text"
                                                                                                ng-change="serializeEmoteObjects()"></label><br/>
-            <label>Regular alt text: <input type="text" ng-model="emoteInfo1.regularAltText"
+            <label>Regular alt text: <input type="text" [(ngModel)]="emoteObject1.regularAltText"
                                             placeholder="regular alt text"
                                             ng-change="serializeEmoteObjects()"></label><br/>
 
-            <label><input type="checkbox" ng-model="emoteInfo1.vibrate"
+            <label><input type="checkbox" [(ngModel)]="emoteObject1.vibrate"
                           ng-change="serializeEmoteObjects()">vibrate</label><br/>
-            <label><input type="checkbox" ng-model="emoteInfo1.reverse"
+            <label><input type="checkbox" [(ngModel)]="emoteObject1.reverse"
                           ng-change="serializeEmoteObjects()">reverse</label><br/>
-            <label><input type="checkbox" ng-model="emoteInfo1.brody"
+            <label><input type="checkbox" [(ngModel)]="emoteObject1.brody"
                           ng-change="serializeEmoteObjects()">brody</label><br/>
-            <label><input type="checkbox" ng-model="emoteInfo1.slide"
+            <label><input type="checkbox" [(ngModel)]="emoteObject1.slide"
                           ng-change="serializeEmoteObjects()">slide</label>
 
-            <select ng-model="emoteInfo1.speed" ng-options="speed for speed in speedOptions" ng-if="emoteInfo1.slide"
+            <select [(ngModel)]="emoteObject1.speed" ng-options="speed for speed in speedOptions" *ngIf="emoteObject1.slide"
                     ng-change="serializeEmoteObjects()">
                 <option value="">-- optional slide speed modifier --</option>
             </select><br/>
 
-            <select ng-model="emoteInfo1.spin" ng-options="spin.emoteFlag as spin.name for spin in spinOptions"
+            <select [(ngModel)]="emoteObject1.spin" ng-options="spin.emoteFlag as spin.name for spin in spinOptions"
                     ng-change="serializeEmoteObjects()">
-                <option value="">-- optional spin --</option>
-            </select><br/>
-            <select ng-model="emoteInfo1.coloring"
+                <option selected value="">-- optional spin --</option>
+            </select>
+            <br/>
+            <label>hue rotate: <input type="checkbox" [(ngModel)]="emoteObject1.hueRotate"></label>
+            <label>invert: <input type="checkbox" [(ngModel)]="emoteObject1.invertColors"></label>
+            <!--<select [(ngModel)]="emoteObject1.coloring"
                     ng-options="coloring.emoteFlag as coloring.name for coloring in coloringOptions"
                     ng-change="serializeEmoteObjects()">
-                <option value="">-- optional coloring modifier --</option>
-            </select><br/>
+                <option selected value="">-- optional coloring modifier --</option>
+                <option *ngFor="let c of coloringOptions" [ngValue]="c.emoteFlag">{{c.name}}</option>
+            </select>-->
+            <br/>
 
             <label>rotate (0 to 359): <input type="number"
-                                                                    ng-model="emoteInfo1.rotateDegrees"
+                                                                    [(ngModel)]="emoteObject1.rotateDegrees"
                                                                     placeholder="rotateDegrees"
                                                                     ng-change="serializeEmoteObjects()"></label><br/>
             <label>x shift (-150 to 150): <input type="number"
-                                                                                        ng-model="emoteInfo1.xAxisTranspose"
+                                                                                        [(ngModel)]="emoteObject1.xAxisTranspose"
                                                                                         placeholder="xAxisTranspose"
                                                                                         ng-change="serializeEmoteObjects()"></label><br/>
-            <label>z index (0 to 10): <input type="number" ng-model="emoteInfo1.zIndex"
+            <label>z index (0 to 10): <input type="number" [(ngModel)]="emoteObject1.zIndex"
                                                                   placeholder="z index"
                                                                   ng-change="serializeEmoteObjects()"></label><br/>
 
         </td>
-        <td ng-if="numberOfEmotes == 2">
+        <td *ngIf="numberOfEmotes == 2">
             <h3>Emote #2</h3>
-            <label>Emote Name: <input type="text" ng-model="emoteInfo2.emoteName"
+            <label>Emote Name: <input type="text" [(ngModel)]="emoteObject2.emoteIdentifier"
                                       placeholder="emote name (bpsign, ajlie, etc)"
                                       ng-change="serializeEmoteObjects()"></label><br/>
 
-            <label ng-if="currentEmoteDataEntry2['em-top']">First line of text: <input type="text"
-                                                                                       ng-model="emoteInfo2.firstLineText"
+            <label *ngIf="currentEmoteDataEntry2 != null && currentEmoteDataEntry2['em-top']">First line of text: <input type="text"
+                                                                                       [(ngModel)]="emoteObject2.firstLineText"
                                                                                        placeholder="first line of text"
                                                                                        ng-change="serializeEmoteObjects()"></label><br/>
-            <label ng-if="currentEmoteDataEntry2['strong-bottom']">Second line of text: <input type="text"
-                                                                                               ng-model="emoteInfo2.secondLineText"
+            <label *ngIf="currentEmoteDataEntry2 != null && currentEmoteDataEntry2['strong-bottom']">Second line of text: <input type="text"
+                                                                                               [(ngModel)]="emoteObject2.secondLineText"
                                                                                                placeholder="second line of text"
                                                                                                ng-change="serializeEmoteObjects()"></label><br/>
-            <label>Regular alt text: <input type="text" ng-model="emoteInfo2.regularAltText"
+            <label>Regular alt text: <input type="text" [(ngModel)]="emoteObject2.regularAltText"
                                             placeholder="regular alt text"
                                             ng-change="serializeEmoteObjects()"></label><br/>
 
-            <label><input type="checkbox" ng-model="emoteInfo2.vibrate"
+            <label><input type="checkbox" [(ngModel)]="emoteObject2.vibrate"
                           ng-change="serializeEmoteObjects()">vibrate</label><br/>
-            <label><input type="checkbox" ng-model="emoteInfo2.reverse"
+            <label><input type="checkbox" [(ngModel)]="emoteObject2.reverse"
                           ng-change="serializeEmoteObjects()">reverse</label><br/>
-            <label><input type="checkbox" ng-model="emoteInfo2.brody"
+            <label><input type="checkbox" [(ngModel)]="emoteObject2.brody"
                           ng-change="serializeEmoteObjects()">brody</label><br/>
-            <label><input type="checkbox" ng-model="emoteInfo2.slide"
+            <label><input type="checkbox" [(ngModel)]="emoteObject2.slide"
                           ng-change="serializeEmoteObjects()">slide</label>
 
-            <select ng-model="emoteInfo2.speed" ng-options="speed for speed in speedOptions" ng-if="emoteInfo2.slide"
+            <select [(ngModel)]="emoteObject2.speed" ng-options="speed for speed in speedOptions" *ngIf="emoteObject2.slide"
                     ng-change="serializeEmoteObjects()">
                 <option value="">-- optional slide speed modifier --</option>
             </select><br/>
 
-            <select ng-model="emoteInfo2.spin" ng-options="spin.emoteFlag as spin.name for spin in spinOptions"
+            <select [(ngModel)]="emoteObject2.spin" ng-options="spin.emoteFlag as spin.name for spin in spinOptions"
                     ng-change="serializeEmoteObjects()">
                 <option value="">-- optional spin --</option>
-            </select><br/>
-            <select ng-model="emoteInfo2.coloring"
+            </select>
+            <br/>
+            <label>hue rotate: <input type="checkbox" [(ngModel)]="emoteObject2.hueRotate"></label>
+            <label>invert: <input type="checkbox" [(ngModel)]="emoteObject2.invertColors"></label>
+            <!--<select [(ngModel)]="emoteObject2.coloring"
                     ng-options="coloring.emoteFlag as coloring.name for coloring in coloringOptions"
                     ng-change="serializeEmoteObjects()">
                 <option value="">-- optional coloring modifier --</option>
-            </select><br/>
+            </select>-->
+            <br/>
 
             <label>rotate (0 to 359): <input type="number"
-                                                                    ng-model="emoteInfo2.rotateDegrees"
+                                                                    [(ngModel)]="emoteObject2.rotateDegrees"
                                                                     placeholder="rotateDegrees"
                                                                     ng-change="serializeEmoteObjects()"></label><br/>
             <label>x shift (-150 to 150): <input type="number"
-                                                                                        ng-model="emoteInfo2.xAxisTranspose"
+                                                                                        [(ngModel)]="emoteObject2.xAxisTranspose"
                                                                                         placeholder="xAxisTranspose"
                                                                                         ng-change="serializeEmoteObjects()"></label><br/>
-            <label>z index (0 to 10): <input type="number" ng-model="emoteInfo2.zIndex"
+            <label>z index (0 to 10): <input type="number" [(ngModel)]="emoteObject2.zIndex"
                                                                   placeholder="z index"
                                                                   ng-change="serializeEmoteObjects()"></label><br/>
 
@@ -150,7 +162,7 @@
 </table>
 
             <h3>Output</h3>
-            <label>Resulting emote (copy this): <input type="text" ng-model="serializedEmotes" readonly size="75"></label>
+            <label>Resulting emote (copy this): <input type="text" [(ngModel)]="serializedEmotes" readonly size="75"></label>
 
             <div id="expandedEmotes" style="background-color: white"></div>
 
@@ -169,9 +181,9 @@
             </ul>
 
             <h3>Debug info</h3>
-            <pre>{{ emoteInfo1 | json }}</pre>
-            <pre ng-if="emoteInfo2">{{ emoteInfo2 | json }}</pre>
-            <div ng-bind="expandedEmotes"></div>
+            <pre>{{ emoteObject1 | json }}</pre>
+            <pre *ngIf="emoteObject2">{{ emoteObject2 | json }}</pre>
+            <div [innerHTML]="expandedEmotes | safe"></div>
         </div>
     </section>
 </div>

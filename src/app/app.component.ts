@@ -1,7 +1,12 @@
 import {
   Component,
-  OnInit
+  Pipe,
+  PipeTransform,
+  OnInit,
+  OnChanges,
+  Input
 } from '@angular/core';
+import {DomSanitizationService} from '@angular/platform-browser';
 import { Http, Response } from '@angular/http';
 import {
   EmoteObject,
@@ -14,23 +19,34 @@ import {
 } from './shared/emotes-lib/index'
 import { Observable }     from 'rxjs/Observable';
 import './rxjs-operators';
+// from http://plnkr.co/edit/WdrRVyHr6WUCwMCwhH9F?p=preview
+@Pipe({name: 'safe'})
+export class SafePipe implements PipeTransform {
+  constructor(private sanitizer:DomSanitizationService){
+    this.sanitizer = sanitizer;
+  }
+
+  transform(style) {
+    return this.sanitizer.bypassSecurityTrustHtml(style);
+  }
+}
 
 @Component({
   moduleId: module.id,
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.css']
+  styleUrls: ['app.component.css'],
+  pipes: [SafePipe]
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnChanges {
   constructor (private http: Http) {}
 
+  ngOnChanges() {
+    console.log('running ngOnChanges');
+    this.serializeEmoteObjects();
+  }
 
   ngOnInit() {
-    this.emoteObject1 = new EmoteObject();
-    this.emoteObject1.emoteIdentifier = 'adviceajlie';
-    this.emoteObject1.firstLineText = 'apples?';
-    this.emoteObject1.secondLineText = 'I didn\'t see any apples';
-
     this.serializeEmoteObjects();
     this.populateEmoteData();
   }
@@ -70,32 +86,53 @@ export class AppComponent implements OnInit {
   ];
   emoteExpander = new EmoteExpander(this.emoteData, new EmoteExpansionOptions());
 
-  numberOfEmotes = 1;
+  @Input() numberOfEmotes = 2;
 
   // $watch('numberOfEmotes', function () {
   //   if (numberOfEmotes == 1) {
-  //     emoteInfo2 = null;
+  //     emoteObject2 = null;
   //   } else if (numberOfEmotes == 2) {
-  //     if (emoteInfo2 == null) {
-  //       emoteInfo2 = new EmoteObject();
-  //       emoteInfo2.emoteName = 'ierage';
+  //     if (emoteObject2 == null) {
+  //       emoteObject2 = new EmoteObject();
+  //       emoteObject2.emoteIdentifier = 'ierage';
   //     }
   //   }
   //   serializeEmoteObjects();
   // });
 
-  emoteObject1 = new EmoteObject();
-  currentEmoteDataEntry1 = null;
-  // $watch('emoteInfo1.emoteName', function () {
-  //   if (emoteInfo1 && emoteInfo1.emoteName) {
-  //     currentEmoteDataEntry1 = emoteExpander.emoteMap.findEmote(emoteInfo1.emoteName);
+  @Input() public emoteObject1: EmoteObject = {
+    originalString: '',
+    emoteIdentifier: 'adviceajlie',
+    firstLineText: 'apples?',
+    secondLineText: 'I didn\'t see any apples',
+    altText: '',
+    spin: '',
+    flagsString: '',
+    brody: false,
+    hueRotate: false,
+    invertColors: false,
+    reverse: false,
+    rotateDegrees: 0,
+    slide: false,
+    speed: '',
+    vibrate: false,
+    xAxisTranspose: 0,
+    zAxisTranspose: 0,
+  }
+
+  // public emoteObject1 =  new EmoteObject()
+
+  public currentEmoteDataEntry1: IEmoteDataEntry;
+  // $watch('emoteObject1.emoteIdentifier', function () {
+  //   if (emoteObject1 && emoteObject1.emoteIdentifier) {
+  //     currentEmoteDataEntry1 = emoteExpander.emoteMap.findEmote(emoteObject1.emoteIdentifier);
   //     if (currentEmoteDataEntry1) {
   //       if (currentEmoteDataEntry1['em-top'] == undefined) {
-  //         emoteInfo1.firstLineText = '';
+  //         emoteObject1.firstLineText = '';
   //         serializeEmoteObjects();
   //       }
   //       if (currentEmoteDataEntry1['strong-bottom'] == undefined) {
-  //         emoteInfo1.secondLineText = '';
+  //         emoteObject1.secondLineText = '';
   //         serializeEmoteObjects();
   //       }
   //     }
@@ -104,20 +141,39 @@ export class AppComponent implements OnInit {
   //   }
   // });
 
-  emoteObject2 = null;
-//        emoteInfo2 = new EmoteObject();
-//        emoteInfo2.emoteName = 'ierage';
-  currentEmoteDataEntry2 = null;
-  // $watch('emoteInfo2.emoteName', function () {
-  //   if (emoteInfo2 && emoteInfo2.emoteName) {
-  //     currentEmoteDataEntry2 = emoteExpander.emoteMap.findEmote(emoteInfo2.emoteName);
+  @Input() public emoteObject2: EmoteObject = {
+    originalString: '',
+    emoteIdentifier: 'ierage',
+    firstLineText: '',
+    secondLineText: '',
+    altText: '',
+    spin: '',
+    flagsString: '',
+    brody: false,
+    hueRotate: false,
+    invertColors: false,
+    reverse: false,
+    rotateDegrees: 0,
+    slide: false,
+    speed: '',
+    vibrate: false,
+    xAxisTranspose: 0,
+    zAxisTranspose: 0,
+  }
+
+//        emoteObject2 = new EmoteObject();
+//        emoteObject2.emoteIdentifier = 'ierage';
+  public currentEmoteDataEntry2: IEmoteDataEntry;
+  // $watch('emoteObject2.emoteIdentifier', function () {
+  //   if (emoteObject2 && emoteObject2.emoteIdentifier) {
+  //     currentEmoteDataEntry2 = emoteExpander.emoteMap.findEmote(emoteObject2.emoteIdentifier);
   //     if (currentEmoteDataEntry2) {
   //       if (currentEmoteDataEntry2['em-top'] == undefined) {
-  //         emoteInfo2.firstLineText = '';
+  //         emoteObject2.firstLineText = '';
   //         serializeEmoteObjects();
   //       }
   //       if (currentEmoteDataEntry2['strong-bottom'] == undefined) {
-  //         emoteInfo2.secondLineText = '';
+  //         emoteObject2.secondLineText = '';
   //         serializeEmoteObjects();
   //       }
   //     }
@@ -142,14 +198,12 @@ export class AppComponent implements OnInit {
   };
 
   private populateEmoteData() {
-    this.getEmoteData
-  } 
-  private getEmoteData(): Observable<IEmoteDataEntry[]> {
     console.log('making call to load emote data');
     return this.http.get('//berrymotes.com/assets/berrymotes_json_data.json')
              .map(this.extractData)
-             .catch(this.handleError);
-  }
+             .catch(this.handleError)
+             .subscribe(emoteData => this.emoteData = emoteData);
+  } 
   //     .then(function (res) {
   //       emoteData = res.data;
   //       emoteExpander = new EmoteExpander(emoteData);
@@ -174,7 +228,7 @@ export class AppComponent implements OnInit {
   serializeEmoteObjects() {
     this.serializedEmotes = this.emoteObjectSerializer.serialize(this.emoteObject1);
 
-    if (this.emoteObject2) {
+    if (this.numberOfEmotes == 2 && this.emoteObject2) {
       var serialized2 = this.emoteObjectSerializer.serialize(this.emoteObject2);
       this.serializedEmotes += ' ' + serialized2;
     }
@@ -208,7 +262,8 @@ export class AppComponent implements OnInit {
 
   swapEmotes = function () {
     console.log('starting emote swap');
-    [this.emoteInfo1, this.emoteInfo2] = [this.emoteInfo2, this.emoteInfo1];
+    [this.emoteObject1, this.emoteObject2] = [this.emoteObject2, this.emoteObject1];
+    this.serializeEmoteObjects();
     console.log('finished emote swap');
   };
 }
