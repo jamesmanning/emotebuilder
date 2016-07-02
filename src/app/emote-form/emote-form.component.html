@@ -1,6 +1,5 @@
 <label>Emote Name: <input type="text" 
                           [(ngModel)]="emoteObject.emoteIdentifier"
-                          (ngModelChange)="refreshCurrentEmoteDataEntry()"
                           placeholder="emote name (bpsign, ajlie, etc)"></label><br/>
 
 <label *ngIf="currentEmoteDataEntry != null && currentEmoteDataEntry['em-top']">First line of text: <input type="text"

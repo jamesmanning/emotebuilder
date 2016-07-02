@@ -26,18 +26,14 @@ export class EmoteFormComponent implements OnInit, OnChanges {
   constructor() {}
 
   ngOnInit() {
-    this.currentEmoteDataEntry = this.emoteMap.findEmote(this.emoteObject.emoteIdentifier);
   }
 
-  get diagnostic() { return JSON.stringify(this.emoteObject); }
+  get currentEmoteDataEntry(): IEmoteDataEntry { 
+    return this.emoteMap.findEmote(this.emoteObject.emoteIdentifier);
+  }
 
   ngOnChanges() {
     console.log('running ngOnChanges in EmoteFormComponent');
-  }
-
-  refreshCurrentEmoteDataEntry() {
-    console.log(`setting currentEmoteDataEntry based on emoteIdentifier of ${this.emoteObject.emoteIdentifier}`);
-    this.currentEmoteDataEntry = this.emoteMap.findEmote(this.emoteObject.emoteIdentifier);
   }
 
   @Input() public emoteMap: EmoteMap;
