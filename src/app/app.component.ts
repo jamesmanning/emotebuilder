@@ -240,7 +240,7 @@ export class AppComponent implements OnInit, OnChanges {
     this.expandedEmotes = this.emoteExpander.expand(this.serializedEmotes);
 
     // TODO: get rid of this stupid hack and figure out how to get jquery or angular to do this for us
-    this.expandedEmotes = this.expandedEmotes.replace(/; animation: ([^;]+);/g, '; animation: $1; -webkit-animation: $1;');
+    // this.expandedEmotes = this.expandedEmotes.replace(/; animation: ([^;]+);/g, '; animation: $1; -webkit-animation: $1;');
   }
 
   importExistingEmoteString = function () {
