@@ -44,5 +44,7 @@ export class EmoteFormComponent implements OnInit, OnChanges {
 
   @Input() public emoteObject: EmoteObject;
 
-  @Input() public currentEmoteDataEntry: IEmoteDataEntry;
+  spinOptions = EmoteFlags.spinOptions;
+  speedOptions = EmoteFlags.speedOptions;
+  coloringOptions = EmoteFlags.coloringOptions;
 }
