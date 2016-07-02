@@ -82,7 +82,16 @@ export class AppComponent implements OnInit, OnChanges {
       'background-position': ['-2px', '-2px'],
       'text-line-height': '26px',
       'em-margin-left': '-140px'
-    }
+    },
+    {
+      "background-image": "//a.thumbs.redditmedia.com/84ozl2WMmiYp6Euf.png",
+      "tags": ["oc", ""],
+      "sr": "marmemotes",
+      "height": 140,
+      "width": 200,
+      "names": ["ivyrage", "ierage"],
+      "apng_url": "http://berrymotes.com/images/a/84ozl2WMmiYp6Euf.png"
+    },
   ];
   emoteExpander = new EmoteExpander(this.emoteData, new EmoteExpansionOptions());
 
