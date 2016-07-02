@@ -43,12 +43,13 @@ export class AppComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    // populate with some initial emote data so the page can render the default emote objects
+    this.useEmoteData(this.initialEmoteData);
     this.serializeEmoteObjects();
     this.populateEmoteData();
   }
 
-  // populate with a few inline so the page can render one by default
-  emoteData = <IEmoteDataEntry[]> [
+  private initialEmoteData = <IEmoteDataEntry[]> [
     {
       'text-text-align': 'center',
       'text-font-size': '26px',
@@ -159,56 +160,7 @@ export class AppComponent implements OnInit, OnChanges {
     zAxisTranspose: 0,
   }
 
-  // public emoteObject1 =  new EmoteObject()
-
-  public currentEmoteDataEntry1: IEmoteDataEntry;
-  // $watch('emoteObject1.emoteIdentifier', function () {
-  //   if (emoteObject1 && emoteObject1.emoteIdentifier) {
-  //     currentEmoteDataEntry1 = emoteExpander.emoteMap.findEmote(emoteObject1.emoteIdentifier);
-  //     if (currentEmoteDataEntry1) {
-  //       if (currentEmoteDataEntry1['em-top'] == undefined) {
-  //         emoteObject1.firstLineText = '';
-  //         serializeEmoteObjects();
-  //       }
-  //       if (currentEmoteDataEntry1['strong-bottom'] == undefined) {
-  //         emoteObject1.secondLineText = '';
-  //         serializeEmoteObjects();
-  //       }
-  //     }
-  //   } else {
-  //     currentEmoteDataEntry1 = null;
-  //   }
-  // });
-
-//        emoteObject2 = new EmoteObject();
-//        emoteObject2.emoteIdentifier = 'ierage';
-  public currentEmoteDataEntry2: IEmoteDataEntry;
-  // $watch('emoteObject2.emoteIdentifier', function () {
-  //   if (emoteObject2 && emoteObject2.emoteIdentifier) {
-  //     currentEmoteDataEntry2 = emoteExpander.emoteMap.findEmote(emoteObject2.emoteIdentifier);
-  //     if (currentEmoteDataEntry2) {
-  //       if (currentEmoteDataEntry2['em-top'] == undefined) {
-  //         emoteObject2.firstLineText = '';
-  //         serializeEmoteObjects();
-  //       }
-  //       if (currentEmoteDataEntry2['strong-bottom'] == undefined) {
-  //         emoteObject2.secondLineText = '';
-  //         serializeEmoteObjects();
-  //       }
-  //     }
-  //   } else {
-  //     currentEmoteDataEntry2 = null;
-  //   }
-  // });
-
-  spinOptions = EmoteFlags.spinOptions;
-  speedOptions = EmoteFlags.speedOptions;
-  coloringOptions = EmoteFlags.coloringOptions;
-
-  emoteObjectSerializer = new EmoteObjectSerializer();
-  emoteParser = new EmoteParser();
-
-  existingEmoteString = null;
+  existingEmoteString: string;
 
   escapeHtml = function (str) {
     var div = document.createElement('div');
@@ -221,21 +173,13 @@ export class AppComponent implements OnInit, OnChanges {
     return this.http.get('//berrymotes.com/assets/berrymotes_json_data.json')
              .map(this.extractData)
              .catch(this.handleError)
-             .subscribe(emoteData => this.emoteData = emoteData);
+             .subscribe(emoteData => this.useEmoteData(emoteData));
   } 
-  //     .then(function (res) {
-  //       emoteData = res.data;
-  //       emoteExpander = new EmoteExpander(emoteData);
-  //       console.log('loaded ' + emoteData.length + ' emotes');
-  //     });
-  // };
+
   private extractData(res: Response): IEmoteDataEntry[] {
-    let body = res.json();
-    return body.data || { };
+    return res.json();
   }
   private handleError (error: any) {
-    // In a real world app, we might use a remote logging infrastructure
-    // We'd also dig deeper into the error to get a better message
     let errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     console.error(errMsg); // log to console instead
