@@ -43,8 +43,7 @@
         <td>
             <h3>Emote #1</h3>
             <label>Emote Name: <input type="text" [(ngModel)]="emoteObject1.emoteIdentifier"
-                                      placeholder="emote name (bpsign, ajlie, etc)"
-                                      ng-change="serializeEmoteObjects()"></label><br/>
+                                      placeholder="emote name (bpsign, ajlie, etc)"></label><br/>
 
             <label *ngIf="currentEmoteDataEntry1 != null && currentEmoteDataEntry1['em-top']">First line of text: <input type="text"
                                                                                        [(ngModel)]="emoteObject1.firstLineText"
