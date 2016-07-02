@@ -241,9 +241,6 @@ export class AppComponent implements OnInit, OnChanges {
 
     // TODO: get rid of this stupid hack and figure out how to get jquery or angular to do this for us
     this.expandedEmotes = this.expandedEmotes.replace(/; animation: ([^;]+);/g, '; animation: $1; -webkit-animation: $1;');
-
-    // TODO: figure out the problem with renderAsHtml firing constantly
-    // $('#expandedEmotes').html(expandedEmotes);
   }
 
   importExistingEmoteString = function () {
