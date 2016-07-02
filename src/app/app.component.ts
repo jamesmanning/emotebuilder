@@ -18,7 +18,7 @@ import {
   IEmoteDataEntry,
 } from './shared/';
 import { SafePipe } from './safe.pipe';
-} from './shared'
+import { EmoteFormComponent } from './emote-form/'
 import { Observable }     from 'rxjs/Observable';
 import './rxjs-operators';
 
@@ -27,6 +27,7 @@ import './rxjs-operators';
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
+  directives: [EmoteFormComponent],
   pipes: [SafePipe],
 })
 export class AppComponent implements OnInit, OnChanges {
