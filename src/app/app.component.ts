@@ -32,6 +32,8 @@ import './rxjs-operators';
 export class AppComponent implements OnInit, OnChanges {
   constructor (private http: Http) {}
 
+  get diagnostic() { return JSON.stringify(this.emoteObject1); }
+
   ngOnChanges() {
     console.log('running ngOnChanges');
     this.serializeEmoteObjects();
