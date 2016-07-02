@@ -37,7 +37,7 @@ export class AppComponent implements OnInit, OnChanges {
   get diagnostic() { return JSON.stringify(this.emoteObject1); }
 
   ngOnChanges() {
-    console.log('running ngOnChanges');
+    console.log('running ngOnChanges in AppComponent');
     this.serializeEmoteObjects();
   }
 
