@@ -10,6 +10,7 @@ import {DomSanitizationService} from '@angular/platform-browser';
 import { Http, Response } from '@angular/http';
 import {
   EmoteObject,
+  EmoteMap,
   EmoteExpander,
   EmoteExpansionOptions,
   EmoteFlags,
@@ -87,6 +88,7 @@ export class AppComponent implements OnInit, OnChanges {
       "apng_url": "http://berrymotes.com/images/a/84ozl2WMmiYp6Euf.png"
     },
   ];
+  emoteMap = new EmoteMap(this.emoteData);
   emoteExpander = new EmoteExpander(this.emoteData, new EmoteExpansionOptions());
 
   @Input() numberOfEmotes = 2;
