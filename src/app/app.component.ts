@@ -122,6 +122,26 @@ export class AppComponent implements OnInit, OnChanges {
     zAxisTranspose: 0,
   }
 
+  @Input() public emoteObject2: EmoteObject = {
+    originalString: '',
+    emoteIdentifier: 'ierage',
+    firstLineText: '',
+    secondLineText: '',
+    altText: '',
+    spin: '',
+    flagsString: '',
+    brody: false,
+    hueRotate: false,
+    invertColors: false,
+    reverse: false,
+    rotateDegrees: 0,
+    slide: false,
+    speed: '',
+    vibrate: false,
+    xAxisTranspose: 0,
+    zAxisTranspose: 0,
+  }
+
   // public emoteObject1 =  new EmoteObject()
 
   public currentEmoteDataEntry1: IEmoteDataEntry;
@@ -142,26 +162,6 @@ export class AppComponent implements OnInit, OnChanges {
   //     currentEmoteDataEntry1 = null;
   //   }
   // });
-
-  @Input() public emoteObject2: EmoteObject = {
-    originalString: '',
-    emoteIdentifier: 'ierage',
-    firstLineText: '',
-    secondLineText: '',
-    altText: '',
-    spin: '',
-    flagsString: '',
-    brody: false,
-    hueRotate: false,
-    invertColors: false,
-    reverse: false,
-    rotateDegrees: 0,
-    slide: false,
-    speed: '',
-    vibrate: false,
-    xAxisTranspose: 0,
-    zAxisTranspose: 0,
-  }
 
 //        emoteObject2 = new EmoteObject();
 //        emoteObject2.emoteIdentifier = 'ierage';
