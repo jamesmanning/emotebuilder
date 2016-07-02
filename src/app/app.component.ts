@@ -4,7 +4,7 @@ import {
   PipeTransform,
   OnInit,
   OnChanges,
-  Input
+  Input,
 } from '@angular/core';
 import {DomSanitizationService} from '@angular/platform-browser';
 import { Http, Response } from '@angular/http';
@@ -15,28 +15,19 @@ import {
   EmoteFlags,
   EmoteObjectSerializer,
   EmoteParser,
-  IEmoteDataEntry
-} from './shared/emotes-lib/index'
+  IEmoteDataEntry,
+
+  SafePipe,
+} from './shared'
 import { Observable }     from 'rxjs/Observable';
 import './rxjs-operators';
-// from http://plnkr.co/edit/WdrRVyHr6WUCwMCwhH9F?p=preview
-@Pipe({name: 'safe'})
-export class SafePipe implements PipeTransform {
-  constructor(private sanitizer:DomSanitizationService){
-    this.sanitizer = sanitizer;
-  }
-
-  transform(style) {
-    return this.sanitizer.bypassSecurityTrustHtml(style);
-  }
-}
 
 @Component({
   moduleId: module.id,
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
-  pipes: [SafePipe]
+  pipes: [SafePipe],
 })
 export class AppComponent implements OnInit, OnChanges {
   constructor (private http: Http) {}

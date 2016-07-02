@@ -1,1 +1,2 @@
-export * from './emotes-lib';
+export * from './emotes-lib/index';
+export * from './SafePipe';
