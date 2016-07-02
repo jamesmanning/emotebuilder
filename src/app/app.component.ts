@@ -247,7 +247,6 @@ export class AppComponent implements OnInit, OnChanges {
   }
 
   importExistingEmoteString = function () {
-    // TODO: in ES6, use destructuring
     var emoteInfos = this.emoteInfoParser.parseEmotesFromString(this.existingEmoteString);
 
     if (emoteInfos && emoteInfos.length > 0) {
