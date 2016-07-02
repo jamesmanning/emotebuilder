@@ -14,7 +14,6 @@
 
 <!-- MAIN CONTENT -->
 <div id="main_content_wrap" class="outer">
-    {{diagnostic}}
     <section id="main_content" class="inner">
 
         <div class="row marketing">
@@ -56,6 +55,13 @@
 
             <div id="expandedEmotes" style="background-color: white"></div>
 
+            <div [innerHTML]="expandedEmotes | safe"></div>
+
+            <h3>Debug info</h3>
+            <pre>{{ emoteObject1 | json }}</pre>
+            <pre *ngIf="emoteObject2">{{ emoteObject2 | json }}</pre>
+        </div>
+
             <hr>
 
                 <span style="font-weight: bold">Caveats</span>
@@ -70,11 +76,6 @@
                         href="https://github.com/jamesmanning/emotebuilder/issues/new">Create a GitHub issue!</a></li>
             </ul>
 
-            <h3>Debug info</h3>
-            <pre>{{ emoteObject1 | json }}</pre>
-            <pre *ngIf="emoteObject2">{{ emoteObject2 | json }}</pre>
-            <div [innerHTML]="expandedEmotes | safe"></div>
-        </div>
     </section>
 </div>
 

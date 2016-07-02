@@ -1,19 +1,11 @@
-import EmoteParser from "./EmoteParser";
-import EmoteExpansionOptions from './EmoteExpansionOptions';
 import EmoteMap from './EmoteMap';
 import EmoteHtml from './EmoteHtml';
-import IEmoteDataEntry from './IEmoteDataEntry';
+import EmoteParser from "./EmoteParser";
 
 export default class EmoteExpander {
     private boundEmoteReplacer: (substring: string, ...args: any[]) => string;
-    private debug = true;
-    private emoteHtml: EmoteHtml;
-    private emoteParser: EmoteParser;
 
-    constructor(emoteData: IEmoteDataEntry[], options: EmoteExpansionOptions) {
-        const emoteMap = new EmoteMap(emoteData);
-        this.emoteHtml = new EmoteHtml(emoteMap, options);
-        this.emoteParser = new EmoteParser();
+    constructor(public emoteMap: EmoteMap, public emoteHtml: EmoteHtml, public emoteParser: EmoteParser) {
         this.boundEmoteReplacer = this.emoteReplacer.bind(this);
     }
 

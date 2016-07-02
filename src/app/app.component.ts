@@ -14,6 +14,7 @@ import {
   EmoteExpander,
   EmoteExpansionOptions,
   EmoteFlags,
+  EmoteHtml,
   EmoteObjectSerializer,
   EmoteParser,
   IEmoteDataEntry,
@@ -88,8 +89,21 @@ export class AppComponent implements OnInit, OnChanges {
       "apng_url": "http://berrymotes.com/images/a/84ozl2WMmiYp6Euf.png"
     },
   ];
-  emoteMap = new EmoteMap(this.emoteData);
-  emoteExpander = new EmoteExpander(this.emoteData, new EmoteExpansionOptions());
+
+  emoteData: IEmoteDataEntry[];
+  emoteMap: EmoteMap;
+  emoteHtml: EmoteHtml;
+  emoteExpander: EmoteExpander;
+  emoteExpansionOptions = new EmoteExpansionOptions();
+  emoteParser = new EmoteParser();
+  emoteObjectSerializer = new EmoteObjectSerializer();
+
+  useEmoteData(emoteData: IEmoteDataEntry[]) {
+    this.emoteData = emoteData;
+    this.emoteMap = new EmoteMap(this.emoteData);
+    this.emoteHtml = new EmoteHtml(this.emoteMap, this.emoteExpansionOptions);
+    this.emoteExpander = new EmoteExpander(this.emoteMap, this.emoteHtml, this.emoteParser);
+  }
 
   @Input() numberOfEmotes = 2;
 
