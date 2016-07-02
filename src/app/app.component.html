@@ -19,9 +19,9 @@
 
         <div class="row marketing">
 
-                <form ng-submit="importExistingEmoteString()" ngNoForm>
+                <form ng-submit="importExistingEmoteString()">
                     <label>Import existing emote string (can contain either 1 or 2 emotes):
-                        <input type="text" [(ngModel)]="existingEmoteString" placeholder="like [](/ajlie)">
+                        <input type="text" name="existingEmoteString" [(ngModel)]="existingEmoteString" placeholder="like [](/ajlie)">
                     </label>
                     <input type="submit" value="Import">
 
