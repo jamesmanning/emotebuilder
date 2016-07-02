@@ -16,8 +16,8 @@ import {
   EmoteObjectSerializer,
   EmoteParser,
   IEmoteDataEntry,
-
-  SafePipe,
+} from './shared/';
+import { SafePipe } from './safe.pipe';
 } from './shared'
 import { Observable }     from 'rxjs/Observable';
 import './rxjs-operators';
