@@ -41,11 +41,11 @@
     <tr>
         <td>
             <h3>Emote #1</h3>
-            <app-emote-form [emoteMap]="emoteMap" [emoteObject]="emoteObject1"></app-emote-form>
+            <app-emote-form [emoteMap]="emoteMap" [emoteObject]="emoteObject1" (emoteObjectChanged)="onEmoteObjectChanged($event)"></app-emote-form>
         </td>
         <td *ngIf="numberOfEmotes == 2">
             <h3>Emote #2</h3>
-            <app-emote-form [emoteMap]="emoteMap" [emoteObject]="emoteObject2"></app-emote-form>
+            <app-emote-form [emoteMap]="emoteMap" [emoteObject]="emoteObject2" (emoteObjectChanged)="onEmoteObjectChanged($event)"></app-emote-form>
         </td>
     </tr>
 </table>

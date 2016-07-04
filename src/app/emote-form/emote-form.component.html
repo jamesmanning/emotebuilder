@@ -1,57 +1,62 @@
-<label>Emote Name: <input type="text" 
+<form>
+<label>Emote Name: <input type="text"
+                          name="emoteIdentifier" 
                           [(ngModel)]="emoteObject.emoteIdentifier"
                           placeholder="emote name (bpsign, ajlie, etc)"></label><br/>
 
 <label *ngIf="currentEmoteDataEntry != null && currentEmoteDataEntry['em-top']">First line of text: <input type="text"
+                                                                            name="firstLineText"
                                                                             [(ngModel)]="emoteObject.firstLineText"
                                                                             placeholder="first line of text"
-                                                                            ng-change="serializeEmoteObjects()"></label><br/>
+                                                                            ></label><br/>
 <label *ngIf="currentEmoteDataEntry != null && currentEmoteDataEntry['strong-bottom']">Second line of text: <input type="text"
+                                                                                    name="secondLineText"
                                                                                     [(ngModel)]="emoteObject.secondLineText"
                                                                                     placeholder="second line of text"
-                                                                                    ng-change="serializeEmoteObjects()"></label><br/>
-<label>Regular alt text: <input type="text" [(ngModel)]="emoteObject.altText"
+                                                                                    ></label><br/>
+<label>Regular alt text: <input type="text" 
+                                name="altText"
+                                [(ngModel)]="emoteObject.altText"
                                 placeholder="regular alt text"
-                                ng-change="serializeEmoteObjects()"></label><br/>
+                                ></label><br/>
 
-<label><input type="checkbox" [(ngModel)]="emoteObject.vibrate"
-              ng-change="serializeEmoteObjects()">vibrate</label><br/>
-<label><input type="checkbox" [(ngModel)]="emoteObject.reverse"
-              ng-change="serializeEmoteObjects()">reverse</label><br/>
-<label><input type="checkbox" [(ngModel)]="emoteObject.brody"
-              ng-change="serializeEmoteObjects()">brody</label><br/>
-<label><input type="checkbox" [(ngModel)]="emoteObject.slide"
-              ng-change="serializeEmoteObjects()">slide</label>
+<label><input type="checkbox" name="vibrate" [(ngModel)]="emoteObject.vibrate">vibrate</label><br/>
+<label><input type="checkbox" name="reverse" [(ngModel)]="emoteObject.reverse">reverse</label><br/>
+<label><input type="checkbox" name="brody" [(ngModel)]="emoteObject.brody">brody</label><br/>
+<label><input type="checkbox" name="slide" [(ngModel)]="emoteObject.slide">slide</label>
 
-<select [(ngModel)]="emoteObject.speed" ng-options="speed for speed in speedOptions" *ngIf="emoteObject.slide"
-        ng-change="serializeEmoteObjects()">
+<select name="speed" [(ngModel)]="emoteObject.speed" ng-options="speed for speed in speedOptions" *ngIf="emoteObject.slide">
     <option value="">-- optional slide speed modifier --</option>
 </select><br/>
 
-<select [(ngModel)]="emoteObject.spin" ng-options="spin.emoteFlag as spin.name for spin in spinOptions"
-        ng-change="serializeEmoteObjects()">
+<select name="spin" [(ngModel)]="emoteObject.spin" ng-options="spin.emoteFlag as spin.name for spin in spinOptions">
     <option selected value="">-- optional spin --</option>
 </select>
 <br/>
-<label>hue rotate: <input type="checkbox" [(ngModel)]="emoteObject.hueRotate"></label>
-<label>invert: <input type="checkbox" [(ngModel)]="emoteObject.invertColors"></label>
+<label>hue rotate: <input type="checkbox" name="hueRotate" [(ngModel)]="emoteObject.hueRotate"></label>
+<label>invert: <input type="checkbox" name="invertColors" [(ngModel)]="emoteObject.invertColors"></label>
 <!--<select [(ngModel)]="emoteObject.coloring"
         ng-options="coloring.emoteFlag as coloring.name for coloring in coloringOptions"
-        ng-change="serializeEmoteObjects()">
+        >
     <option selected value="">-- optional coloring modifier --</option>
     <option *ngFor="let c of coloringOptions" [ngValue]="c.emoteFlag">{{c.name}}</option>
 </select>-->
 <br/>
 
 <label>rotate (0 to 359): <input type="number"
+                                                        name="rotateDegrees"
                                                         [(ngModel)]="emoteObject.rotateDegrees"
                                                         placeholder="rotateDegrees"
-                                                        ng-change="serializeEmoteObjects()"></label><br/>
+                                                        ></label><br/>
 <label>x shift (-150 to 150): <input type="number"
+                                                                            name="xAxisTranspose"
                                                                             [(ngModel)]="emoteObject.xAxisTranspose"
                                                                             placeholder="xAxisTranspose"
-                                                                            ng-change="serializeEmoteObjects()"></label><br/>
-<label>z index (0 to 10): <input type="number" [(ngModel)]="emoteObject.zIndex"
+                                                                            ></label><br/>
+<label>z index (0 to 10): <input type="number" 
+                                                      name="zIndex"
+                                                      [(ngModel)]="emoteObject.zIndex"
                                                       placeholder="z index"
-                                                      ng-change="serializeEmoteObjects()"></label><br/>
+                                                      ></label><br/>
 
+</form>

@@ -39,13 +39,13 @@ export class AppComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     console.log('running ngOnChanges in AppComponent');
-    this.serializeEmoteObjects();
+    this.refreshSerializedEmotes();
   }
 
   ngOnInit() {
     // populate with some initial emote data so the page can render the default emote objects
     this.useEmoteData(this.initialEmoteData);
-    this.serializeEmoteObjects();
+    this.refreshSerializedEmotes();
     this.populateEmoteData();
   }
 
@@ -179,28 +179,40 @@ export class AppComponent implements OnInit, OnChanges {
   private extractData(res: Response): IEmoteDataEntry[] {
     return res.json();
   }
+
   private handleError (error: any) {
     let errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     console.error(errMsg); // log to console instead
     return Observable.throw(errMsg);
   }
-  serializedEmotes: string;
-  expandedEmotes = null;
 
-  serializeEmoteObjects() {
+  expandedEmotes: string;
+  serializedEmotes: string;
+
+  onEmoteObjectChanged() {
+    console.log(`an emote object changed, refreshing serialized and expanded emote objects`);
+    this.refreshSerializedEmotes();
+    this.refreshExpandedEmotes();
+  }
+
+  refreshSerializedEmotes() {
     this.serializedEmotes = this.emoteObjectSerializer.serialize(this.emoteObject1);
 
     if (this.numberOfEmotes == 2 && this.emoteObject2) {
-      var serialized2 = this.emoteObjectSerializer.serialize(this.emoteObject2);
-      this.serializedEmotes += ' ' + serialized2;
+      this.serializedEmotes += ' ' + this.emoteObjectSerializer.serialize(this.emoteObject2);
+    }
+    console.log(`serializedEmotes is now ${this.serializedEmotes}`);
+  }
+
+  refreshExpandedEmotes() {
+    this.expandedEmotes = this.emoteHtml.getEmoteHtmlForObject(this.emoteObject1);
+
+    if (this.numberOfEmotes == 2 && this.emoteObject2) {
+      this.expandedEmotes += ' ' + this.emoteHtml.getEmoteHtmlForObject(this.emoteObject2);
     }
 
-    console.log(`running expansion on ${this.serializedEmotes}`);
-    this.expandedEmotes = this.emoteExpander.expand(this.serializedEmotes);
-
-    // TODO: get rid of this stupid hack and figure out how to get jquery or angular to do this for us
-    // this.expandedEmotes = this.expandedEmotes.replace(/; animation: ([^;]+);/g, '; animation: $1; -webkit-animation: $1;');
+    console.log(`expandedEmotes is now ${this.expandedEmotes}`);
   }
 
   importExistingEmoteString = function () {
