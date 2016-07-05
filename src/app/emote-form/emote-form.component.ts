@@ -10,6 +10,7 @@ import {
   Output,
   EventEmitter,
   ViewChild,
+  AfterViewInit,
 } from '@angular/core';
 import {
   EmoteMap,
@@ -28,13 +29,14 @@ import {
   templateUrl: 'emote-form.component.html',
   styleUrls: ['emote-form.component.css']
 })
-export class EmoteFormComponent implements OnInit {
+export class EmoteFormComponent implements OnInit, AfterViewInit {
 
   constructor() {}
 
   ngOnInit() {
   }
 
+  // TODO: there is likely a better/simpler way of subscribing to all model changes
   @ViewChild(NgForm) form: NgForm;
 
   ngAfterViewInit() {
