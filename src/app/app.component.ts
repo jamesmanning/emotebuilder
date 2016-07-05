@@ -46,6 +46,7 @@ export class AppComponent implements OnInit, OnChanges {
     // populate with some initial emote data so the page can render the default emote objects
     this.useEmoteData(this.initialEmoteData);
     this.refreshSerializedEmotes();
+    this.refreshExpandedEmotes();
     this.populateEmoteData();
   }
 
