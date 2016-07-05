@@ -163,7 +163,6 @@ export class AppComponent implements OnInit {
   };
 
   private populateEmoteData() {
-    console.log('making call to load emote data');
     return this.http.get('//berrymotes.com/assets/berrymotes_json_data.json')
              .map(this.extractData)
              .catch(this.handleError)
@@ -185,12 +184,10 @@ export class AppComponent implements OnInit {
   serializedEmotes: string;
 
   onEmoteObjectChanged() {
-    console.log(`an emote object changed`);
     this.refreshSerializedAndExpandedEmotes();
   }
 
   refreshSerializedAndExpandedEmotes() {
-    console.log(`refreshing serialized and expanded emote objects`);
     this.refreshSerializedEmotes();
     this.refreshExpandedEmotes();
   }
@@ -201,7 +198,6 @@ export class AppComponent implements OnInit {
     if (this.numberOfEmotes == 2 && this.emoteObject2) {
       this.serializedEmotes += ' ' + this.emoteObjectSerializer.serialize(this.emoteObject2);
     }
-    console.log(`serializedEmotes is now ${this.serializedEmotes}`);
   }
 
   refreshExpandedEmotes() {
@@ -210,14 +206,10 @@ export class AppComponent implements OnInit {
     if (this.numberOfEmotes == 2 && this.emoteObject2) {
       this.expandedEmotes += ' ' + this.emoteHtml.getEmoteHtmlForObject(this.emoteObject2);
     }
-
-    console.log(`expandedEmotes is now ${this.expandedEmotes}`);
   }
 
   importExistingEmoteString() {
-    console.log(`attempting to parse emotes from ${this.existingEmoteString}`);
     var emoteInfos = this.emoteParser.parseMultipleEmotes(this.existingEmoteString);
-    console.log(`found ${emoteInfos.length} emotes in ${this.existingEmoteString} of ${JSON.stringify(emoteInfos)}`);
 
     if (emoteInfos && emoteInfos.length > 0) {
       this.emoteObject1 = emoteInfos[0];
@@ -233,9 +225,7 @@ export class AppComponent implements OnInit {
   };
 
   swapEmotes() {
-    console.log('starting emote swap');
     [this.emoteObject1, this.emoteObject2] = [this.emoteObject2, this.emoteObject1];
     this.refreshSerializedAndExpandedEmotes();
-    console.log('finished emote swap');
   };
 }
