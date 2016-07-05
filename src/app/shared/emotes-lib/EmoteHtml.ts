@@ -52,9 +52,8 @@ export default class EmoteHtml {
 
     getEmoteHtmlMetadataForObject(emoteObject: EmoteObject): HtmlOutputData {
         const emoteData = this.emoteMap.findEmote(emoteObject.emoteIdentifier);
-        if (typeof emoteData === "undefined") {
-            return null;
-        }
+        if (!emoteData) return null;
+
         // if (this.isEmoteEligible(emoteData) === false) {
         //     return null;
         // }
