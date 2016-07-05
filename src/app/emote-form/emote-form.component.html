@@ -106,13 +106,6 @@
         [(ngModel)]="emoteObject.invertColors"
         (ngModelChange)="emitEmoteObjectChanged()">
 </label>
-
-<!--<select [(ngModel)]="emoteObject.coloring"
-        ng-options="coloring.emoteFlag as coloring.name for coloring in coloringOptions"
-        >
-    <option selected value="">-- optional coloring modifier --</option>
-    <option *ngFor="let c of coloringOptions" [ngValue]="c.emoteFlag">{{c.name}}</option>
-</select>-->
 <br/>
 
 <label>rotate (0 to 359): 
