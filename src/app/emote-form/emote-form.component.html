@@ -82,6 +82,24 @@
 </select>
 <br/>
 
+<label>
+    <input 
+        type="checkbox" 
+        [(ngModel)]="emoteObject.hueRotate"
+        (ngModelChange)="emitEmoteObjectChanged()">
+    hue shift 
+</label>
+<br/>
+
+<label>
+    <input 
+        type="checkbox" 
+        [(ngModel)]="emoteObject.invertColors"
+        (ngModelChange)="emitEmoteObjectChanged()">
+    invert colors
+</label>
+<br/>
+
 <select 
     [(ngModel)]="emoteObject.spin" 
     (ngModelChange)="emitEmoteObjectChanged()"
@@ -89,23 +107,6 @@
         <option selected value="">-- optional spin --</option>
         <option *ngFor="let spin of spinOptions" [ngValue]="spin.emoteFlag">{{spin.name}}</option>
 </select>
-<br/>
-
-<label>
-    hue rotate: 
-    <input 
-        type="checkbox" 
-        [(ngModel)]="emoteObject.hueRotate"
-        (ngModelChange)="emitEmoteObjectChanged()">
-</label>
-
-<label>
-    invert: 
-    <input 
-        type="checkbox" 
-        [(ngModel)]="emoteObject.invertColors"
-        (ngModelChange)="emitEmoteObjectChanged()">
-</label>
 <br/>
 
 <label>rotate (0 to 359): 
