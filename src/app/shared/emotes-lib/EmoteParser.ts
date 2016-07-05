@@ -3,8 +3,9 @@ import EmoteFlags from './EmoteFlags';
 
 export default class EmoteParser {
     static emoteParseRegexp = /\[([^\]]*)\]\(\/([\w:!#\/]+)([-\w!]*)([^)]*)\)/;
+    private static multipleMatchRegexp = new RegExp(EmoteParser.emoteParseRegexp.source, 'g');
 
-    parse(input: string): EmoteObject {
+    parseSingleEmote(input: string): EmoteObject {
         const emoteObject: EmoteObject = {
             originalString: input,
             emoteIdentifier: null,
@@ -38,6 +39,19 @@ export default class EmoteParser {
         }
 
         return emoteObject;
+    }
+
+    parseMultipleEmotes(input: string): EmoteObject[] {
+        const individualEmoteStrings = input.match(EmoteParser.multipleMatchRegexp);
+        if (!individualEmoteStrings) return [];
+
+        console.log(`found matches ${JSON.stringify(individualEmoteStrings)}`);
+
+        var emoteInfos = individualEmoteStrings
+            .map(emoteString => this.parseSingleEmote(emoteString))
+            .filter(emoteObject => emoteObject != null);
+
+        return emoteInfos;
     }
 
     setTextOnObject(textString: string, emoteObject: EmoteObject) {
