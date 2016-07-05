@@ -1,40 +1,111 @@
-<form>
-<label>Emote Name: <input type="text"
-                          name="emoteIdentifier" 
-                          [(ngModel)]="emoteObject.emoteIdentifier"
-                          placeholder="emote name (bpsign, ajlie, etc)"></label><br/>
+<label>
+    Emote Name: 
+    <input 
+        type="text"
+        [(ngModel)]="emoteObject.emoteIdentifier"
+        (ngModelChange)="onEmoteIdentifierChanged()"
+        placeholder="emote name (bpsign, ajlie, etc)">
+</label>
+<br/>
 
-<label *ngIf="currentEmoteDataEntry != null && currentEmoteDataEntry['em-top']">First line of text: <input type="text"
-                                                                            name="firstLineText"
-                                                                            [(ngModel)]="emoteObject.firstLineText"
-                                                                            placeholder="first line of text"
-                                                                            ></label><br/>
-<label *ngIf="currentEmoteDataEntry != null && currentEmoteDataEntry['strong-bottom']">Second line of text: <input type="text"
-                                                                                    name="secondLineText"
-                                                                                    [(ngModel)]="emoteObject.secondLineText"
-                                                                                    placeholder="second line of text"
-                                                                                    ></label><br/>
-<label>Regular alt text: <input type="text" 
-                                name="altText"
-                                [(ngModel)]="emoteObject.altText"
-                                placeholder="regular alt text"
-                                ></label><br/>
+<label *ngIf="currentEmoteDataEntry != null && currentEmoteDataEntry['em-top']">
+    First line of text: 
+    <input 
+        type="text"
+        [(ngModel)]="emoteObject.firstLineText"
+        (ngModelChange)="emitEmoteObjectChanged()"
+        placeholder="first line of text">
+</label>
+<br/>
 
-<label><input type="checkbox" name="vibrate" [(ngModel)]="emoteObject.vibrate">vibrate</label><br/>
-<label><input type="checkbox" name="reverse" [(ngModel)]="emoteObject.reverse">reverse</label><br/>
-<label><input type="checkbox" name="brody" [(ngModel)]="emoteObject.brody">brody</label><br/>
-<label><input type="checkbox" name="slide" [(ngModel)]="emoteObject.slide">slide</label>
+<label *ngIf="currentEmoteDataEntry != null && currentEmoteDataEntry['strong-bottom']">
+    Second line of text: 
+    <input 
+        type="text"
+        [(ngModel)]="emoteObject.secondLineText"
+        (ngModelChange)="emitEmoteObjectChanged()"
+        placeholder="second line of text">
+</label>
+<br/>
 
-<select name="speed" [(ngModel)]="emoteObject.speed" ng-options="speed for speed in speedOptions" *ngIf="emoteObject.slide">
-    <option value="">-- optional slide speed modifier --</option>
-</select><br/>
+<label>
+    Regular alt text: 
+    <input
+        type="text" 
+        [(ngModel)]="emoteObject.altText"
+        (ngModelChange)="emitEmoteObjectChanged()"
+        placeholder="regular alt text">
+</label>
+<br/>
 
-<select name="spin" [(ngModel)]="emoteObject.spin" ng-options="spin.emoteFlag as spin.name for spin in spinOptions">
+<label>
+    <input
+        type="checkbox" 
+        [(ngModel)]="emoteObject.vibrate"
+        (ngModelChange)="emitEmoteObjectChanged()">
+    vibrate
+</label>
+<br/>
+
+<label>
+    <input 
+        type="checkbox" 
+        [(ngModel)]="emoteObject.reverse"
+        (ngModelChange)="emitEmoteObjectChanged()">
+    reverse
+</label>
+<br/>
+
+<label>
+    <input 
+        type="checkbox" 
+        [(ngModel)]="emoteObject.brody"
+        (ngModelChange)="emitEmoteObjectChanged()">
+    brody
+</label>
+<br/>
+
+<label>
+    <input 
+        type="checkbox" 
+        [(ngModel)]="emoteObject.slide"
+        (ngModelChange)="emitEmoteObjectChanged()">
+    slide
+</label>
+
+<select 
+    [(ngModel)]="emoteObject.speed" 
+    (ngModelChange)="emitEmoteObjectChanged()"
+    ng-options="speed for speed in speedOptions" 
+    *ngIf="emoteObject.slide">
+        <option value="">-- optional slide speed modifier --</option>
+</select>
+<br/>
+
+<select 
+    [(ngModel)]="emoteObject.spin" 
+    (ngModelChange)="emitEmoteObjectChanged()"
+    ng-options="spin.emoteFlag as spin.name for spin in spinOptions">
     <option selected value="">-- optional spin --</option>
 </select>
 <br/>
-<label>hue rotate: <input type="checkbox" name="hueRotate" [(ngModel)]="emoteObject.hueRotate"></label>
-<label>invert: <input type="checkbox" name="invertColors" [(ngModel)]="emoteObject.invertColors"></label>
+
+<label>
+    hue rotate: 
+    <input 
+        type="checkbox" 
+        [(ngModel)]="emoteObject.hueRotate"
+        (ngModelChange)="emitEmoteObjectChanged()">
+</label>
+
+<label>
+    invert: 
+    <input 
+        type="checkbox" 
+        [(ngModel)]="emoteObject.invertColors"
+        (ngModelChange)="emitEmoteObjectChanged()">
+</label>
+
 <!--<select [(ngModel)]="emoteObject.coloring"
         ng-options="coloring.emoteFlag as coloring.name for coloring in coloringOptions"
         >
@@ -43,20 +114,26 @@
 </select>-->
 <br/>
 
-<label>rotate (0 to 359): <input type="number"
-                                                        name="rotateDegrees"
-                                                        [(ngModel)]="emoteObject.rotateDegrees"
-                                                        placeholder="rotateDegrees"
-                                                        ></label><br/>
-<label>x shift (-150 to 150): <input type="number"
-                                                                            name="xAxisTranspose"
-                                                                            [(ngModel)]="emoteObject.xAxisTranspose"
-                                                                            placeholder="xAxisTranspose"
-                                                                            ></label><br/>
-<label>z index (0 to 10): <input type="number" 
-                                                      name="zIndex"
-                                                      [(ngModel)]="emoteObject.zIndex"
-                                                      placeholder="z index"
-                                                      ></label><br/>
+<label>rotate (0 to 359): 
+    <input 
+        type="number"
+        [(ngModel)]="emoteObject.rotateDegrees"
+        placeholder="rotateDegrees">
+</label>
+<br/>
 
-</form>
+<label>x shift (-150 to 150): 
+    <input 
+        type="number"
+        [(ngModel)]="emoteObject.xAxisTranspose"
+        placeholder="xAxisTranspose">
+</label>
+<br/>
+
+<label>z index (0 to 10): 
+    <input 
+        type="number" 
+        [(ngModel)]="emoteObject.zIndex"
+        placeholder="z index">
+</label>
+<br/>
