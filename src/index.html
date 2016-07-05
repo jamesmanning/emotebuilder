@@ -27,6 +27,16 @@
     </script>
 
   
+<script>
+    var invertScript = document.createElement('script');
+    invertScript.type = 'text/javascript';
+    if (document.body.style.webkitFilter !== undefined) {
+        invertScript.src = 'http://berrymotes.com/assets/berrymotes.webkit.invert.js';
+    } else {
+        invertScript.src = 'http://berrymotes.com/assets/berrymotes.invertfilter.js';
+    }
+    document.body.appendChild(invertScript);
+</script>
 
 </body>
 </html>
