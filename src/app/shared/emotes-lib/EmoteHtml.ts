@@ -68,12 +68,16 @@ export default class EmoteHtml {
     }
 
     getEmoteHtmlForObject(emoteObject: EmoteObject): string {
+        if (!emoteObject) return '';
+        
         const htmlOutputData = this.getEmoteHtmlMetadataForObject(emoteObject);
         const htmlString = this.serializeHtmlOutputData(htmlOutputData);
         return htmlString;
     }
 
     private serializeHtmlOutputData(htmlOutputData: HtmlOutputData): string {
+        if (!htmlOutputData) return '';
+
         const styleValue = StringUtils.createMarkupForStyles(htmlOutputData.cssStylesForEmoteNode);
         const outerStyleValue = StringUtils.createMarkupForStyles(htmlOutputData.cssStylesForParentNode);
 
