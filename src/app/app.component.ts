@@ -185,7 +185,12 @@ export class AppComponent implements OnInit {
   serializedEmotes: string;
 
   onEmoteObjectChanged() {
-    console.log(`an emote object changed, refreshing serialized and expanded emote objects`);
+    console.log(`an emote object changed`);
+    this.refreshSerializedAndExpandedEmotes();
+  }
+
+  refreshSerializedAndExpandedEmotes() {
+    console.log(`refreshing serialized and expanded emote objects`);
     this.refreshSerializedEmotes();
     this.refreshExpandedEmotes();
   }
@@ -209,8 +214,10 @@ export class AppComponent implements OnInit {
     console.log(`expandedEmotes is now ${this.expandedEmotes}`);
   }
 
-  importExistingEmoteString = function () {
-    var emoteInfos = this.emoteInfoParser.parseEmotesFromString(this.existingEmoteString);
+  importExistingEmoteString() {
+    console.log(`attempting to parse emotes from ${this.existingEmoteString}`);
+    var emoteInfos = this.emoteParser.parseMultipleEmotes(this.existingEmoteString);
+    console.log(`found ${emoteInfos.length} emotes in ${this.existingEmoteString} of ${JSON.stringify(emoteInfos)}`);
 
     if (emoteInfos && emoteInfos.length > 0) {
       this.emoteObject1 = emoteInfos[0];
@@ -220,15 +227,15 @@ export class AppComponent implements OnInit {
         this.numberOfEmotes = 2;
         this.emoteObject2 = emoteInfos[1];
       }
-      this.existingEmoteString = null;
-      this.serializeEmoteObjects();
+      this.refreshSerializedAndExpandedEmotes();
     }
+    this.existingEmoteString = null;
   };
 
-  swapEmotes = function () {
+  swapEmotes() {
     console.log('starting emote swap');
     [this.emoteObject1, this.emoteObject2] = [this.emoteObject2, this.emoteObject1];
-    this.serializeEmoteObjects();
+    this.refreshSerializedAndExpandedEmotes();
     console.log('finished emote swap');
   };
 }
