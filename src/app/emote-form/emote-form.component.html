@@ -76,9 +76,9 @@
 <select 
     [(ngModel)]="emoteObject.speed" 
     (ngModelChange)="emitEmoteObjectChanged()"
-    ng-options="speed for speed in speedOptions" 
     *ngIf="emoteObject.slide">
         <option value="">-- optional slide speed modifier --</option>
+        <option *ngFor="let speed of speedOptions" [ngValue]="speed">{{speed}}</option>
 </select>
 <br/>
 
@@ -86,7 +86,8 @@
     [(ngModel)]="emoteObject.spin" 
     (ngModelChange)="emitEmoteObjectChanged()"
     ng-options="spin.emoteFlag as spin.name for spin in spinOptions">
-    <option selected value="">-- optional spin --</option>
+        <option selected value="">-- optional spin --</option>
+        <option *ngFor="let spin of spinOptions" [ngValue]="spin.emoteFlag">{{spin.name}}</option>
 </select>
 <br/>
 
