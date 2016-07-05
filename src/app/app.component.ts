@@ -32,15 +32,8 @@ import './rxjs-operators';
   directives: [EmoteFormComponent],
   pipes: [SafePipe],
 })
-export class AppComponent implements OnInit, OnChanges {
+export class AppComponent implements OnInit {
   constructor (private http: Http) {}
-
-  get diagnostic() { return JSON.stringify(this.emoteObject1); }
-
-  ngOnChanges() {
-    console.log('running ngOnChanges in AppComponent');
-    this.refreshSerializedEmotes();
-  }
 
   ngOnInit() {
     // populate with some initial emote data so the page can render the default emote objects
