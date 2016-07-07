@@ -68,23 +68,6 @@
 <label>
     <input 
         type="checkbox" 
-        [(ngModel)]="emoteObject.slide"
-        (ngModelChange)="emitEmoteObjectChanged()">
-    slide
-</label>
-
-<select 
-    [(ngModel)]="emoteObject.speed" 
-    (ngModelChange)="emitEmoteObjectChanged()"
-    *ngIf="emoteObject.slide">
-        <option value="">-- optional slide speed modifier --</option>
-        <option *ngFor="let speed of speedOptions" [ngValue]="speed">{{speed}}</option>
-</select>
-<br/>
-
-<label>
-    <input 
-        type="checkbox" 
         [(ngModel)]="emoteObject.hueRotate"
         (ngModelChange)="emitEmoteObjectChanged()">
     hue shift 
@@ -98,6 +81,23 @@
         (ngModelChange)="emitEmoteObjectChanged()">
     invert colors
 </label>
+<br/>
+
+<label>
+    <input 
+        type="checkbox" 
+        [(ngModel)]="emoteObject.slide"
+        (ngModelChange)="emitEmoteObjectChanged()">
+    slide
+</label>
+
+<select 
+    [(ngModel)]="emoteObject.speed" 
+    (ngModelChange)="emitEmoteObjectChanged()"
+    *ngIf="emoteObject.slide">
+        <option value="">-- optional slide speed modifier --</option>
+        <option *ngFor="let speed of speedOptions" [ngValue]="speed">{{speed}}</option>
+</select>
 <br/>
 
 <select 
@@ -131,4 +131,9 @@
         [(ngModel)]="emoteObject.zAxisTranspose"
         placeholder="z index">
 </label>
-<br/>
+
+<!--
+<pre>
+{{emoteObject | json}}
+</pre>
+-->
