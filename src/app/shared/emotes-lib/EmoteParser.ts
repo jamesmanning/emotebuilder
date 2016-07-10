@@ -45,8 +45,6 @@ export default class EmoteParser {
         const individualEmoteStrings = input.match(EmoteParser.multipleMatchRegexp);
         if (!individualEmoteStrings) return [];
 
-        console.log(`found matches ${JSON.stringify(individualEmoteStrings)}`);
-
         var emoteInfos = individualEmoteStrings
             .map(emoteString => this.parseSingleEmote(emoteString))
             .filter(emoteObject => emoteObject != null);
