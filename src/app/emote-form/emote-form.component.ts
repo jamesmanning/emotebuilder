@@ -42,7 +42,20 @@ export class EmoteFormComponent implements OnInit {
   private currentEmoteDataEntry: IEmoteDataEntry;
 
   updateCurrentEmoteDataEntry() {
-    this.currentEmoteDataEntry = this.emoteMap.findEmote(this.emoteObject.emoteIdentifier);
+    const newEmoteDataEntry = this.emoteMap.findEmote(this.emoteObject.emoteIdentifier);
+    if (newEmoteDataEntry && newEmoteDataEntry != this.currentEmoteDataEntry) {
+      this.currentEmoteDataEntry = newEmoteDataEntry;
+      if (this.firstLineSupported === false) this.emoteObject.firstLineText = null;
+      if (this.secondLineSupported === false) this.emoteObject.secondLineText = null;
+    }
+  }
+
+  get firstLineSupported(): boolean {
+    return !!this.currentEmoteDataEntry && !!this.currentEmoteDataEntry['em-top'];
+  }
+
+  get secondLineSupported(): boolean {
+    return !!this.currentEmoteDataEntry && !!this.currentEmoteDataEntry['strong-bottom'];
   }
 
   spinOptions = EmoteFlags.spinOptions;

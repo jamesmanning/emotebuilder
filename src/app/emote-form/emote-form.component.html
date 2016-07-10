@@ -8,7 +8,7 @@
 </label>
 <br/>
 
-<label *ngIf="currentEmoteDataEntry != null && currentEmoteDataEntry['em-top']">
+<label *ngIf="firstLineSupported">
     First line of text: 
     <input 
         type="text"
@@ -18,7 +18,7 @@
 </label>
 <br/>
 
-<label *ngIf="currentEmoteDataEntry != null && currentEmoteDataEntry['strong-bottom']">
+<label *ngIf="secondLineSupported">
     Second line of text: 
     <input 
         type="text"
