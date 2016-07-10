@@ -204,7 +204,7 @@ export class EmoteBuilderComponent implements OnInit {
 
   get linkForCurrentSettings() { 
     const appRelativeUrl = this.router.createUrlTree([''], {queryParams: {emoteString: this.encodedSerializedEmotes}}).toString();
-    // const absoluteUrl = this.location.prepareExternalUrl(appRelativeUrl);
+    // TODO: figure out the right way to make this into an absolute url
     const absoluteUrl = location.href + appRelativeUrl.substring(1);
     return absoluteUrl;
   }
