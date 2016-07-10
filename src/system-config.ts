@@ -7,10 +7,15 @@
  **********************************************************************************************/
 /** Map relative paths to URLs. */
 const map: any = {
+  'angular2-clipboard':         'https://npmcdn.com/angular2-clipboard@0.2.8',
+  'clipboard':                  'https://npmcdn.com/clipboard@1.5.10/dist/clipboard.js',
+  // 'angular2-clipboard': 'node_modules/angular2-clipboard',
+  // 'clipboard':          'node_modules/clipboard',
 };
 
 /** User packages configuration. */
 const packages: any = {
+    'angular2-clipboard': { main: 'index.js', defaultExtension: 'js' },
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -35,6 +40,7 @@ const barrels: string[] = [
   'app',
   'app/shared',
   'app/emote-form',
+  'app/emote-builder',
   /** @cli-barrel */
 ];
 
