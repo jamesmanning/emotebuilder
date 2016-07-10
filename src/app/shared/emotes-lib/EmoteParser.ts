@@ -127,7 +127,7 @@ export default class EmoteParser {
                 emoteObject.zAxisTranspose = zindex;
             }
         } else {
-            console.log('failed to parse flag', flag);
+            console.error(`ignoring unknown flag ${flag}`);
         }
     }
 }
