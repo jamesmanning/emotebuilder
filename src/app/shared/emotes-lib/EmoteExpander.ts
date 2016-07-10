@@ -15,7 +15,7 @@ export default class EmoteExpander {
     }
 
     private emoteReplacer(match: string): string {
-        const parsedObject = this.emoteParser.parse(match);
+        const parsedObject = this.emoteParser.parseSingleEmote(match);
         const emoteHtml = this.emoteHtml.getEmoteHtmlForObject(parsedObject);
         return emoteHtml;
     }
