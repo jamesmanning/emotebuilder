@@ -53,7 +53,6 @@ export class EmoteBuilderComponent implements OnInit {
     if (encodedEmoteString) {
       this.existingEmoteString = decodeURIComponent(encodedEmoteString);
       this.importExistingEmoteString();
-      // this.router.navigate([''], {queryParams: {emoteString: this.encodedSerializedEmotes}});
       this.router.navigate([''], {queryParams: {}}); // navigate to get rid of the query param
     }
 
@@ -133,18 +132,6 @@ export class EmoteBuilderComponent implements OnInit {
 
   @Input() numberOfEmotes = 2;
 
-  // $watch('numberOfEmotes', function () {
-  //   if (numberOfEmotes == 1) {
-  //     emoteObject2 = null;
-  //   } else if (numberOfEmotes == 2) {
-  //     if (emoteObject2 == null) {
-  //       emoteObject2 = new EmoteObject();
-  //       emoteObject2.emoteIdentifier = 'ierage';
-  //     }
-  //   }
-  //   serializeEmoteObjects();
-  // });
-
   @Input() public emoteObject1: EmoteObject = {
     originalString: '',
     emoteIdentifier: 'adviceajlie',
@@ -220,11 +207,6 @@ export class EmoteBuilderComponent implements OnInit {
     // const absoluteUrl = this.location.prepareExternalUrl(appRelativeUrl);
     const absoluteUrl = location.href + appRelativeUrl.substring(1);
     return absoluteUrl;
-    // return window.location.href;
-    // return this.router.routerState.snapshot.url;
-    // return this.router.serializeUrl(
-    //     this.router.createUrlTree([''], {queryParams: {emoteString: this.encodedSerializedEmotes}})
-    //   );
   }
 
   onEmoteObjectChanged() {
@@ -234,7 +216,6 @@ export class EmoteBuilderComponent implements OnInit {
   refreshSerializedAndExpandedEmotes() {
     this.refreshSerializedEmotes();
     this.refreshExpandedEmotes();
-    // this.router.navigate([''], {queryParams: {emoteString: this.encodedSerializedEmotes}});
   }
 
   refreshSerializedEmotes() {
