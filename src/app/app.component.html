@@ -1,57 +1,14 @@
 <div id="main_content_wrap" class="outer">
     <section id="main_content" class="inner">
 
-        <div class="row marketing">
-
-                <form (ngSubmit)="importExistingEmoteString()">
-                    <label>Import existing emote string (can contain either 1 or 2 emotes):
-                        <input type="text" name="existingEmoteString" [(ngModel)]="existingEmoteString" placeholder="like [](/ajlie)">
-                    </label>
-                    <input type="submit" value="Import">
-                </form>
-
-                <label>Number of emotes:
-                    <select [(ngModel)]="numberOfEmotes">
-                        <option>1</option>
-                        <option>2</option>
-                    </select>
-                </label>
-                
-                <br/>
-
-                <button  *ngIf="numberOfEmotes == 2" (click)="swapEmotes()">Swap emote 1 and emote 2</button>
-
-            <table>
-                <tr>
-                    <td>
-                        <h3>Emote #1</h3>
-                        <app-emote-form [emoteMap]="emoteMap" [emoteObject]="emoteObject1" (emoteObjectChanged)="onEmoteObjectChanged($event)"></app-emote-form>
-                    </td>
-                    <td *ngIf="numberOfEmotes == 2">
-                        <h3>Emote #2</h3>
-                        <app-emote-form [emoteMap]="emoteMap" [emoteObject]="emoteObject2" (emoteObjectChanged)="onEmoteObjectChanged($event)"></app-emote-form>
-                    </td>
-                </tr>
-            </table>
-
-            <h3>Output</h3>
-            <label>Resulting emote (copy this): <input type="text" [(ngModel)]="serializedEmotes" readonly size="75"></label>
-
-            <div id="expandedEmotes" style="background-color: white"></div>
-
-            <div [innerHTML]="expandedEmotes | safe"></div>
-
-        </div>
+        <router-outlet></router-outlet>
 
             <hr>
 
                 <span style="font-weight: bold">Caveats</span>
             <ul>
                 <li>There is currently no code to add animated png support for non-supporting browsers,
-                    so to see animated emotes actually animate, you should either use Firefox or Chrome with
-                    <a href="https://chrome.google.com/webstore/detail/apng/ehkepjiconegkhpodgoaeamnpckdbblp"
-                       target="_blank">the APNG extension</a> installed.
-                </li>
+                    so to see animated emotes actually animate, you should <a href="http://caniuse.com/#feat=apng">a browser with native APNG support</a> like Firefox or recent Safari.</li>
                 <li>There is currently nothing to disable NSFW emotes, so they show up here as well</li>
                 <li>Found a bug or want to report a problem? <a
                         href="https://github.com/jamesmanning/emotebuilder/issues/new">Create a GitHub issue!</a></li>
