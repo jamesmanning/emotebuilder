@@ -11,6 +11,7 @@ import {DomSanitizationService} from '@angular/platform-browser';
 import { Http, Response } from '@angular/http';
 import { Router, ROUTER_DIRECTIVES } from '@angular/router';
 import { Location } from '@angular/common';
+import {AlertComponent} from 'ng2-bootstrap/ng2-bootstrap';
 
 import {
   EmoteObject,
@@ -34,7 +35,7 @@ import '../rxjs-operators';
   selector: 'emote-builder',
   templateUrl: 'emote-builder.component.html',
   styleUrls: ['emote-builder.component.css'],
-  directives: [EmoteFormComponent, ClipboardDirective, ROUTER_DIRECTIVES],
+  directives: [EmoteFormComponent, ClipboardDirective, ROUTER_DIRECTIVES, AlertComponent],
   pipes: [SafePipe],
 })
 export class EmoteBuilderComponent implements OnInit {
