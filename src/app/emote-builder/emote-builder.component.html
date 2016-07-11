@@ -1,49 +1,59 @@
+    <div class="container theme-showcase" role="main">
+
 <alert dismissOnTimeout="3000" type="info">ng2-bootstrap hello world!</alert>
 
-<form (ngSubmit)="importExistingEmoteString()">
-    <label>Import existing emote string (can contain either 1 or 2 emotes):
-        <input type="text" name="existingEmoteString" [(ngModel)]="existingEmoteString" placeholder="like [](/ajlie)">
-    </label>
-    <input type="submit" value="Import">
-</form>
 
-<label>Number of emotes:
-    <select [(ngModel)]="numberOfEmotes" (ngModelChange)="onNumberOfEmotesChanged()">
-        <option>1</option>
-        <option>2</option>
-    </select>
-</label>
+<div class="row">
+    <div class="col-md-6">
+        <label>Number of emotes:
+            <select [(ngModel)]="numberOfEmotes" (ngModelChange)="onNumberOfEmotesChanged()">
+                <option>1</option>
+                <option>2</option>
+            </select>
+        </label>
+        <button class='btn btn-primary' *ngIf="numberOfEmotes == 2" (click)="swapEmotes()">Swap emote 1 and emote 2</button>
+    </div>
+    <div class="col-md-6">
+        <form (ngSubmit)="importExistingEmoteString()" class="form-horizontal">
+            <label>Import existing emote string:
+                <input type="text" name="existingEmoteString" [(ngModel)]="existingEmoteString" placeholder="like [](/ajlie)">
+            </label>
+            <button class='btn btn-primary' type="submit">Import</button>
+        </form>
+    </div>
+</div>
+
         
 <br/>
 
-<button  *ngIf="numberOfEmotes == 2" (click)="swapEmotes()">Swap emote 1 and emote 2</button>
 
-<table>
-    <tr>
-        <td>
-            <h3>Emote #1</h3>
+
+      <div class="row" *ngIf="numberOfEmotes == 1">
+        <div class="col-md-12">
             <app-emote-form [emoteMap]="emoteMap" [emoteObject]="emoteObject1" (emoteObjectChanged)="onEmoteObjectChanged($event)"></app-emote-form>
-        </td>
-        <td *ngIf="numberOfEmotes == 2">
-            <h3>Emote #2</h3>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="numberOfEmotes == 2">
+        <div class="col-md-6">
+            <h2>Emote #1</h2>
+            <app-emote-form [emoteMap]="emoteMap" [emoteObject]="emoteObject1" (emoteObjectChanged)="onEmoteObjectChanged($event)"></app-emote-form>
+        </div>
+        <div class="col-md-6">
+            <h2>Emote #2</h2>
             <app-emote-form [emoteMap]="emoteMap" [emoteObject]="emoteObject2" (emoteObjectChanged)="onEmoteObjectChanged($event)"></app-emote-form>
-        </td>
-    </tr>
-</table>
+        </div>
+      </div>
 
 <h3>Output</h3>
-<label>Resulting emote (copy this): 
-    <input id="serializedEmotes" type="text" [ngModel]="serializedEmotes" readonly size="75">
-    <button class="btn btn-default" ngIIclipboard [cbContent]="serializedEmotes">Copy to clipboard</button>
-</label>
-    
+
 <div class="row">
   <div class="col-sm-12">
     <div class="input-group">
-      <input type="text" class="form-control" [ngModel]="serializedEmotes">
       <span class="input-group-btn">
-        <button class="btn btn-default" type="button" ngIIclipboard [cbContent]="serializedEmotes">copy</button>
+        <button class="btn btn-primary" type="button" ngIIclipboard [cbContent]="serializedEmotes">copy emote string to clipboard</button>
       </span>
+      <input type="text" class="form-control" [ngModel]="serializedEmotes" readonly>
     </div>
   </div>
 </div>
@@ -51,10 +61,10 @@
 <div class="row">
   <div class="col-sm-12">
     <div class="input-group">
-      <input type="text" class="form-control" [ngModel]="linkForCurrentSettings">
       <span class="input-group-btn">
-        <button class="btn btn-default" type="button" ngIIclipboard [cbContent]="linkForCurrentSettings">copy</button>
+        <button class="btn btn-primary" type="button" ngIIclipboard [cbContent]="linkForCurrentSettings">copy link for current settings to clipboard</button>
       </span>
+      <input type="text" class="form-control" [ngModel]="linkForCurrentSettings" readonly>
     </div>
   </div>
 </div>
@@ -64,4 +74,13 @@
     <div id="expandedEmotes" style="background-color: white"></div>
 
     <div [innerHTML]="expandedEmotes | safe"></div>
+
+
+
+
+
+
+
+
+
 

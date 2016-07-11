@@ -29,7 +29,7 @@ import './rxjs-operators';
   moduleId: module.id,
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  // styleUrls: ['app.component.css'],
+  styleUrls: ['app.component.css'],
   directives: [EmoteFormComponent, ROUTER_DIRECTIVES],
   pipes: [SafePipe],
 })
