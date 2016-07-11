@@ -1,0 +1,49 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "removeComments": false,
+        "noLib": false,
+        "preserveConstEnums": true,
+        "declaration": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "sourceMap": true,
+        "outDir": "../js"
+    },
+    "filesGlob": [
+        "./**/*.ts",
+        "!./node_modules/**/*.ts"
+    ],
+    "files": [
+        "./EmoteEffectsModifier.ts",
+        "./EmoteExpander.ts",
+        "./EmoteExpansionOptions.ts",
+        "./EmoteFlags.ts",
+        "./EmoteHtml.ts",
+        "./EmoteMap.ts",
+        "./EmoteObject.ts",
+        "./EmoteObjectSerializer.ts",
+        "./EmoteParser.ts",
+        "./EmoteTextSerializer.ts",
+        "./HtmlOutputData.ts",
+        "./IEmoteDataEntry.ts",
+        "./IHashMapOfEmoteDataEntries.ts",
+        "./IHashMapOfStrings.ts",
+        "./index.ts",
+        "./spec/EmoteExpander.spec.ts",
+        "./spec/EmoteFlags.spec.ts",
+        "./spec/EmoteHtml.spec.ts",
+        "./spec/EmoteObjectSerializer.spec.ts",
+        "./spec/EmoteParser.spec.ts",
+        "./spec/EmoteTextSerializer.spec.ts",
+        "./StringUtils.ts",
+        "./typings/mocha/mocha.d.ts",
+        "./typings/node/node.d.ts",
+        "./typings/should/should.d.ts",
+        "./typings/tsd.d.ts"
+    ],
+    "atom": {
+        "rewriteTsconfig": true
+    }
+}

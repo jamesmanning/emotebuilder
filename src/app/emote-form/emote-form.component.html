@@ -1,0 +1,210 @@
+<form class="form-horizontal" ngNoForm>
+<fieldset>
+
+<!-- Form Name -->
+<!--<legend>Inputs</legend>-->
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="emoteName">Emote Name</label>  
+  <div class="col-md-8">
+    <input
+      id="emoteName"
+      name="emoteName"  
+      class="form-control input-md"
+      type="text"
+      [(ngModel)]="emoteObject.emoteIdentifier"
+      (ngModelChange)="onEmoteIdentifierChanged()"
+      placeholder="emote name (bpsign, ajlie, etc)">
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="firstLineText">First Line of Text</label>  
+  <div class="col-md-8">
+    <input 
+      id="firstLineText"
+      name="firstLineText" 
+      class="form-control input-md"
+      type="text"
+      [disabled]="!firstLineSupported"
+      [(ngModel)]="emoteObject.firstLineText"
+      (ngModelChange)="emitEmoteObjectChanged()"
+      placeholder="first line of text">
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="secondLineText">Second Line of Text</label>  
+  <div class="col-md-8">
+    <input 
+      id="secondLineText"
+      name="secondLineText" 
+      class="form-control input-md"
+      type="text"
+      [disabled]="!secondLineSupported"
+      [(ngModel)]="emoteObject.secondLineText"
+      (ngModelChange)="emitEmoteObjectChanged()"
+      placeholder="second line of text">
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="altText">Regular Alt Text</label>  
+  <div class="col-md-8">
+    <input 
+      id="altText"
+      name="altText" 
+      class="form-control input-md"
+      type="text"
+      [(ngModel)]="emoteObject.altText"
+      (ngModelChange)="emitEmoteObjectChanged()"
+      placeholder="regular alt text">
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="checkboxes">Optional modifiers</label>
+  <div class="col-md-2">
+    <div class="checkbox">
+      <label>
+        <input
+          type="checkbox" 
+          [(ngModel)]="emoteObject.vibrate"
+          (ngModelChange)="emitEmoteObjectChanged()">
+        vibrate
+      </label>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input 
+          type="checkbox" 
+          [(ngModel)]="emoteObject.reverse"
+          (ngModelChange)="emitEmoteObjectChanged()">
+        reverse
+      </label>
+	  </div>
+    <div class="checkbox">
+      <label>
+        <input 
+          type="checkbox" 
+          [(ngModel)]="emoteObject.brody"
+          (ngModelChange)="emitEmoteObjectChanged()">
+        brody
+      </label>
+	  </div>
+  </div>
+  <div class="col-md-6">
+    <div class="checkbox">
+      <label>
+        <input 
+          type="checkbox" 
+          [(ngModel)]="emoteObject.hueRotate"
+          (ngModelChange)="emitEmoteObjectChanged()">
+        hue shift
+      </label>
+	  </div>
+    <div class="checkbox">
+      <label>
+        <input 
+          type="checkbox" 
+          [(ngModel)]="emoteObject.invertColors"
+          (ngModelChange)="emitEmoteObjectChanged()">
+        invert colors
+      </label>
+	  </div>
+    <div class="checkbox">
+      <label>
+        <input 
+          type="checkbox" 
+          [(ngModel)]="emoteObject.slide"
+          (ngModelChange)="emitEmoteObjectChanged()">
+        slide
+      </label>
+      <select 
+        *ngIf="emoteObject.slide"
+        [(ngModel)]="emoteObject.speed" 
+        (ngModelChange)="emitEmoteObjectChanged()">
+          <option value="">-- optional slide speed modifier --</option>
+          <option *ngFor="let speed of speedOptions" [ngValue]="speed">{{speed}}</option>
+      </select>
+	  </div>
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="spin">Spin</label>
+  <div class="col-md-8">
+    <select 
+      class="form-control"
+      id="spin"
+      name="spin"
+      [(ngModel)]="emoteObject.spin" 
+      (ngModelChange)="emitEmoteObjectChanged()"
+      ng-options="spin.emoteFlag as spin.name for spin in spinOptions">
+        <option selected value="">-- optional spin --</option>
+        <option *ngFor="let spin of spinOptions" [ngValue]="spin.emoteFlag">{{spin.name}}</option>
+    </select>
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="rotateDegrees">Rotate (0 to 359)</label>
+  <div class="col-md-8">
+    <div class="input-group">
+      <input
+        min="0"
+        max="359"
+        class="form-control"
+        id="rotateDegrees"
+        name="rotateDegrees"
+        type="number"
+        [(ngModel)]="emoteObject.rotateDegrees"
+        placeholder="degrees to rotate">
+      <span class="input-group-addon">degrees</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="xAxisTranspose">x axis shift (-150 to 150)</label>
+  <div class="col-md-8">
+    <div class="input-group">
+      <input
+        min="-150"
+        max="150"
+        class="form-control"
+        id="xAxisTranspose"
+        name="xAxisTranspose"
+        type="number"
+        [(ngModel)]="emoteObject.xAxisTranspose"
+        placeholder="x axis shift">
+      <span class="input-group-addon">pixels</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="zAxisTranspose">z index (0 to 10)</label>
+  <div class="col-md-8">
+    <input
+      min="0"
+      max="10"
+      class="form-control"
+      id="zAxisTranspose"
+      name="zAxisTranspose"
+      type="number"
+      [(ngModel)]="emoteObject.zAxisTranspose"
+      placeholder="z index">
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+
+<!--
+<pre>
+{{emoteObject | json}}
+</pre>
+-->
