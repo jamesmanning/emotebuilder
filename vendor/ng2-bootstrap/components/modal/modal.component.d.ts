@@ -13,7 +13,6 @@ export declare class ModalDirective implements AfterViewInit, OnDestroy {
     protected _config: ModalOptions;
     protected _isShown: boolean;
     private isBodyOverflowing;
-    private ignoreBackdropClick;
     private originalBodyPadding;
     private scrollbarWidth;
     private backdrop;

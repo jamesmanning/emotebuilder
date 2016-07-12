@@ -1,5 +1,5 @@
 import { DynamicComponentLoader, Renderer, ViewContainerRef } from '@angular/core';
-import { NgModel } from '@angular/common';
+import { NgModel } from '@angular/forms';
 export declare class DatePickerPopupDirective {
     cd: NgModel;
     viewContainerRef: ViewContainerRef;

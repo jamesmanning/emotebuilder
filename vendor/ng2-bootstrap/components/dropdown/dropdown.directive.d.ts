@@ -1,4 +1,4 @@
-import { OnInit, OnDestroy, EventEmitter, ElementRef } from '@angular/core';
+import { OnInit, OnDestroy, EventEmitter, ElementRef, ChangeDetectorRef } from '@angular/core';
 export declare class DropdownDirective implements OnInit, OnDestroy {
     isOpen: boolean;
     autoClose: string;
@@ -12,7 +12,8 @@ export declare class DropdownDirective implements OnInit, OnDestroy {
     toggleEl: ElementRef;
     el: ElementRef;
     private _isOpen;
-    constructor(el: ElementRef);
+    private _changeDetector;
+    constructor(el: ElementRef, ref: ChangeDetectorRef);
     ngOnInit(): void;
     ngOnDestroy(): void;
     dropDownMenu: {

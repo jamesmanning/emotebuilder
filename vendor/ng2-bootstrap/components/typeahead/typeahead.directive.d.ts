@@ -1,6 +1,12 @@
 import { EventEmitter, OnInit, ElementRef, Renderer, DynamicComponentLoader, ViewContainerRef } from '@angular/core';
-import { NgModel } from '@angular/common';
+import { NgModel } from '@angular/forms';
 import { TypeaheadContainerComponent } from './typeahead-container.component';
+import 'rxjs/add/observable/from';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/toArray';
 export declare class TypeaheadDirective implements OnInit {
     typeaheadLoading: EventEmitter<boolean>;
     typeaheadNoResults: EventEmitter<boolean>;
@@ -19,7 +25,7 @@ export declare class TypeaheadDirective implements OnInit {
     typeaheadPhraseDelimiters: string;
     container: TypeaheadContainerComponent;
     isTypeaheadOptionsListActive: boolean;
-    private debouncer;
+    private keyUpEventEmitter;
     private _matches;
     private placement;
     private popup;
@@ -28,18 +34,20 @@ export declare class TypeaheadDirective implements OnInit {
     private element;
     private renderer;
     private loader;
-    protected onChange(e: KeyboardEvent): void;
+    protected onChange(e: any): void;
     protected onFocus(): void;
     protected onBlur(): void;
     protected onKeydown(e: KeyboardEvent): void;
     constructor(cd: NgModel, viewContainerRef: ViewContainerRef, element: ElementRef, renderer: Renderer, loader: DynamicComponentLoader);
     ngOnInit(): void;
-    show(matches: Array<any>): void;
-    hide(): void;
     changeModel(value: any): void;
     matches: Array<any>;
-    private debounce(func, wait);
-    private processMatches();
+    show(matches: Array<any>): void;
+    hide(): void;
+    private asyncActions();
+    private syncActions();
+    private prepareOption(option);
+    private normalizeQuery(value);
     private testMatch(match, test);
     private finalizeAsyncCall();
 }

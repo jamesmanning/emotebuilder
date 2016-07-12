@@ -1,5 +1,5 @@
 import { OnInit, ElementRef, EventEmitter, Renderer } from '@angular/core';
-import { ControlValueAccessor, NgModel } from '@angular/common';
+import { ControlValueAccessor, NgModel } from '@angular/forms';
 import { KeyAttribute } from '../common';
 export interface PaginationConfig extends KeyAttribute {
     maxSize: number;

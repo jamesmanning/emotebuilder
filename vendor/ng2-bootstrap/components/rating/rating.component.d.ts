@@ -1,15 +1,15 @@
 import { OnInit, EventEmitter } from '@angular/core';
-import { ControlValueAccessor, NgModel } from '@angular/common';
+import { ControlValueAccessor, NgModel } from '@angular/forms';
 export declare class RatingComponent implements ControlValueAccessor, OnInit {
     max: number;
     stateOn: string;
     stateOff: string;
     readonly: boolean;
     titles: Array<string>;
-    ratingStates: Array<{
+    ratingStates: {
         stateOn: string;
         stateOff: string;
-    }>;
+    }[];
     onHover: EventEmitter<number>;
     onLeave: EventEmitter<number>;
     onChange: any;

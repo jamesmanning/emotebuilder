@@ -1,7 +1,7 @@
 import { ElementRef, OnInit } from '@angular/core';
 import { DropdownDirective } from './dropdown.directive';
 export declare class DropdownToggleDirective implements OnInit {
-    disabled: boolean;
+    isDisabled: boolean;
     addClass: boolean;
     dropdown: DropdownDirective;
     el: ElementRef;

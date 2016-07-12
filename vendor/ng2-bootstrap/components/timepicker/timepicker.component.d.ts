@@ -1,5 +1,5 @@
 import { OnInit } from '@angular/core';
-import { NgModel, ControlValueAccessor } from '@angular/common';
+import { NgModel, ControlValueAccessor } from '@angular/forms';
 export interface TimepickerConfig {
     hourStep: number;
     minuteStep: number;

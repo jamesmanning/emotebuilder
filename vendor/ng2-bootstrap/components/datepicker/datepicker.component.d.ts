@@ -1,4 +1,4 @@
-import { ControlValueAccessor, NgModel } from '@angular/common';
+import { ControlValueAccessor, NgModel } from '@angular/forms';
 export declare class DatePickerComponent implements ControlValueAccessor {
     datepickerMode: string;
     initDate: Date;

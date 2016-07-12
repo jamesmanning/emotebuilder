@@ -1,5 +1,5 @@
 import { OnInit } from '@angular/core';
-import { ControlValueAccessor, NgModel } from '@angular/common';
+import { ControlValueAccessor, NgModel } from '@angular/forms';
 export declare class ButtonCheckboxDirective implements ControlValueAccessor, OnInit {
     cd: NgModel;
     btnCheckboxTrue: any;

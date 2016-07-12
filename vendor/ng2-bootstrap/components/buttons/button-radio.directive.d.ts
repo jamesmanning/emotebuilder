@@ -1,5 +1,5 @@
 import { OnInit, ElementRef } from '@angular/core';
-import { ControlValueAccessor, NgModel } from '@angular/common';
+import { ControlValueAccessor, NgModel } from '@angular/forms';
 export declare class ButtonRadioDirective implements ControlValueAccessor, OnInit {
     cd: NgModel;
     el: ElementRef;

@@ -1,5 +1,5 @@
 import { OnInit, ElementRef, Renderer } from '@angular/core';
-import { NgModel } from '@angular/common';
+import { NgModel } from '@angular/forms';
 import { PaginationComponent } from './pagination.component';
 export declare class PagerComponent extends PaginationComponent implements OnInit {
     config: any;

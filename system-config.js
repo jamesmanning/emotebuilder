@@ -9,7 +9,7 @@ var map = {
     'angular2-clipboard': 'https://npmcdn.com/angular2-clipboard@0.2.8',
     'clipboard': 'https://npmcdn.com/clipboard@1.5.10/dist/clipboard.js',
     'ng2-bootstrap': 'vendor/ng2-bootstrap',
-    'moment': 'vendor/ng2-bootstrap/node_modules/moment/moment.js',
+    'moment': 'vendor/moment/moment.js',
 };
 /** User packages configuration. */
 var packages = {
@@ -53,4 +53,4 @@ System.config({
 });
 // Apply the user's configuration.
 System.config({ map: map, packages: packages });
-//# sourceMappingURL=tmp\broccoli_type_script_compiler-input_base_path-uw1wx7bu.tmp\0\src\system-config.js.map
+//# sourceMappingURL=tmp\broccoli_type_script_compiler-input_base_path-Bfqln6oT.tmp\0\src\system-config.js.map
