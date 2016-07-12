@@ -11,7 +11,7 @@ const map: any = {
   'clipboard':                  'https://npmcdn.com/clipboard@1.5.10/dist/clipboard.js',
 
   'ng2-bootstrap':           'vendor/ng2-bootstrap',
-  'moment':                  'vendor/ng2-bootstrap/node_modules/moment/moment.js',
+  'moment':                  'vendor/moment/moment.js',
     // 'angular2-clipboard': 'vendor/angular2-clipboard',
     // 'clipboard':          'vendor/angular2-clipboard/node_modules/clipboard/lib/clipboard.js',
     // 'tiny-emitter':       'vendor/angular2-clipboard/node_modules/clipboard/node_modules/tiny-emitter/index.js',

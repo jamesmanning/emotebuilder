@@ -15,6 +15,7 @@
       type="text"
       [(ngModel)]="emoteObject.emoteIdentifier"
       (ngModelChange)="onEmoteIdentifierChanged()"
+      [typeahead]="emoteMap.allEmoteNames"
       placeholder="emote name (bpsign, ajlie, etc)">
   </div>
 </div>

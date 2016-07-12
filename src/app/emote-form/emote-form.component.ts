@@ -18,12 +18,17 @@ import {
   EmoteParser,
   IEmoteDataEntry,
 } from '../shared/';
+import { TYPEAHEAD_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
+import { NgModel } from '@angular/common';
 
 @Component({
   moduleId: module.id,
   selector: 'app-emote-form',
   templateUrl: 'emote-form.component.html',
-  styleUrls: ['emote-form.component.css']
+  styleUrls: ['emote-form.component.css'],
+  directives: [TYPEAHEAD_DIRECTIVES],
+  // hack to get around bug in typeahead directive from ng2-bootstrap project - should be able to remove this once there's a release after 2016-07-06
+  providers: [NgModel],
 })
 export class EmoteFormComponent implements OnInit {
 

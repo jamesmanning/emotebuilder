@@ -18,7 +18,9 @@ module.exports = function(defaults) {
       '@angular/**/*.+(js|js.map)',
 
       'angular2-clipboard/**/*.+(ts|js|js.map)',
-      'ng2-bootstrap/**/*.+(ts|js|js.map)'
+      'ng2-bootstrap/**/*.+(ts|js|js.map)',
+
+      'moment/**/*.+(ts|js|js.map)',
     ]
   });
 };
