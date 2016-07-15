@@ -23,7 +23,7 @@ export declare class ModalDirective implements AfterViewInit, OnDestroy {
     /** Host element manipulations */
     protected onClick(event: any): void;
     protected onEsc(): void;
-    constructor(element: ElementRef, renderer: Renderer, document: any, componentsHelper: ComponentsHelper);
+    constructor(element: ElementRef, renderer: Renderer, componentsHelper: ComponentsHelper);
     ngOnDestroy(): any;
     ngAfterViewInit(): any;
     /** Public methods */

@@ -1,5 +1,5 @@
 import { EventEmitter, OnInit, ElementRef, Renderer, DynamicComponentLoader, ViewContainerRef } from '@angular/core';
-import { NgModel } from '@angular/forms';
+import { NgControl } from '@angular/forms';
 import { TypeaheadContainerComponent } from './typeahead-container.component';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/debounceTime';
@@ -29,7 +29,7 @@ export declare class TypeaheadDirective implements OnInit {
     private _matches;
     private placement;
     private popup;
-    private cd;
+    private ngControl;
     private viewContainerRef;
     private element;
     private renderer;
@@ -38,7 +38,7 @@ export declare class TypeaheadDirective implements OnInit {
     protected onFocus(): void;
     protected onBlur(): void;
     protected onKeydown(e: KeyboardEvent): void;
-    constructor(cd: NgModel, viewContainerRef: ViewContainerRef, element: ElementRef, renderer: Renderer, loader: DynamicComponentLoader);
+    constructor(control: NgControl, viewContainerRef: ViewContainerRef, element: ElementRef, renderer: Renderer, loader: DynamicComponentLoader);
     ngOnInit(): void;
     changeModel(value: any): void;
     matches: Array<any>;

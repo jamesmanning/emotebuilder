@@ -1,4 +1,4 @@
-import { OnInit, OnChanges } from '@angular/core';
+import { OnInit, EventEmitter, OnChanges } from '@angular/core';
 export declare class DatePickerInnerComponent implements OnInit, OnChanges {
     datepickerMode: string;
     startingDay: number;
@@ -23,6 +23,7 @@ export declare class DatePickerInnerComponent implements OnInit, OnChanges {
     }>;
     dateDisabled: any;
     initDate: Date;
+    selectionDone: EventEmitter<Date>;
     stepDay: any;
     stepMonth: any;
     stepYear: any;

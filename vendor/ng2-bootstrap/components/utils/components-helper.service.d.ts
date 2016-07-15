@@ -9,6 +9,7 @@ export declare class ComponentsHelper {
     private componentResolver;
     private injector;
     constructor(applicationRef: ApplicationRef, componentResolver: ComponentResolver, injector: Injector);
+    getDocument(): any;
     /**
      * This is a name conventional class to get application root view component ref
      * to made this method working you need to add:

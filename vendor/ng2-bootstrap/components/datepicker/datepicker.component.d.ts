@@ -1,3 +1,4 @@
+import { EventEmitter } from '@angular/core';
 import { ControlValueAccessor, NgModel } from '@angular/forms';
 export declare class DatePickerComponent implements ControlValueAccessor {
     datepickerMode: string;
@@ -23,6 +24,7 @@ export declare class DatePickerComponent implements ControlValueAccessor {
         clazz: string;
     }>;
     dateDisabled: any;
+    selectionDone: EventEmitter<Date>;
     onChange: any;
     onTouched: any;
     cd: NgModel;
@@ -31,6 +33,7 @@ export declare class DatePickerComponent implements ControlValueAccessor {
     activeDate: Date;
     constructor(cd: NgModel);
     onUpdate(event: any): void;
+    onSelectionDone(event: Date): void;
     writeValue(value: any): void;
     registerOnChange(fn: (_: any) => {}): void;
     registerOnTouched(fn: () => {}): void;
