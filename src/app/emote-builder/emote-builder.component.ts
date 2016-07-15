@@ -62,12 +62,15 @@ export class EmoteBuilderComponent implements OnInit {
   }
 
   onNumberOfEmotesChanged() {
-    if (this.numberOfEmotes == 1) { 
-      console.log('dropping to 1 emote, clearing emoteObject2');
-      this.emoteObject2 = null;
+    if (this.numberOfEmotes < this.emoteObjects.length) {
+      // truncating
+      this.emoteObjects.length = this.numberOfEmotes;
     } else {
-      console.log('going to 2 emotes, setting emoteObject2');
-      this.emoteObject2 = this.emoteObject2 || this.emoteParser.parseSingleEmote('[](/ierage)');
+      // expanding, so fill in new ones as needed
+      while (this.emoteObjects.length < this.numberOfEmotes) {
+        const defaultEmoteInSlot = this.defaultEmoteObjects[this.emoteObjects.length];
+        this.emoteObjects.push(defaultEmoteInSlot);
+      }
     }
     this.refreshSerializedAndExpandedEmotes();
   }
@@ -131,46 +134,112 @@ export class EmoteBuilderComponent implements OnInit {
     this.refreshExpandedEmotes(); // since the updated emote data might be needed for the expansion of the current emote string, force a refresh here
   }
 
+  private defaultEmoteObjects: EmoteObject[] = [
+    {
+      originalString: '',
+      emoteIdentifier: 'adviceajlie',
+      firstLineText: 'apples?',
+      secondLineText: 'I didn\'t see any apples',
+      altText: '',
+      spin: '',
+      flagsString: '',
+      brody: false,
+      hueRotate: false,
+      invertColors: false,
+      reverse: false,
+      rotateDegrees: 0,
+      slide: false,
+      speed: '',
+      vibrate: false,
+      xAxisTranspose: 0,
+      zAxisTranspose: 0,
+    }, {
+      originalString: '',
+      emoteIdentifier: 'twiright',
+      firstLineText: '',
+      secondLineText: '',
+      altText: '',
+      spin: '',
+      flagsString: '',
+      brody: false,
+      hueRotate: false,
+      invertColors: false,
+      reverse: false,
+      rotateDegrees: 0,
+      slide: false,
+      speed: '',
+      vibrate: false,
+      xAxisTranspose: 0,
+      zAxisTranspose: 0,
+    }, {
+      originalString: '',
+      emoteIdentifier: 'hahaha',
+      firstLineText: '',
+      secondLineText: '',
+      altText: '',
+      spin: '',
+      flagsString: '',
+      brody: false,
+      hueRotate: false,
+      invertColors: false,
+      reverse: false,
+      rotateDegrees: 0,
+      slide: false,
+      speed: '',
+      vibrate: false,
+      xAxisTranspose: 0,
+      zAxisTranspose: 0,
+    }, {
+      originalString: '',
+      emoteIdentifier: 'rdwut',
+      firstLineText: '',
+      secondLineText: '',
+      altText: '',
+      spin: '',
+      flagsString: '',
+      brody: false,
+      hueRotate: false,
+      invertColors: false,
+      reverse: false,
+      rotateDegrees: 0,
+      slide: false,
+      speed: '',
+      vibrate: false,
+      xAxisTranspose: 0,
+      zAxisTranspose: 0,
+    }
+  ];
+
+
   @Input() numberOfEmotes = 2;
 
-  @Input() public emoteObject1: EmoteObject = {
-    originalString: '',
-    emoteIdentifier: 'adviceajlie',
-    firstLineText: 'apples?',
-    secondLineText: 'I didn\'t see any apples',
-    altText: '',
-    spin: '',
-    flagsString: '',
-    brody: false,
-    hueRotate: false,
-    invertColors: false,
-    reverse: false,
-    rotateDegrees: 0,
-    slide: false,
-    speed: '',
-    vibrate: false,
-    xAxisTranspose: 0,
-    zAxisTranspose: 0,
-  }
+  @Input() public emoteObjects: EmoteObject[] = [
+    this.cloneEmoteObject(this.defaultEmoteObjects[0]),
+    this.cloneEmoteObject(this.defaultEmoteObjects[1]),
+  ];
 
-  @Input() public emoteObject2: EmoteObject = {
-    originalString: '',
-    emoteIdentifier: 'ierage',
-    firstLineText: '',
-    secondLineText: '',
-    altText: '',
-    spin: '',
-    flagsString: '',
-    brody: false,
-    hueRotate: false,
-    invertColors: false,
-    reverse: false,
-    rotateDegrees: 0,
-    slide: false,
-    speed: '',
-    vibrate: false,
-    xAxisTranspose: 0,
-    zAxisTranspose: 0,
+  private cloneEmoteObject(source: EmoteObject): EmoteObject {
+    return {
+      originalString         : source.originalString  ,
+      emoteIdentifier        : source.emoteIdentifier ,
+      flagsString            : source.flagsString     ,
+
+      speed                  : source.speed           ,
+      slide                  : source.slide           ,
+      vibrate                : source.vibrate         ,
+      reverse                : source.reverse         ,
+      hueRotate              : source.hueRotate       ,
+      invertColors           : source.invertColors    ,
+      spin                   : source.spin            ,
+      rotateDegrees          : source.rotateDegrees   ,
+      brody                  : source.brody           ,
+      xAxisTranspose         : source.xAxisTranspose  ,
+      zAxisTranspose         : source.zAxisTranspose  ,
+
+      firstLineText          : source.firstLineText   ,
+      secondLineText         : source.secondLineText  ,
+      altText                : source.altText         ,
+    };
   }
 
   existingEmoteString: string;
@@ -220,39 +289,25 @@ export class EmoteBuilderComponent implements OnInit {
   }
 
   refreshSerializedEmotes() {
-    this.serializedEmotes = this.emoteObjectSerializer.serialize(this.emoteObject1);
-
-    if (this.numberOfEmotes == 2 && this.emoteObject2) {
-      this.serializedEmotes += ' ' + this.emoteObjectSerializer.serialize(this.emoteObject2);
-    }
+    this.serializedEmotes = this.emoteObjects
+      .map(eo => this.emoteObjectSerializer.serialize(eo))
+      .join(' ');
   }
 
   refreshExpandedEmotes() {
-    this.expandedEmotes = this.emoteHtml.getEmoteHtmlForObject(this.emoteObject1);
-
-    if (this.numberOfEmotes == 2 && this.emoteObject2) {
-      this.expandedEmotes += ' ' + this.emoteHtml.getEmoteHtmlForObject(this.emoteObject2);
-    }
+    this.expandedEmotes = this.emoteObjects
+      .map(eo =>this.emoteHtml.getEmoteHtmlForObject(eo))
+      .join(' ');
   }
 
   importExistingEmoteString() {
     var emoteInfos = this.emoteParser.parseMultipleEmotes(this.existingEmoteString);
 
     if (emoteInfos && emoteInfos.length > 0) {
-      this.emoteObject1 = emoteInfos[0];
-      if (emoteInfos.length == 1) {
-        this.numberOfEmotes = 1;
-      } else {
-        this.numberOfEmotes = 2;
-        this.emoteObject2 = emoteInfos[1];
-      }
+      this.emoteObjects = emoteInfos;
+      this.numberOfEmotes = this.emoteObjects.length;
       this.refreshSerializedAndExpandedEmotes();
     }
     this.existingEmoteString = null;
-  };
-
-  swapEmotes() {
-    [this.emoteObject1, this.emoteObject2] = [this.emoteObject2, this.emoteObject1];
-    this.refreshSerializedAndExpandedEmotes();
   };
 }
