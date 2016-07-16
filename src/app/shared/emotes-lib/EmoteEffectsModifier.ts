@@ -50,7 +50,7 @@ export default class EmoteEffectsModifier {
             wrappedEmoteHeight = rotateHeight;
         }
         if (emoteObject.xAxisTranspose) {
-            emoteHtml.cssStylesForEmoteNode['left'] = emoteObject.xAxisTranspose.toString();
+            emoteHtml.cssStylesForEmoteNode['left'] = emoteObject.xAxisTranspose.toString() + 'px';
         }
         if (emoteObject.zAxisTranspose) {
             emoteHtml.cssStylesForEmoteNode['zIndex'] = emoteObject.zAxisTranspose.toString();
