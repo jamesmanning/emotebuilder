@@ -161,6 +161,7 @@
         name="rotateDegrees"
         type="number"
         [(ngModel)]="emoteObject.rotateDegrees"
+        (ngModelChange)="emitEmoteObjectChanged()"
         placeholder="degrees to rotate">
       <span class="input-group-addon">degrees</span>
     </div>
@@ -179,6 +180,7 @@
         name="xAxisTranspose"
         type="number"
         [(ngModel)]="emoteObject.xAxisTranspose"
+        (ngModelChange)="emitEmoteObjectChanged()"
         placeholder="x axis shift">
       <span class="input-group-addon">pixels</span>
     </div>
@@ -196,6 +198,7 @@
       name="zAxisTranspose"
       type="number"
       [(ngModel)]="emoteObject.zAxisTranspose"
+      (ngModelChange)="emitEmoteObjectChanged()"
       placeholder="z index">
   </div>
 </div>
