@@ -7,8 +7,8 @@
  **********************************************************************************************/
 /** Map relative paths to URLs. */
 const map: any = {
-  'angular2-clipboard':         'https://npmcdn.com/angular2-clipboard@0.2.8',
-  'clipboard':                  'https://npmcdn.com/clipboard@1.5.10/dist/clipboard.js',
+  'angular2-clipboard':         'https://unpkg.com/angular2-clipboard@0.2.8',
+  'clipboard':                  'https://unpkg.com/clipboard@1.5.10/dist/clipboard.js',
 
   'ng2-bootstrap':           'vendor/ng2-bootstrap',
   'moment':                  'vendor/moment/moment.js',
