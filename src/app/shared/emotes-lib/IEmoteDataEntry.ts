@@ -1,4 +1,4 @@
-interface IEmoteDataEntry {
+export interface IEmoteDataEntry {
     "apng_url": string;
     "background-image": string;
     "background-position": string[];
@@ -52,5 +52,3 @@ interface IEmoteDataEntry {
     "text-text-transform": string;
     "width": number;
 }
-
-export default IEmoteDataEntry;

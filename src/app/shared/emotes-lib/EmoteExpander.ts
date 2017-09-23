@@ -1,8 +1,8 @@
-import EmoteMap from './EmoteMap';
-import EmoteHtml from './EmoteHtml';
-import EmoteParser from "./EmoteParser";
+import { EmoteMap } from './EmoteMap';
+import { EmoteHtml } from './EmoteHtml';
+import { EmoteParser } from "./EmoteParser";
 
-export default class EmoteExpander {
+export class EmoteExpander {
     private boundEmoteReplacer: (substring: string, ...args: any[]) => string;
 
     constructor(public emoteMap: EmoteMap, public emoteHtml: EmoteHtml, public emoteParser: EmoteParser) {

@@ -1,6 +1,6 @@
-import IEmoteDataEntry from './IEmoteDataEntry';
+import { IEmoteDataEntry } from './IEmoteDataEntry';
 
-export default class EmoteMap {
+export class EmoteMap {
     constructor(public emoteData: IEmoteDataEntry[]) {
         this.mapOfEmotes = this.buildEmoteMap(emoteData);
         this.allEmoteNames = Array.from(this.mapOfEmotes.keys());

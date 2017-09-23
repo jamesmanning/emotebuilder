@@ -1,7 +1,7 @@
-import IEmoteDataEntry from './IEmoteDataEntry';
-import IHashMapOfStrings from './IHashMapOfStrings';
+import { IEmoteDataEntry } from './IEmoteDataEntry';
+import { IHashMapOfStrings } from './IHashMapOfStrings';
 
-export default class HtmlOutputData {
+export class HtmlOutputData {
     emoteData: IEmoteDataEntry;
     titleForEmoteNode: string;
 

@@ -1,11 +1,9 @@
-"use strict";
+import { HtmlOutputData } from "./HtmlOutputData";
+import { EmoteObject } from "./EmoteObject";
+import { EmoteFlags } from "./EmoteFlags";
+import { IEmoteDataEntry } from './IEmoteDataEntry';
 
-import HtmlOutputData from "./HtmlOutputData";
-import EmoteObject from "./EmoteObject";
-import EmoteFlags from "./EmoteFlags";
-import IEmoteDataEntry from './IEmoteDataEntry';
-
-export default class EmoteEffectsModifier {
+export class EmoteEffectsModifier {
     applyFlagsFromObjectToHtmlOutputData(emoteData : IEmoteDataEntry, emoteObject: EmoteObject, emoteHtml: HtmlOutputData) {
         const animations: string[] = [];
         const wrapperAnimations: string[] = [];

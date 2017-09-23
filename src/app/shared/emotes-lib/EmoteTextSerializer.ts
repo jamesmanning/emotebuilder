@@ -1,10 +1,10 @@
-import EmoteObject from './EmoteObject';
-import IEmoteDataEntry from './IEmoteDataEntry';
-import IHashMapOfStrings from './IHashMapOfStrings';
-import HtmlOutputData from './HtmlOutputData';
-import StringUtils from './StringUtils';
+import { EmoteObject } from './EmoteObject';
+import { IEmoteDataEntry } from './IEmoteDataEntry';
+import { IHashMapOfStrings } from './IHashMapOfStrings';
+import { HtmlOutputData } from './HtmlOutputData';
+import { StringUtils } from './StringUtils';
 
-export default class EmoteTextSerializer {
+export class EmoteTextSerializer {
 
     serializeFromObjectToHtmlOutputData(emoteData: IEmoteDataEntry, emoteObject: EmoteObject, htmlOutputData: HtmlOutputData): void {
       if (emoteObject.firstLineText) {

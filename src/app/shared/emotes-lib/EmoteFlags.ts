@@ -1,7 +1,10 @@
-import EmoteExpansionOptions from "./EmoteExpansionOptions";
-import IHashMapOfStrings from "./IHashMapOfStrings";
+import { EmoteExpansionOptions } from "./EmoteExpansionOptions";
+import { IHashMapOfStrings } from "./IHashMapOfStrings";
 
-export default class EmoteFlags {
+type EmoteSpinDirection = 'spin' | 'zspin' | 'xspin' | 'yspin' | '!spin' | '!zspin' | '!xspin' | '!yspin';
+type EmoteSlideSpeed    = 'slowest' | 'slower' | 'slow' | 'fast' | 'faster' | 'fastest';
+
+export class EmoteFlags {
   static berryEmoteSpinAnimations = ['spin', 'zspin', 'xspin', 'yspin', '!spin', '!zspin', '!xspin', '!yspin'];
 
   static speedOptions = ['slowest', 'slower', 'slow', 'fast', 'faster', 'fastest'];

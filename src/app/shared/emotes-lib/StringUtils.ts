@@ -1,9 +1,9 @@
-import EmoteObject from './EmoteObject';
-import IEmoteDataEntry from './IEmoteDataEntry';
-import IHashMapOfStrings from './IHashMapOfStrings';
-import HtmlOutputData from './HtmlOutputData';
+import { EmoteObject } from './EmoteObject';
+import { IEmoteDataEntry } from './IEmoteDataEntry';
+import { IHashMapOfStrings } from './IHashMapOfStrings';
+import { HtmlOutputData } from './HtmlOutputData';
 
-export default class StringUtils {
+export class StringUtils {
     // don't need to support the -ms- prefix,  so only need hyphenate
     // see https://github.com/facebook/react/blob/76c87da026bdab63b5b109e3c073a1db74896ed6/src/vendor/core/hyphenateStyleName.js
     // and https://github.com/facebook/react/blob/76c87da026bdab63b5b109e3c073a1db74896ed6/src/vendor/core/hyphenate.js

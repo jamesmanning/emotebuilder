@@ -15,6 +15,7 @@ import {AlertComponent} from 'ng2-bootstrap/ng2-bootstrap';
 
 import {
   EmoteObject,
+  EmoteObjectBuilder,
   EmoteMap,
   EmoteExpander,
   EmoteExpansionOptions,
@@ -135,112 +136,29 @@ export class EmoteBuilderComponent implements OnInit {
   }
 
   private defaultEmoteObjects: EmoteObject[] = [
-    {
-      originalString: '',
+    EmoteObjectBuilder.create({
       emoteIdentifier: 'adviceajlie',
       firstLineText: 'apples?',
       secondLineText: 'I didn\'t see any apples',
-      altText: '',
-      spin: '',
-      flagsString: '',
-      brody: false,
-      hueRotate: false,
-      invertColors: false,
-      reverse: false,
-      rotateDegrees: 0,
-      slide: false,
-      speed: '',
-      vibrate: false,
-      xAxisTranspose: 0,
-      zAxisTranspose: 0,
-    }, {
-      originalString: '',
+    }),
+    EmoteObjectBuilder.create({
       emoteIdentifier: 'twiright',
-      firstLineText: '',
-      secondLineText: '',
-      altText: '',
-      spin: '',
-      flagsString: '',
-      brody: false,
-      hueRotate: false,
-      invertColors: false,
-      reverse: false,
-      rotateDegrees: 0,
-      slide: false,
-      speed: '',
-      vibrate: false,
-      xAxisTranspose: 0,
-      zAxisTranspose: 0,
-    }, {
-      originalString: '',
+    }),
+    EmoteObjectBuilder.create({
       emoteIdentifier: 'hahaha',
-      firstLineText: '',
-      secondLineText: '',
-      altText: '',
-      spin: '',
-      flagsString: '',
-      brody: false,
-      hueRotate: false,
-      invertColors: false,
-      reverse: false,
-      rotateDegrees: 0,
-      slide: false,
-      speed: '',
-      vibrate: false,
-      xAxisTranspose: 0,
-      zAxisTranspose: 0,
-    }, {
-      originalString: '',
+    }),
+    EmoteObjectBuilder.create({
       emoteIdentifier: 'rdwut',
-      firstLineText: '',
-      secondLineText: '',
-      altText: '',
-      spin: '',
-      flagsString: '',
-      brody: false,
-      hueRotate: false,
-      invertColors: false,
-      reverse: false,
-      rotateDegrees: 0,
-      slide: false,
-      speed: '',
-      vibrate: false,
-      xAxisTranspose: 0,
-      zAxisTranspose: 0,
-    }
+    }),
   ];
-
 
   @Input() numberOfEmotes = 2;
 
+  // clone since we don't want to modify the original set of default objects
   @Input() public emoteObjects: EmoteObject[] = [
-    this.cloneEmoteObject(this.defaultEmoteObjects[0]),
-    this.cloneEmoteObject(this.defaultEmoteObjects[1]),
+    EmoteObjectBuilder.clone(this.defaultEmoteObjects[0]),
+    EmoteObjectBuilder.clone(this.defaultEmoteObjects[1]),
   ];
-
-  private cloneEmoteObject(source: EmoteObject): EmoteObject {
-    return {
-      originalString         : source.originalString  ,
-      emoteIdentifier        : source.emoteIdentifier ,
-      flagsString            : source.flagsString     ,
-
-      speed                  : source.speed           ,
-      slide                  : source.slide           ,
-      vibrate                : source.vibrate         ,
-      reverse                : source.reverse         ,
-      hueRotate              : source.hueRotate       ,
-      invertColors           : source.invertColors    ,
-      spin                   : source.spin            ,
-      rotateDegrees          : source.rotateDegrees   ,
-      brody                  : source.brody           ,
-      xAxisTranspose         : source.xAxisTranspose  ,
-      zAxisTranspose         : source.zAxisTranspose  ,
-
-      firstLineText          : source.firstLineText   ,
-      secondLineText         : source.secondLineText  ,
-      altText                : source.altText         ,
-    };
-  }
 
   existingEmoteString: string;
 
@@ -270,9 +188,9 @@ export class EmoteBuilderComponent implements OnInit {
 
   expandedEmotes: string;
   serializedEmotes: string;
-  get encodedSerializedEmotes() { return encodeURIComponent(this.serializedEmotes); }
+  get encodedSerializedEmotes(): string { return encodeURIComponent(this.serializedEmotes); }
 
-  get linkForCurrentSettings() { 
+  get linkForCurrentSettings(): string { 
     const appRelativeUrl = this.router.createUrlTree([''], {queryParams: {emoteString: this.encodedSerializedEmotes}}).toString();
     // TODO: figure out the right way to make this into an absolute url
     const absoluteUrl = location.href + appRelativeUrl.substring(1);

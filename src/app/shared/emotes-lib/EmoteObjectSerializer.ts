@@ -1,6 +1,6 @@
-import EmoteObject from "./EmoteObject";
+import { EmoteObject } from "./EmoteObject";
 
-export default class EmoteObjectSerializer {
+export class EmoteObjectSerializer {
     serialize(emoteObject: EmoteObject): string {
       return `[${this.serializeTextParts(emoteObject)}](/${emoteObject.emoteIdentifier}${this.serializeFlags(emoteObject)})`;
     }

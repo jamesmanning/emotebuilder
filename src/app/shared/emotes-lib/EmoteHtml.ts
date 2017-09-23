@@ -1,15 +1,15 @@
-import HtmlOutputData from "./HtmlOutputData";
-import EmoteMap from './EmoteMap';
-import EmoteExpansionOptions from './EmoteExpansionOptions';
-import EmoteEffectsModifier from './EmoteEffectsModifier';
-import EmoteTextSerializer from './EmoteTextSerializer';
-import EmoteFlags from './EmoteFlags';
-import EmoteObject from './EmoteObject';
-import IEmoteDataEntry from './IEmoteDataEntry';
-import IHashMapOfStrings from './IHashMapOfStrings';
-import StringUtils from './StringUtils';
+import { HtmlOutputData } from "./HtmlOutputData";
+import { EmoteMap } from './EmoteMap';
+import { EmoteExpansionOptions } from './EmoteExpansionOptions';
+import { EmoteEffectsModifier } from './EmoteEffectsModifier';
+import { EmoteTextSerializer } from './EmoteTextSerializer';
+import { EmoteFlags } from './EmoteFlags';
+import { EmoteObject } from './EmoteObject';
+import { IEmoteDataEntry } from './IEmoteDataEntry';
+import { IHashMapOfStrings } from './IHashMapOfStrings';
+import { StringUtils } from './StringUtils';
 
-export default class EmoteHtml {
+export class EmoteHtml {
     private effectsModifier = new EmoteEffectsModifier();
     private textSerializer = new EmoteTextSerializer();
 

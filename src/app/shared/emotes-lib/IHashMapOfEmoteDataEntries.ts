@@ -1,7 +1,5 @@
-import IEmoteDataEntry from './IEmoteDataEntry';
+import { IEmoteDataEntry } from './IEmoteDataEntry';
 
-interface IHashMapOfEmoteDataEntries {
+export interface IHashMapOfEmoteDataEntries {
   [key: string]: IEmoteDataEntry;
 }
-
-export default IHashMapOfEmoteDataEntries;

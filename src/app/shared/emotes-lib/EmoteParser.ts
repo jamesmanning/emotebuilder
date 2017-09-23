@@ -1,7 +1,7 @@
-import EmoteObject from './EmoteObject';
-import EmoteFlags from './EmoteFlags';
+import { EmoteObject } from './EmoteObject';
+import { EmoteFlags } from './EmoteFlags';
 
-export default class EmoteParser {
+export class EmoteParser {
     static emoteParseRegexp = /\[([^\]]*)\]\(\/([\w:!#\/]+)([-\w!]*)([^)]*)\)/;
     private static multipleMatchRegexp = new RegExp(EmoteParser.emoteParseRegexp.source, 'g');
 

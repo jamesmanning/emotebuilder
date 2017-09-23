@@ -1,4 +1,4 @@
-export default class EmoteExpansionOptions {
+export class EmoteExpansionOptions {
     berryEmoteEnabled = true;
     berryEmotesEffects = true;
     showNsfwEmotes = true;
