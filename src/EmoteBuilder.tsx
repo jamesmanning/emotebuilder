@@ -1,21 +1,39 @@
 import * as React from 'react';
 import './EmoteBuilder.css';
-import { IEmoteDataEntry, EmoteMap, EmoteHtml, EmoteExpander, EmoteExpansionOptions } from 'emotes';
+import { IEmoteDataEntry, EmoteExpander, EmoteExpansionOptions } from 'emotes';
+import { EmoteForm } from './EmoteForm';
 // import * as EmoteLib from 'emotes';
 
 export class EmoteBuilder extends React.Component {
+    emoteData: IEmoteDataEntry[];
+    // emoteMap: EmoteMap;
+    // emoteHtml: EmoteHtml;
+    emoteExpander: EmoteExpander;
+    emoteExpansionOptions = new EmoteExpansionOptions();
+    // emoteParser = new EmoteParser();
+    // emoteObjectSerializer = new EmoteObjectSerializer();
+
+    useEmoteData(emoteData: IEmoteDataEntry[]) {
+        this.emoteData = emoteData;
+        this.emoteExpander = new EmoteExpander(emoteData, this.emoteExpansionOptions);
+
+    // since the updated emote data might be needed for the 
+    // expansion of the current emote string, force a refresh here
+        // this.refreshExpandedEmotes(); 
+    }
+
     render() {
         return (
             <div className="container-fluid theme-showcase" role="main">
-                bogus content here
+                bogus content here v2
+                <EmoteForm />
             </div>
         );
     }
 
     ngOnInit() {
-        this.something = {};
-        console.log(`something is ${this.something}`);
-        console.log(`initialEmoteData is ${this.initialEmoteData}`);
+        // console.log(`something is ${this.something}`);
+        // console.log(`initialEmoteData is ${this.initialEmoteData}`);
     //     // populate with some initial emote data so the page can render the default emote objects
     //     this.useEmoteData(this.initialEmoteData);
     //     // kick off the fetch of the real emote data
@@ -46,66 +64,47 @@ export class EmoteBuilder extends React.Component {
     //     this.refreshSerializedAndExpandedEmotes();
     // }
 
-    private something: IEmoteDataEntry;
-
-    private initialEmoteData: IEmoteDataEntry[] = [
-        {
-            'text-text-align': 'center',
-            'text-font-size': '26px',
-            'text-font-family': 'Impact,sans-serif',
-            'tags': ['applejack', 'meme'],
-            'strong-bottom': '5px',
-            'text-text-shadow': '2px 2px 2px black,-2px -2px 2px black,-2px 2px 2px black,2px -2px 2px black',
-            'height': 300,
-            'em-width': '280px',
-            'strong-left': '50%',
-            'names': ['adviceajlie'],
-            'em-position': 'absolute',
-            'strong-position': 'absolute',
-            'background-image': 'http://b.thumbs.redditmedia.com/5g6WH3RD7F5aMC-O.png',
-            'em-font-style': 'normal',
-            'em-color': 'white',
-            'em-top': '5px',
-            'width': 300,
-            'sr': 'adviceponies',
-            'strong-color': 'white',
-            'strong-margin-left': '-140px',
-            'text-color': 'white',
-            'strong-width': '280px',
-            'em-left': '50%',
-            'text-text-transform': 'uppercase',
-            'strong-font-weight': 'normal',
-            'background-position': ['-2px', '-2px'],
-            'text-line-height': '26px',
-            'em-margin-left': '-140px'
-        },
-        {
-            "background-image": "//a.thumbs.redditmedia.com/84ozl2WMmiYp6Euf.png",
-            "tags": ["oc", ""],
-            "sr": "marmemotes",
-            "height": 140,
-            "width": 200,
-            "names": ["ivyrage", "ierage"],
-            "apng_url": "http://berrymotes.com/images/a/84ozl2WMmiYp6Euf.png"
-        },
-    ];
-
-    emoteData: IEmoteDataEntry[];
-    // emoteMap: EmoteMap;
-    // emoteHtml: EmoteHtml;
-    emoteExpander: EmoteExpander;
-    emoteExpansionOptions = new EmoteExpansionOptions();
-    // emoteParser = new EmoteParser();
-    // emoteObjectSerializer = new EmoteObjectSerializer();
-
-    useEmoteData(emoteData: IEmoteDataEntry[]) {
-        this.emoteData = emoteData;
-        this.emoteExpander = new EmoteExpander(emoteData, this.emoteExpansionOptions);
-
-    // since the updated emote data might be needed for the 
-    // expansion of the current emote string, force a refresh here
-        // this.refreshExpandedEmotes(); 
-    }
+    // private initialEmoteData: IEmoteDataEntry[] = [
+    //     {
+    //         'text-text-align': 'center',
+    //         'text-font-size': '26px',
+    //         'text-font-family': 'Impact,sans-serif',
+    //         'tags': ['applejack', 'meme'],
+    //         'strong-bottom': '5px',
+    //         'text-text-shadow': '2px 2px 2px black,-2px -2px 2px black,-2px 2px 2px black,2px -2px 2px black',
+    //         'height': 300,
+    //         'em-width': '280px',
+    //         'strong-left': '50%',
+    //         'names': ['adviceajlie'],
+    //         'em-position': 'absolute',
+    //         'strong-position': 'absolute',
+    //         'background-image': 'http://b.thumbs.redditmedia.com/5g6WH3RD7F5aMC-O.png',
+    //         'em-font-style': 'normal',
+    //         'em-color': 'white',
+    //         'em-top': '5px',
+    //         'width': 300,
+    //         'sr': 'adviceponies',
+    //         'strong-color': 'white',
+    //         'strong-margin-left': '-140px',
+    //         'text-color': 'white',
+    //         'strong-width': '280px',
+    //         'em-left': '50%',
+    //         'text-text-transform': 'uppercase',
+    //         'strong-font-weight': 'normal',
+    //         'background-position': ['-2px', '-2px'],
+    //         'text-line-height': '26px',
+    //         'em-margin-left': '-140px'
+    //     },
+    //     {
+    //         "background-image": "//a.thumbs.redditmedia.com/84ozl2WMmiYp6Euf.png",
+    //         "tags": ["oc", ""],
+    //         "sr": "marmemotes",
+    //         "height": 140,
+    //         "width": 200,
+    //         "names": ["ivyrage", "ierage"],
+    //         "apng_url": "http://berrymotes.com/images/a/84ozl2WMmiYp6Euf.png"
+    //     },
+    // ];
   
     // private defaultEmoteObjects: EmoteObject[] = [
     //     EmoteObjectBuilder.create({
