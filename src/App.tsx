@@ -1,17 +1,18 @@
 import * as React from 'react';
 import './App.css';
-import { EmoteBuilder } from './EmoteBuilder';
+import { EmoteDataHolder } from './EmoteDataHolder';
+import { EmoteMap } from 'emotes';
+import { emoteData } from './SampleData';
 
-const logo = require('./logo.svg');
+const emoteMap = new EmoteMap(emoteData);
+// const emoteExpansionOptions = new EmoteExpansionOptions();
+// const emoteHtml = new EmoteHtml(emoteMap, emoteExpansionOptions);
 
 class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-        </header>
-        <EmoteBuilder />
+      <div>
+        <EmoteDataHolder emoteMap={emoteMap} />
       </div>
     );
   }
