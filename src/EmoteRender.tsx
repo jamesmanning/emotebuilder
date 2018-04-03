@@ -30,10 +30,14 @@ export class EmoteRender extends React.Component<EmoteRenderProps, {}> {
         const textNodes = [];
 
         if (htmlOutputData.emText) {
-            textNodes.push(<em style={htmlOutputData.emStyles}>{htmlOutputData.emText}</em>);
+            textNodes.push(<em key="em" style={htmlOutputData.emStyles}>{htmlOutputData.emText}</em>);
         }
         if (htmlOutputData.strongText) {
-            textNodes.push(<strong style={htmlOutputData.strongStyles}>{htmlOutputData.strongText}</strong>);
+            textNodes.push(
+                <strong key="strong" style={htmlOutputData.strongStyles}>
+                    {htmlOutputData.strongText}
+                </strong>
+            );
         }
         if (htmlOutputData.altText) {
             textNodes.push(htmlOutputData.altText);
