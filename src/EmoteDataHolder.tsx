@@ -16,29 +16,29 @@ interface EmoteDataHolderState {
     emoteObject: EmoteObject;
 }
 
-const emoteObject = {
+const emoteObject: EmoteObject = {
     originalString: '[*first line* **second line** some alt text]' +
         '(/adviceajlie-v-r-brody-slide-fastest-!zspin-i-invert-270-x99-z5)',
     emoteIdentifier: 'adviceajlie',
     flagsString: '-v-r-brody-slide-fastest-!zspin-i-invert-270-x99-z5',
 
     speed: 'fastest',
-    slide: true,
+    slide: false, // true,
 
-    vibrate: true,
+    vibrate: false, // true,
     reverse: true,
     hueRotate: true,
     invertColors: true,
-    spin: '!zspin',
+    spin: '', // '!zspin',
     rotateDegrees: 270,
-    brody: true,
+    brody: false, // true,
     xAxisTranspose: 99,
     zAxisTranspose: 5,
 
     firstLineText: 'first line',
     secondLineText: 'second line',
-    // altText: 'some alt text'
-} as EmoteObject;
+    altText: '',
+};
 
 export class EmoteDataHolder extends React.Component<EmoteDataHolderProps, EmoteDataHolderState> {
     constructor(props: EmoteDataHolderProps) {
