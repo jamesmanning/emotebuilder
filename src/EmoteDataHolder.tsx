@@ -35,16 +35,6 @@ const emoteObject = {
     xAxisTranspose: 99,
     zAxisTranspose: 5,
 
-    // vibrate: false,
-    // reverse: false,
-    // hueRotate: false,
-    // invertColors: false,
-    // spin: '',
-    // rotateDegrees: 0,
-    // brody: false,
-    // xAxisTranspose: 0,
-    // zAxisTranspose: 0,
-
     firstLineText: 'first line',
     secondLineText: 'second line',
     // altText: 'some alt text'
