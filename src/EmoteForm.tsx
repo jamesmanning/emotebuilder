@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { EmoteObject } from 'emotes';
+import './EmoteForm.css';
 
 interface EmoteFormProps {
     emoteObject: EmoteObject;
