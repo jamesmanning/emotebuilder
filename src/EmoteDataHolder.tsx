@@ -10,43 +10,12 @@ const emoteObjectSerializer = new EmoteObjectSerializer();
 
 interface EmoteDataHolderProps {
     emoteMap: EmoteMap;
-}
-
-interface EmoteDataHolderState {
     emoteObject: EmoteObject;
 }
 
-const emoteObject: EmoteObject = {
-    originalString: '[*first line* **second line** some alt text]' +
-        '(/adviceajlie-v-r-brody-slide-fastest-!zspin-i-invert-270-x99-z5)',
-    emoteIdentifier: 'adviceajlie',
-    flagsString: '-v-r-brody-slide-fastest-!zspin-i-invert-270-x99-z5',
-
-    speed: 'fastest',
-    slide: false, // true,
-
-    vibrate: false, // true,
-    reverse: true,
-    hueRotate: true,
-    invertColors: true,
-    spin: '', // '!zspin',
-    rotateDegrees: 270,
-    brody: false, // true,
-    xAxisTranspose: 99,
-    zAxisTranspose: 5,
-
-    firstLineText: 'first line',
-    secondLineText: 'second line',
-    altText: '',
-};
-
-export class EmoteDataHolder extends React.Component<EmoteDataHolderProps, EmoteDataHolderState> {
+export class EmoteDataHolder extends React.Component<EmoteDataHolderProps, {}> {
     constructor(props: EmoteDataHolderProps) {
         super(props);
-
-        this.state = {
-            emoteObject,
-        };
 
         // bind these here so we can just pass it as-is to child components
         this.refreshEmoteState = this.refreshEmoteState.bind(this);
@@ -70,87 +39,82 @@ export class EmoteDataHolder extends React.Component<EmoteDataHolderProps, Emote
 
     refreshEmoteState() {
         // update these just so they're consistent with the rest of the values in the object
-        emoteObject.originalString = emoteObjectSerializer.serialize(this.state.emoteObject);
-        emoteObject.flagsString = emoteObjectSerializer.serializeFlags(this.state.emoteObject);
-
-        // setState so it'll flow the props down to children
-        this.setState({
-            emoteObject: this.state.emoteObject,
-        });
+        this.props.emoteObject.originalString = emoteObjectSerializer.serialize(this.props.emoteObject);
+        this.props.emoteObject.flagsString = emoteObjectSerializer.serializeFlags(this.props.emoteObject);
     }
 
     emoteIdentifierChangeHandler(event: React.FormEvent<HTMLInputElement>) {
-        this.state.emoteObject.emoteIdentifier = event.currentTarget.value;
+        this.props.emoteObject.emoteIdentifier = event.currentTarget.value;
         this.refreshEmoteState();
     }
 
     speedChangeHandler(event: React.FormEvent<HTMLSelectElement>) {
-        this.state.emoteObject.speed = event.currentTarget.value;
+        this.props.emoteObject.speed = event.currentTarget.value;
         this.refreshEmoteState();
     }
 
     slideChangeHandler(event: React.FormEvent<HTMLInputElement>) {
-        this.state.emoteObject.slide = event.currentTarget.checked;
+        this.props.emoteObject.slide = event.currentTarget.checked;
         this.refreshEmoteState();
     }
 
     vibrateChangeHandler(event: React.FormEvent<HTMLInputElement>) {
-        this.state.emoteObject.vibrate = event.currentTarget.checked;
+        this.props.emoteObject.vibrate = event.currentTarget.checked;
         this.refreshEmoteState();
     }
 
     reverseChangeHandler(event: React.FormEvent<HTMLInputElement>) {
-        this.state.emoteObject.reverse = event.currentTarget.checked;
+        this.props.emoteObject.reverse = event.currentTarget.checked;
         this.refreshEmoteState();
     }
 
     hueRotateChangeHandler(event: React.FormEvent<HTMLInputElement>) {
-        this.state.emoteObject.hueRotate = event.currentTarget.checked;
+        this.props.emoteObject.hueRotate = event.currentTarget.checked;
         this.refreshEmoteState();
     }
 
     invertColorsChangeHandler(event: React.FormEvent<HTMLInputElement>) {
-        this.state.emoteObject.invertColors = event.currentTarget.checked;
+        this.props.emoteObject.invertColors = event.currentTarget.checked;
         this.refreshEmoteState();
     }
 
     spinChangeHandler(event: React.FormEvent<HTMLSelectElement>) {
-        this.state.emoteObject.spin = event.currentTarget.value;
+        this.props.emoteObject.spin = event.currentTarget.value;
         this.refreshEmoteState();
     }
 
     rotateDegreesChangeHandler(event: React.FormEvent<HTMLInputElement>) {
-        this.state.emoteObject.rotateDegrees = Number(event.currentTarget.value);
+        this.props.emoteObject.rotateDegrees = Number(event.currentTarget.value);
         this.refreshEmoteState();
     }
 
     brodyChangeHandler(event: React.FormEvent<HTMLInputElement>) {
-        this.state.emoteObject.brody = event.currentTarget.checked;
+        this.props.emoteObject.brody = event.currentTarget.checked;
         this.refreshEmoteState();
     }
 
     xAxisTransposeChangeHandler(event: React.FormEvent<HTMLInputElement>) {
-        this.state.emoteObject.xAxisTranspose = Number(event.currentTarget.value);
+        this.props.emoteObject.xAxisTranspose = Number(event.currentTarget.value);
         this.refreshEmoteState();
     }
 
     zAxisTransposeChangeHandler(event: React.FormEvent<HTMLInputElement>) {
-        this.state.emoteObject.zAxisTranspose = Number(event.currentTarget.value);
+        this.props.emoteObject.zAxisTranspose = Number(event.currentTarget.value);
         this.refreshEmoteState();
     }
 
     firstLineTextChangeHandler(event: React.FormEvent<HTMLInputElement>) {
-        this.state.emoteObject.firstLineText = event.currentTarget.value;
+        this.props.emoteObject.firstLineText = event.currentTarget.value;
         this.refreshEmoteState();
     }
 
     secondLineTextChangeHandler(event: React.FormEvent<HTMLInputElement>) {
-        this.state.emoteObject.secondLineText = event.currentTarget.value;
+        this.props.emoteObject.secondLineText = event.currentTarget.value;
         this.refreshEmoteState();
     }
 
     altTextChangeHandler(event: React.FormEvent<HTMLInputElement>) {
-        this.state.emoteObject.altText = event.currentTarget.value;
+        this.props.emoteObject.altText = event.currentTarget.value;
         this.refreshEmoteState();
     }
 
@@ -173,18 +137,18 @@ export class EmoteDataHolder extends React.Component<EmoteDataHolderProps, Emote
                     firstLineTextChangeHandler={this.firstLineTextChangeHandler}
                     secondLineTextChangeHandler={this.secondLineTextChangeHandler}
                     altTextChangeHandler={this.altTextChangeHandler}
-                    emoteObject={this.state.emoteObject} 
+                    emoteObject={this.props.emoteObject} 
                 />
                 <br />
                 <br />
                 <br />
                 <br />
-                <EmoteRender emoteMap={this.props.emoteMap} emoteObject={this.state.emoteObject} />
+                <EmoteRender emoteMap={this.props.emoteMap} emoteObject={this.props.emoteObject} />
                 <br />
                 <br />
                 <br />
                 <br />
-                <EmoteText emoteObject={this.state.emoteObject} />
+                <EmoteText emoteObject={this.props.emoteObject} />
             </div>
         );
     }
