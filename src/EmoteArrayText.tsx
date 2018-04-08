@@ -31,19 +31,19 @@ export class EmoteArrayText extends React.Component<EmoteArrayTextProps, EmoteAr
             .join(' ');
         return (
             <div>
-                <span>{serialized}</span>
-
-                <br />
-
-                <CopyToClipboard
-                    text={serialized}
-                    onCopy={() => this.setState({ copied: true })}
-                >
-                    <button>Copy to clipboard</button>
-                </CopyToClipboard>
+                <div className="input-group">
+                    <span className="input-group-btn">
+                        <CopyToClipboard
+                            text={serialized}
+                            onCopy={() => this.setState({ copied: true })}
+                        >
+                            <button className="btn btn-primary">copy emote string to clipboard</button>
+                        </CopyToClipboard>
+                    </span>
+                    <input type="text" className="form-control" readOnly={true} value={serialized} />
+                </div>
                 &nbsp;
-
-            {this.state.copied ? <span style={{ color: 'red' }}>Copied.</span> : null}
+                    {this.state.copied ? <span style={{ color: 'red' }}>Copied.</span> : null}
             </div>
         );
     }
