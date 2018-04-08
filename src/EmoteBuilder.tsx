@@ -91,12 +91,11 @@ export class EmoteBuilder extends React.Component<EmoteBuilderProps, EmoteBuilde
     render() {
         const dataHolderColumnSizeClass = `col-md-${12 / Number(this.state.emoteObjects.length)}` ;
         const dataHolders = this.state.emoteObjects.map((emoteObject, emoteObjectIndex) => (
-            <div className={dataHolderColumnSizeClass}>
+            <div className={dataHolderColumnSizeClass} key={emoteObjectIndex}>
                 <EmoteDataHolder 
                     emoteMap={emoteMap} 
                     emoteObject={emoteObject} 
                     emoteObjectDataChanged={this.emoteObjectDataChanged} 
-                    key={emoteObjectIndex} 
                 />
             </div>
         ));
