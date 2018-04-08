@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { EmoteRender } from './EmoteRender';
-import { EmoteText } from './EmoteText';
+// import { EmoteRender } from './EmoteRender';
+// import { EmoteText } from './EmoteText';
 import { EmoteForm } from './EmoteForm';
 
 import { EmoteMap, EmoteObject, EmoteObjectSerializer } from 'emotes';
@@ -123,36 +123,24 @@ export class EmoteDataHolder extends React.Component<EmoteDataHolderProps, {}> {
 
     render() {
         return (
-            <div>
-                <EmoteForm
-                    emoteIdentifierChangeHandler={this.emoteIdentifierChangeHandler}
-                    speedChangeHandler={this.speedChangeHandler}
-                    slideChangeHandler={this.slideChangeHandler}
-                    vibrateChangeHandler={this.vibrateChangeHandler}
-                    reverseChangeHandler={this.reverseChangeHandler}
-                    hueRotateChangeHandler={this.hueRotateChangeHandler}
-                    invertColorsChangeHandler={this.invertColorsChangeHandler}
-                    spinChangeHandler={this.spinChangeHandler}
-                    rotateDegreesChangeHandler={this.rotateDegreesChangeHandler}
-                    brodyChangeHandler={this.brodyChangeHandler}
-                    xAxisTransposeChangeHandler={this.xAxisTransposeChangeHandler}
-                    zAxisTransposeChangeHandler={this.zAxisTransposeChangeHandler}
-                    firstLineTextChangeHandler={this.firstLineTextChangeHandler}
-                    secondLineTextChangeHandler={this.secondLineTextChangeHandler}
-                    altTextChangeHandler={this.altTextChangeHandler}
-                    emoteObject={this.props.emoteObject} 
-                />
-                <br />
-                <br />
-                <br />
-                <br />
-                <EmoteRender emoteMap={this.props.emoteMap} emoteObject={this.props.emoteObject} />
-                <br />
-                <br />
-                <br />
-                <br />
-                <EmoteText emoteObject={this.props.emoteObject} />
-            </div>
+            <EmoteForm
+                emoteIdentifierChangeHandler={this.emoteIdentifierChangeHandler}
+                speedChangeHandler={this.speedChangeHandler}
+                slideChangeHandler={this.slideChangeHandler}
+                vibrateChangeHandler={this.vibrateChangeHandler}
+                reverseChangeHandler={this.reverseChangeHandler}
+                hueRotateChangeHandler={this.hueRotateChangeHandler}
+                invertColorsChangeHandler={this.invertColorsChangeHandler}
+                spinChangeHandler={this.spinChangeHandler}
+                rotateDegreesChangeHandler={this.rotateDegreesChangeHandler}
+                brodyChangeHandler={this.brodyChangeHandler}
+                xAxisTransposeChangeHandler={this.xAxisTransposeChangeHandler}
+                zAxisTransposeChangeHandler={this.zAxisTransposeChangeHandler}
+                firstLineTextChangeHandler={this.firstLineTextChangeHandler}
+                secondLineTextChangeHandler={this.secondLineTextChangeHandler}
+                altTextChangeHandler={this.altTextChangeHandler}
+                emoteObject={this.props.emoteObject} 
+            />
         );
     }
 }
