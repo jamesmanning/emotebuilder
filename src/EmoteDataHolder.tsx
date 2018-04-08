@@ -11,6 +11,7 @@ const emoteObjectSerializer = new EmoteObjectSerializer();
 interface EmoteDataHolderProps {
     emoteMap: EmoteMap;
     emoteObject: EmoteObject;
+    emoteObjectDataChanged: () => void;
 }
 
 export class EmoteDataHolder extends React.Component<EmoteDataHolderProps, {}> {
@@ -18,7 +19,7 @@ export class EmoteDataHolder extends React.Component<EmoteDataHolderProps, {}> {
         super(props);
 
         // bind these here so we can just pass it as-is to child components
-        this.refreshEmoteState = this.refreshEmoteState.bind(this);
+        this.refreshEmoteObjectState = this.refreshEmoteObjectState.bind(this);
 
         this.emoteIdentifierChangeHandler = this.emoteIdentifierChangeHandler.bind(this);
         this.speedChangeHandler = this.speedChangeHandler.bind(this);
@@ -37,85 +38,87 @@ export class EmoteDataHolder extends React.Component<EmoteDataHolderProps, {}> {
         this.altTextChangeHandler = this.altTextChangeHandler.bind(this);
     }
 
-    refreshEmoteState() {
+    refreshEmoteObjectState() {
         // update these just so they're consistent with the rest of the values in the object
         this.props.emoteObject.originalString = emoteObjectSerializer.serialize(this.props.emoteObject);
         this.props.emoteObject.flagsString = emoteObjectSerializer.serializeFlags(this.props.emoteObject);
+
+        this.props.emoteObjectDataChanged();
     }
 
     emoteIdentifierChangeHandler(event: React.FormEvent<HTMLInputElement>) {
         this.props.emoteObject.emoteIdentifier = event.currentTarget.value;
-        this.refreshEmoteState();
+        this.refreshEmoteObjectState();
     }
 
     speedChangeHandler(event: React.FormEvent<HTMLSelectElement>) {
         this.props.emoteObject.speed = event.currentTarget.value;
-        this.refreshEmoteState();
+        this.refreshEmoteObjectState();
     }
 
     slideChangeHandler(event: React.FormEvent<HTMLInputElement>) {
         this.props.emoteObject.slide = event.currentTarget.checked;
-        this.refreshEmoteState();
+        this.refreshEmoteObjectState();
     }
 
     vibrateChangeHandler(event: React.FormEvent<HTMLInputElement>) {
         this.props.emoteObject.vibrate = event.currentTarget.checked;
-        this.refreshEmoteState();
+        this.refreshEmoteObjectState();
     }
 
     reverseChangeHandler(event: React.FormEvent<HTMLInputElement>) {
         this.props.emoteObject.reverse = event.currentTarget.checked;
-        this.refreshEmoteState();
+        this.refreshEmoteObjectState();
     }
 
     hueRotateChangeHandler(event: React.FormEvent<HTMLInputElement>) {
         this.props.emoteObject.hueRotate = event.currentTarget.checked;
-        this.refreshEmoteState();
+        this.refreshEmoteObjectState();
     }
 
     invertColorsChangeHandler(event: React.FormEvent<HTMLInputElement>) {
         this.props.emoteObject.invertColors = event.currentTarget.checked;
-        this.refreshEmoteState();
+        this.refreshEmoteObjectState();
     }
 
     spinChangeHandler(event: React.FormEvent<HTMLSelectElement>) {
         this.props.emoteObject.spin = event.currentTarget.value;
-        this.refreshEmoteState();
+        this.refreshEmoteObjectState();
     }
 
     rotateDegreesChangeHandler(event: React.FormEvent<HTMLInputElement>) {
         this.props.emoteObject.rotateDegrees = Number(event.currentTarget.value);
-        this.refreshEmoteState();
+        this.refreshEmoteObjectState();
     }
 
     brodyChangeHandler(event: React.FormEvent<HTMLInputElement>) {
         this.props.emoteObject.brody = event.currentTarget.checked;
-        this.refreshEmoteState();
+        this.refreshEmoteObjectState();
     }
 
     xAxisTransposeChangeHandler(event: React.FormEvent<HTMLInputElement>) {
         this.props.emoteObject.xAxisTranspose = Number(event.currentTarget.value);
-        this.refreshEmoteState();
+        this.refreshEmoteObjectState();
     }
 
     zAxisTransposeChangeHandler(event: React.FormEvent<HTMLInputElement>) {
         this.props.emoteObject.zAxisTranspose = Number(event.currentTarget.value);
-        this.refreshEmoteState();
+        this.refreshEmoteObjectState();
     }
 
     firstLineTextChangeHandler(event: React.FormEvent<HTMLInputElement>) {
         this.props.emoteObject.firstLineText = event.currentTarget.value;
-        this.refreshEmoteState();
+        this.refreshEmoteObjectState();
     }
 
     secondLineTextChangeHandler(event: React.FormEvent<HTMLInputElement>) {
         this.props.emoteObject.secondLineText = event.currentTarget.value;
-        this.refreshEmoteState();
+        this.refreshEmoteObjectState();
     }
 
     altTextChangeHandler(event: React.FormEvent<HTMLInputElement>) {
         this.props.emoteObject.altText = event.currentTarget.value;
-        this.refreshEmoteState();
+        this.refreshEmoteObjectState();
     }
 
     render() {
