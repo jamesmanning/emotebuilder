@@ -31,10 +31,10 @@ export class EmoteBuilder extends React.Component<EmoteBuilderProps, EmoteBuilde
             secondLineText: 'I didn\'t see any apples',
         }),
         EmoteObjectBuilder.create({
-            emoteIdentifier: 'twiright',
+            emoteIdentifier: 'ivyrage',
         }),
         EmoteObjectBuilder.create({
-            emoteIdentifier: 'hahaha',
+            emoteIdentifier: 'keystrokeguitar',
         }),
         EmoteObjectBuilder.create({
             emoteIdentifier: 'rdwut',
