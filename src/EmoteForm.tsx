@@ -164,18 +164,20 @@ export class EmoteForm extends React.Component<EmoteFormProps, {}> {
                                     />
                                     slide
                                 </label>
-                                <select
-                                    defaultValue={this.props.emoteObject.speed}
-                                    onChange={this.props.speedChangeHandler}
-                                >
-                                    <option value="">-- optional slide speed modifier --</option>
-                                    <option value="slowest">slowest</option>
-                                    <option value="slower">slower</option>
-                                    <option value="slow">slow</option>
-                                    <option value="fast">fast</option>
-                                    <option value="faster">faster</option>
-                                    <option value="fastest">fastest</option>
-                                </select>
+                                {this.props.emoteObject.slide &&
+                                    <select
+                                        defaultValue={this.props.emoteObject.speed}
+                                        onChange={this.props.speedChangeHandler}
+                                    >
+                                        <option value="">-- optional slide speed modifier --</option>
+                                        <option value="slowest">slowest</option>
+                                        <option value="slower">slower</option>
+                                        <option value="slow">slow</option>
+                                        <option value="fast">fast</option>
+                                        <option value="faster">faster</option>
+                                        <option value="fastest">fastest</option>
+                                    </select>
+                                }
                             </div>
                         </div>
                     </div>
