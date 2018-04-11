@@ -3,8 +3,8 @@ import './EmoteBuilder.css';
 import { EmoteDataHolder } from './EmoteDataHolder';
 import { EmoteArrayRender } from './EmoteArrayRender';
 import { EmoteArrayText } from './EmoteArrayText';
-import { 
-    EmoteMap, EmoteObject, EmoteObjectBuilder, 
+import {
+    EmoteMap, EmoteObject, EmoteObjectBuilder,
     // EmoteObjectSerializer, EmoteHtml, EmoteExpansionOptions 
 } from 'emotes';
 import { emoteData } from './SampleData';
@@ -89,13 +89,13 @@ export class EmoteBuilder extends React.Component<EmoteBuilderProps, EmoteBuilde
     }
 
     render() {
-        const dataHolderColumnSizeClass = `col-md-${12 / Number(this.state.emoteObjects.length)}` ;
+        const dataHolderColumnSizeClass = `col-md-${12 / Number(this.state.emoteObjects.length)}`;
         const dataHolders = this.state.emoteObjects.map((emoteObject, emoteObjectIndex) => (
             <div className={dataHolderColumnSizeClass} key={emoteObjectIndex}>
-                <EmoteDataHolder 
-                    emoteMap={emoteMap} 
-                    emoteObject={emoteObject} 
-                    emoteObjectDataChanged={this.emoteObjectDataChanged} 
+                <EmoteDataHolder
+                    emoteMap={emoteMap}
+                    emoteObject={emoteObject}
+                    emoteObjectDataChanged={this.emoteObjectDataChanged}
                 />
             </div>
         ));
@@ -117,7 +117,13 @@ export class EmoteBuilder extends React.Component<EmoteBuilderProps, EmoteBuilde
                         </label>
                     </div>
                     <div className="col-md-9">
-                        import existing string thing goes here
+                        <form className="form-horizontal">
+                            <label>
+                                Import existing emote string:
+                                <input type="text" name="existingEmoteString" placeholder="like [](/ajlie)" />
+                            </label>
+                            <button className="btn btn-primary" type="submit">Import</button>
+                        </form>
                     </div>
                 </div>
                 {/* actual emote objects row */}
@@ -130,7 +136,7 @@ export class EmoteBuilder extends React.Component<EmoteBuilderProps, EmoteBuilde
                     <br />
                     <EmoteArrayText emoteObjects={this.state.emoteObjects} />
                 </div>
-            </div>
+            </div >
         );
     }
 }

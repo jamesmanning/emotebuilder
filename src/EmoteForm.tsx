@@ -1,9 +1,12 @@
 import * as React from 'react';
-import { EmoteObject } from 'emotes';
+import { EmoteObject, IEmoteDataEntry } from 'emotes';
 import './EmoteForm.css';
 
 interface EmoteFormProps {
     emoteObject: EmoteObject;
+    currentEmoteDataEntry: IEmoteDataEntry;
+    firstLineSupported: boolean;
+    secondLineSupported: boolean;
 
     emoteIdentifierChangeHandler: (event: React.FormEvent<HTMLInputElement>) => void;
     speedChangeHandler: (event: React.FormEvent<HTMLSelectElement>) => void;
@@ -46,35 +49,41 @@ export class EmoteForm extends React.Component<EmoteFormProps, {}> {
                         </div>
                     </div>
 
-                    <div className="form-group">
-                        <label className="col-md-4 control-label" htmlFor="firstLineText">First Line of Text</label>
-                        <div className="col-md-8">
-                            <input
-                                id="firstLineText"
-                                name="firstLineText"
-                                className="form-control input-md"
-                                type="text"
-                                value={this.props.emoteObject.firstLineText}
-                                onChange={this.props.firstLineTextChangeHandler}
-                                placeholder="first line of text"
-                            />
+                    {this.props.firstLineSupported &&
+                        <div className="form-group">
+                            <label className="col-md-4 control-label" htmlFor="firstLineText">First Line of Text</label>
+                            <div className="col-md-8">
+                                <input
+                                    id="firstLineText"
+                                    name="firstLineText"
+                                    className="form-control input-md"
+                                    type="text"
+                                    value={this.props.emoteObject.firstLineText}
+                                    onChange={this.props.firstLineTextChangeHandler}
+                                    placeholder="first line of text"
+                                />
+                            </div>
                         </div>
-                    </div>
+                    }
 
-                    <div className="form-group">
-                        <label className="col-md-4 control-label" htmlFor="secondLineText">Second Line of Text</label>
-                        <div className="col-md-8">
-                            <input
-                                id="secondLineText"
-                                name="secondLineText"
-                                className="form-control input-md"
-                                type="text"
-                                value={this.props.emoteObject.secondLineText}
-                                onChange={this.props.secondLineTextChangeHandler}
-                                placeholder="second line of text"
-                            />
+                    {this.props.secondLineSupported &&
+                        <div className="form-group">
+                            <label className="col-md-4 control-label" htmlFor="secondLineText">
+                                Second Line of Text
+                            </label>
+                            <div className="col-md-8">
+                                <input
+                                    id="secondLineText"
+                                    name="secondLineText"
+                                    className="form-control input-md"
+                                    type="text"
+                                    value={this.props.emoteObject.secondLineText}
+                                    onChange={this.props.secondLineTextChangeHandler}
+                                    placeholder="second line of text"
+                                />
+                            </div>
                         </div>
-                    </div>
+                    }
 
                     <div className="form-group">
                         <label className="col-md-4 control-label" htmlFor="altText">Regular Alt Text</label>
@@ -155,8 +164,8 @@ export class EmoteForm extends React.Component<EmoteFormProps, {}> {
                                     />
                                     slide
                                 </label>
-                                <select 
-                                    defaultValue={this.props.emoteObject.speed} 
+                                <select
+                                    defaultValue={this.props.emoteObject.speed}
                                     onChange={this.props.speedChangeHandler}
                                 >
                                     <option value="">-- optional slide speed modifier --</option>

@@ -4,7 +4,7 @@ import * as React from 'react';
 // import { EmoteText } from './EmoteText';
 import { EmoteForm } from './EmoteForm';
 
-import { EmoteMap, EmoteObject, EmoteObjectSerializer } from 'emotes';
+import { EmoteMap, EmoteObject, EmoteObjectSerializer, IEmoteDataEntry } from 'emotes';
 
 const emoteObjectSerializer = new EmoteObjectSerializer();
 
@@ -14,9 +14,18 @@ interface EmoteDataHolderProps {
     emoteObjectDataChanged: () => void;
 }
 
-export class EmoteDataHolder extends React.Component<EmoteDataHolderProps, {}> {
+interface EmoteDataHolderState {
+    currentEmoteDataEntry: IEmoteDataEntry;
+    firstLineSupported: boolean;
+    secondLineSupported: boolean;
+}
+
+export class EmoteDataHolder extends React.Component<EmoteDataHolderProps, EmoteDataHolderState> {
     constructor(props: EmoteDataHolderProps) {
         super(props);
+
+        const emoteDataEntry = props.emoteMap.findEmote(props.emoteObject.emoteIdentifier);
+        this.state = this.createStateForEmoteDataEntry(emoteDataEntry);
 
         // bind these here so we can just pass it as-is to child components
         this.refreshEmoteObjectState = this.refreshEmoteObjectState.bind(this);
@@ -46,8 +55,22 @@ export class EmoteDataHolder extends React.Component<EmoteDataHolderProps, {}> {
         this.props.emoteObjectDataChanged();
     }
 
+    createStateForEmoteDataEntry(newEmoteDataEntry: IEmoteDataEntry): EmoteDataHolderState {
+        return {
+            currentEmoteDataEntry: newEmoteDataEntry,
+            firstLineSupported: !!newEmoteDataEntry['em-top'],
+            secondLineSupported: !!newEmoteDataEntry['strong-bottom'],
+        };
+    }
+
     emoteIdentifierChangeHandler(event: React.FormEvent<HTMLInputElement>) {
         this.props.emoteObject.emoteIdentifier = event.currentTarget.value;
+
+        const newEmoteDataEntry = this.props.emoteMap.findEmote(this.props.emoteObject.emoteIdentifier);
+        if (newEmoteDataEntry && newEmoteDataEntry !== this.state.currentEmoteDataEntry) {
+            this.setState(this.createStateForEmoteDataEntry(newEmoteDataEntry));
+        }
+
         this.refreshEmoteObjectState();
     }
 
@@ -139,7 +162,10 @@ export class EmoteDataHolder extends React.Component<EmoteDataHolderProps, {}> {
                 firstLineTextChangeHandler={this.firstLineTextChangeHandler}
                 secondLineTextChangeHandler={this.secondLineTextChangeHandler}
                 altTextChangeHandler={this.altTextChangeHandler}
-                emoteObject={this.props.emoteObject} 
+                emoteObject={this.props.emoteObject}
+                currentEmoteDataEntry={this.state.currentEmoteDataEntry}
+                firstLineSupported={this.state.firstLineSupported}
+                secondLineSupported={this.state.secondLineSupported}
             />
         );
     }

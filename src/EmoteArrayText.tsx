@@ -25,22 +25,34 @@ export class EmoteArrayText extends React.Component<EmoteArrayTextProps, EmoteAr
         this.setState({ copied: false });
     }
 
+    // get encodedSerializedEmotes(): string { return encodeURIComponent(this.serializedEmotes); }
+
+    // get linkForCurrentSettings(): string { 
+    //   const appRelativeUrl = this.router.createUrlTree([''], 
+            // {queryParams: {emoteString: this.encodedSerializedEmotes}}).toString();
+    //   // TODO: figure out the right way to make this into an absolute url
+    //   const absoluteUrl = location.href + appRelativeUrl.substring(1);
+    //   return absoluteUrl;
+    // }
+
     render() {
-        const serialized = this.props.emoteObjects
+        const serializedEmotes = this.props.emoteObjects
             .map(eo => this.emoteObjectSerializer.serialize(eo) || eo.originalString)
             .join(' ');
+        // const encodedSerialized = encodeURIComponent(serializedEmotes);
+        
         return (
             <div>
                 <div className="input-group">
                     <span className="input-group-btn">
                         <CopyToClipboard
-                            text={serialized}
+                            text={serializedEmotes}
                             onCopy={() => this.setState({ copied: true })}
                         >
                             <button className="btn btn-primary">copy emote string to clipboard</button>
                         </CopyToClipboard>
                     </span>
-                    <input type="text" className="form-control" readOnly={true} value={serialized} />
+                    <input type="text" className="form-control" readOnly={true} value={serializedEmotes} />
                 </div>
                 &nbsp;
                     {this.state.copied ? <span style={{ color: 'red' }}>Copied.</span> : null}
