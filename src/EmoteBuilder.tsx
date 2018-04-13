@@ -4,23 +4,17 @@ import { EmoteDataHolder } from './EmoteDataHolder';
 import { EmoteArrayRender } from './EmoteArrayRender';
 import { EmoteArrayText } from './EmoteArrayText';
 import {
-    EmoteMap, EmoteObject, EmoteObjectBuilder,
+    EmoteMap, EmoteObject, EmoteObjectBuilder, IEmoteDataEntry,
     // EmoteObjectSerializer, EmoteHtml, EmoteExpansionOptions 
 } from 'emotes';
-import { emoteData } from './SampleData';
-
-const emoteMap = new EmoteMap(emoteData);
-// const emoteExpansionOptions = new EmoteExpansionOptions();
-// const emoteObjectSerializer = new EmoteObjectSerializer();
-// const emoteHtml = new EmoteHtml(emoteMap, emoteExpansionOptions);
+import { bootstrapEmoteData } from './SampleData';
 
 interface EmoteBuilderProps {
 }
 
 interface EmoteBuilderState {
     emoteObjects: EmoteObject[];
-    // serializedEmotes: string;
-    // expandedEmotes: string;
+    emoteMap: EmoteMap;
 }
 
 export class EmoteBuilder extends React.Component<EmoteBuilderProps, EmoteBuilderState> {
@@ -43,15 +37,27 @@ export class EmoteBuilder extends React.Component<EmoteBuilderProps, EmoteBuilde
 
     constructor(props: EmoteBuilderProps) {
         super(props);
-        const initialEmoteObjects = [
-            EmoteObjectBuilder.clone(this.defaultEmoteObjects[0]),
-            EmoteObjectBuilder.clone(this.defaultEmoteObjects[1]),
-        ];
-        this.state = this.generateNewState(initialEmoteObjects);
+        this.state = {
+            emoteObjects: [
+                EmoteObjectBuilder.clone(this.defaultEmoteObjects[0]),
+                EmoteObjectBuilder.clone(this.defaultEmoteObjects[1]),
+            ],
+            emoteMap: new EmoteMap(bootstrapEmoteData),
+        };
 
         this.numberOfEmotesChangeHandler = this.numberOfEmotesChangeHandler.bind(this);
         this.emoteObjectDataChanged = this.emoteObjectDataChanged.bind(this);
+
+        this.populateEmoteMap(); // kick off loading the real emote data
     }
+
+    async populateEmoteMap() {
+        const response = await fetch('//berrymotes.com/assets/berrymotes_json_data.json');
+        const emoteData: IEmoteDataEntry[] = await response.json();
+        this.state.emoteMap.loadData(emoteData);
+        this.setState({}); // trigger a re-render so count updates
+    }
+
     numberOfEmotesChangeHandler(event: React.FormEvent<HTMLSelectElement>) {
         const targetNumberOfEmotes = Number(event.currentTarget.value);
         const newEmoteObjects = this.state.emoteObjects;
@@ -63,7 +69,7 @@ export class EmoteBuilder extends React.Component<EmoteBuilderProps, EmoteBuilde
             // expanding, so fill in new ones as needed
             while (newEmoteObjects.length < targetNumberOfEmotes) {
                 const defaultEmoteInSlot = this.defaultEmoteObjects[newEmoteObjects.length];
-                newEmoteObjects.push(defaultEmoteInSlot);
+                newEmoteObjects.push(EmoteObjectBuilder.clone(defaultEmoteInSlot));
             }
         }
 
@@ -72,20 +78,9 @@ export class EmoteBuilder extends React.Component<EmoteBuilderProps, EmoteBuilde
         });
     }
 
-    generateNewState(emoteObjects: EmoteObject[]): EmoteBuilderState {
-        const newState: EmoteBuilderState = {
-            emoteObjects: emoteObjects,
-            // serializedEmotes: emoteObjects
-            //     .map(eo => emoteObjectSerializer.serialize(eo))
-            //     .join(' '),
-            // expandedEmotes: emoteObjects
-            //     .map(eo => emoteHtml.getEmoteHtmlForObject(eo))
-            //     .join(' '),
-        };
-        return newState;
-    }
     emoteObjectDataChanged() {
-        this.setState(this.generateNewState(this.state.emoteObjects));
+        // the emote objects are already in the state, we just need to signal a rerender is needed
+        this.setState({}); 
     }
 
     render() {
@@ -93,7 +88,7 @@ export class EmoteBuilder extends React.Component<EmoteBuilderProps, EmoteBuilde
         const dataHolders = this.state.emoteObjects.map((emoteObject, emoteObjectIndex) => (
             <div className={dataHolderColumnSizeClass} key={emoteObjectIndex}>
                 <EmoteDataHolder
-                    emoteMap={emoteMap}
+                    emoteMap={this.state.emoteMap}
                     emoteObject={emoteObject}
                     emoteObjectDataChanged={this.emoteObjectDataChanged}
                 />
@@ -116,7 +111,12 @@ export class EmoteBuilder extends React.Component<EmoteBuilderProps, EmoteBuilde
                             </select>
                         </label>
                     </div>
-                    <div className="col-md-9">
+                    <div className="col-md-3">
+                        <label>
+                            Available emote count: {this.state.emoteMap.emoteCount}
+                        </label>
+                    </div>
+                    <div className="col-md-6">
                         <form className="form-horizontal">
                             <label>
                                 Import existing emote string:
@@ -132,7 +132,7 @@ export class EmoteBuilder extends React.Component<EmoteBuilderProps, EmoteBuilde
                 </div>
                 {/* output row */}
                 <div className="row">
-                    <EmoteArrayRender emoteMap={emoteMap} emoteObjects={this.state.emoteObjects} />
+                    <EmoteArrayRender emoteMap={this.state.emoteMap} emoteObjects={this.state.emoteObjects} />
                     <br />
                     <EmoteArrayText emoteObjects={this.state.emoteObjects} />
                 </div>

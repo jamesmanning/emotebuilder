@@ -1,6 +1,6 @@
 import { IEmoteDataEntry } from 'emotes';
 
-export var emoteData = <IEmoteDataEntry[]> [
+export var bootstrapEmoteData = <IEmoteDataEntry[]> [
     {
         'apng_url': 'http://backstage.berrytube.tv/marminator/images/a/-UJ20dLxrm_8r4kr.png',
         'background-image': 'http://a.thumbs.redditmedia.com/-UJ20dLxrm_8r4kr.png',

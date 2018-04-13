@@ -68,7 +68,16 @@ export class EmoteDataHolder extends React.Component<EmoteDataHolderProps, Emote
 
         const newEmoteDataEntry = this.props.emoteMap.findEmote(this.props.emoteObject.emoteIdentifier);
         if (newEmoteDataEntry && newEmoteDataEntry !== this.state.currentEmoteDataEntry) {
-            this.setState(this.createStateForEmoteDataEntry(newEmoteDataEntry));
+            const newState = this.createStateForEmoteDataEntry(newEmoteDataEntry);
+
+            // clear first and second line contents if they're not supported
+            if (newState.firstLineSupported === false) {
+                this.props.emoteObject.firstLineText = '';
+            }
+            if (newState.secondLineSupported === false) {
+                this.props.emoteObject.secondLineText = '';
+            }
+            this.setState(newState);
         }
 
         this.refreshEmoteObjectState();
@@ -147,6 +156,7 @@ export class EmoteDataHolder extends React.Component<EmoteDataHolderProps, Emote
     render() {
         return (
             <EmoteForm
+                emoteMap={this.props.emoteMap}
                 emoteIdentifierChangeHandler={this.emoteIdentifierChangeHandler}
                 speedChangeHandler={this.speedChangeHandler}
                 slideChangeHandler={this.slideChangeHandler}
