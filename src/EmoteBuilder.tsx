@@ -45,7 +45,7 @@ export class EmoteBuilder extends React.Component<EmoteBuilderProps, EmoteBuilde
             emoteMap: new EmoteMap(bootstrapEmoteData),
         };
 
-        this.numberOfEmotesChangeHandler = this.numberOfEmotesChangeHandler.bind(this);
+        this.numberOfEmotesChanged = this.numberOfEmotesChanged.bind(this);
         this.emoteObjectDataChanged = this.emoteObjectDataChanged.bind(this);
 
         this.populateEmoteMap(); // kick off loading the real emote data
@@ -58,7 +58,7 @@ export class EmoteBuilder extends React.Component<EmoteBuilderProps, EmoteBuilde
         this.setState({}); // trigger a re-render so count updates
     }
 
-    numberOfEmotesChangeHandler(event: React.FormEvent<HTMLSelectElement>) {
+    numberOfEmotesChanged(event: React.FormEvent<HTMLSelectElement>) {
         const targetNumberOfEmotes = Number(event.currentTarget.value);
         const newEmoteObjects = this.state.emoteObjects;
 
@@ -102,7 +102,7 @@ export class EmoteBuilder extends React.Component<EmoteBuilderProps, EmoteBuilde
                         <label>Number of emotes:
                             <select
                                 defaultValue={this.state.emoteObjects.length.toString()}
-                                onChange={this.numberOfEmotesChangeHandler}
+                                onChange={this.numberOfEmotesChanged}
                             >
                                 <option>1</option>
                                 <option>2</option>
