@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { EmoteObject, IEmoteDataEntry, EmoteMap } from 'emotes';
-import VirtualizedSelect from 'react-virtualized-select';
+import { EmoteAutosuggest } from 'EmoteAutosuggest';
 import './EmoteForm.css';
-import { OptionValues, Option } from 'react-select';
 
 interface EmoteFormProps {
     emoteMap: EmoteMap;
@@ -11,33 +10,26 @@ interface EmoteFormProps {
     firstLineSupported: boolean;
     secondLineSupported: boolean;
 
-    emoteIdentifierChangeHandler: (event: React.FormEvent<HTMLInputElement>) => void;
-    speedChangeHandler: (event: React.FormEvent<HTMLSelectElement>) => void;
-    slideChangeHandler: (event: React.FormEvent<HTMLInputElement>) => void;
-    vibrateChangeHandler: (event: React.FormEvent<HTMLInputElement>) => void;
-    reverseChangeHandler: (event: React.FormEvent<HTMLInputElement>) => void;
-    hueRotateChangeHandler: (event: React.FormEvent<HTMLInputElement>) => void;
-    invertColorsChangeHandler: (event: React.FormEvent<HTMLInputElement>) => void;
-    spinChangeHandler: (event: React.FormEvent<HTMLSelectElement>) => void;
-    rotateDegreesChangeHandler: (event: React.FormEvent<HTMLInputElement>) => void;
-    brodyChangeHandler: (event: React.FormEvent<HTMLInputElement>) => void;
-    xAxisTransposeChangeHandler: (event: React.FormEvent<HTMLInputElement>) => void;
-    zAxisTransposeChangeHandler: (event: React.FormEvent<HTMLInputElement>) => void;
-    firstLineTextChangeHandler: (event: React.FormEvent<HTMLInputElement>) => void;
-    secondLineTextChangeHandler: (event: React.FormEvent<HTMLInputElement>) => void;
-    altTextChangeHandler: (event: React.FormEvent<HTMLInputElement>) => void;
+    emoteIdentifierChanged: (newValue: string) => void;
+    speedChanged: (newValue: string) => void;
+    slideChanged: (newValue: boolean) => void;
+    vibrateChanged: (newValue: boolean) => void;
+    reverseChanged: (newValue: boolean) => void;
+    hueRotateChanged: (newValue: boolean) => void;
+    invertColorsChanged: (newValue: boolean) => void;
+    spinChanged: (newValue: string) => void;
+    rotateDegreesChanged: (newValue: number) => void;
+    brodyChanged: (newValue: boolean) => void;
+    xAxisTransposeChanged: (newValue: number) => void;
+    zAxisTransposeChanged: (newValue: number) => void;
+    firstLineTextChanged: (newValue: string) => void;
+    secondLineTextChanged: (newValue: string) => void;
+    altTextChanged: (newValue: string) => void;
 }
 
 export class EmoteForm extends React.Component<EmoteFormProps, {}> {
     constructor(props: EmoteFormProps) {
         super(props);
-    }
-
-    getOptions(): Option<OptionValues>[] {
-        const options = this.props.emoteMap.allEmoteNames.map(emoteName => {
-            return new Option(emoteName, emoteName);
-        });
-        return options;
     }
 
     render() {
@@ -54,23 +46,18 @@ export class EmoteForm extends React.Component<EmoteFormProps, {}> {
                                 name="emoteName"
                                 type="text"
                                 value={this.props.emoteObject.emoteIdentifier}
-                                onChange={this.props.emoteIdentifierChangeHandler}
+                                onChange={this.props.emoteIdentifierChanged}
                                 className="form-control input-md"
                                 style={{backgroundColor: emoteIdentifierIsValid ? 'lightgreen' : 'red'}}
                                 placeholder="emote name (bpsign, ajlie, etc)"
                             /> */}
-                            <VirtualizedSelect
-                                onChange={(selected) => {
-                                    if (selected) {
-                                        if (typeof selected === 'string') {
-                                            this.props.emoteObject.emoteIdentifier = selected;
-                                        } else {
-                                            this.props.emoteObject.emoteIdentifier = selected[0];
-                                        }
-                                    }
-                                }}
-                                value={this.props.emoteObject.emoteIdentifier}
-                                options={this.getOptions()}
+                            <EmoteAutosuggest
+                                suggestions={suggestions}
+                                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                                onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                                getSuggestionValue={getSuggestionValue}
+                                renderSuggestion={renderSuggestion}
+                                inputProps={inputProps}
                             />
                         </div>
                     </div>
@@ -85,7 +72,7 @@ export class EmoteForm extends React.Component<EmoteFormProps, {}> {
                                     className="form-control input-md"
                                     type="text"
                                     value={this.props.emoteObject.firstLineText}
-                                    onChange={this.props.firstLineTextChangeHandler}
+                                    onChange={event => this.props.firstLineTextChanged(event.currentTarget.value)}
                                     placeholder="first line of text"
                                 />
                             </div>
@@ -104,7 +91,7 @@ export class EmoteForm extends React.Component<EmoteFormProps, {}> {
                                     className="form-control input-md"
                                     type="text"
                                     value={this.props.emoteObject.secondLineText}
-                                    onChange={this.props.secondLineTextChangeHandler}
+                                    onChange={event => this.props.secondLineTextChanged(event.currentTarget.value)}
                                     placeholder="second line of text"
                                 />
                             </div>
@@ -120,7 +107,7 @@ export class EmoteForm extends React.Component<EmoteFormProps, {}> {
                                 className="form-control input-md"
                                 type="text"
                                 value={this.props.emoteObject.altText}
-                                onChange={this.props.altTextChangeHandler}
+                                onChange={event => this.props.altTextChanged(event.currentTarget.value)}
                                 placeholder="regular alt text"
                             />
                         </div>
@@ -134,7 +121,7 @@ export class EmoteForm extends React.Component<EmoteFormProps, {}> {
                                     <input
                                         type="checkbox"
                                         checked={this.props.emoteObject.vibrate}
-                                        onChange={this.props.vibrateChangeHandler}
+                                        onChange={event => this.props.vibrateChanged(event.currentTarget.checked)}
                                     />
                                     vibrate
                                 </label>
@@ -144,7 +131,7 @@ export class EmoteForm extends React.Component<EmoteFormProps, {}> {
                                     <input
                                         type="checkbox"
                                         checked={this.props.emoteObject.reverse}
-                                        onChange={this.props.reverseChangeHandler}
+                                        onChange={event => this.props.reverseChanged(event.currentTarget.checked)}
                                     />
                                     reverse
                                 </label>
@@ -154,7 +141,7 @@ export class EmoteForm extends React.Component<EmoteFormProps, {}> {
                                     <input
                                         type="checkbox"
                                         checked={this.props.emoteObject.brody}
-                                        onChange={this.props.brodyChangeHandler}
+                                        onChange={event => this.props.brodyChanged(event.currentTarget.checked)}
                                     />
                                     brody
                                 </label>
@@ -166,7 +153,7 @@ export class EmoteForm extends React.Component<EmoteFormProps, {}> {
                                     <input
                                         type="checkbox"
                                         checked={this.props.emoteObject.hueRotate}
-                                        onChange={this.props.hueRotateChangeHandler}
+                                        onChange={event => this.props.hueRotateChanged(event.currentTarget.checked)}
                                     />
                                     hue shift
                                 </label>
@@ -176,7 +163,7 @@ export class EmoteForm extends React.Component<EmoteFormProps, {}> {
                                     <input
                                         type="checkbox"
                                         checked={this.props.emoteObject.invertColors}
-                                        onChange={this.props.invertColorsChangeHandler}
+                                        onChange={event => this.props.invertColorsChanged(event.currentTarget.checked)}
                                     />
                                     invert colors
                                 </label>
@@ -186,14 +173,14 @@ export class EmoteForm extends React.Component<EmoteFormProps, {}> {
                                     <input
                                         type="checkbox"
                                         checked={this.props.emoteObject.slide}
-                                        onChange={this.props.slideChangeHandler}
+                                        onChange={event => this.props.slideChanged(event.currentTarget.checked)}
                                     />
                                     slide
                                 </label>
                                 {this.props.emoteObject.slide &&
                                     <select
                                         defaultValue={this.props.emoteObject.speed}
-                                        onChange={this.props.speedChangeHandler}
+                                        onChange={event => this.props.speedChanged(event.currentTarget.value)}
                                     >
                                         <option value="">-- optional slide speed modifier --</option>
                                         <option value="slowest">slowest</option>
@@ -216,7 +203,7 @@ export class EmoteForm extends React.Component<EmoteFormProps, {}> {
                                 id="spin"
                                 name="spin"
                                 defaultValue={this.props.emoteObject.spin}
-                                onChange={this.props.spinChangeHandler}
+                                onChange={event => this.props.spinChanged(event.currentTarget.value)}
                             >
                                 <option value="">-- optional spin --</option>
                                 <option value="xspin">spin clockwise around x axis</option>
@@ -243,7 +230,8 @@ export class EmoteForm extends React.Component<EmoteFormProps, {}> {
                                     name="rotateDegrees"
                                     type="number"
                                     value={this.props.emoteObject.rotateDegrees.toString()}
-                                    onChange={this.props.rotateDegreesChangeHandler}
+                                    onChange={event => 
+                                        this.props.rotateDegreesChanged(Number(event.currentTarget.value))}
                                     placeholder="degrees to rotate"
                                 />
                                 <span className="input-group-addon">degrees</span>
@@ -265,7 +253,8 @@ export class EmoteForm extends React.Component<EmoteFormProps, {}> {
                                     name="xAxisTranspose"
                                     type="number"
                                     value={this.props.emoteObject.xAxisTranspose.toString()}
-                                    onChange={this.props.xAxisTransposeChangeHandler}
+                                    onChange={event =>
+                                        this.props.xAxisTransposeChanged(Number(event.currentTarget.value))}
                                     placeholder="x axis shift"
                                 />
                                 <span className="input-group-addon">pixels</span>
@@ -284,7 +273,7 @@ export class EmoteForm extends React.Component<EmoteFormProps, {}> {
                                 name="zAxisTranspose"
                                 type="number"
                                 value={this.props.emoteObject.zAxisTranspose.toString()}
-                                onChange={this.props.zAxisTransposeChangeHandler}
+                                onChange={event => this.props.zAxisTransposeChanged(Number(event.currentTarget.value))}
                                 placeholder="z index"
                             />
                         </div>

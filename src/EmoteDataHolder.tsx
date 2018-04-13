@@ -30,21 +30,21 @@ export class EmoteDataHolder extends React.Component<EmoteDataHolderProps, Emote
         // bind these here so we can just pass it as-is to child components
         this.refreshEmoteObjectState = this.refreshEmoteObjectState.bind(this);
 
-        this.emoteIdentifierChangeHandler = this.emoteIdentifierChangeHandler.bind(this);
-        this.speedChangeHandler = this.speedChangeHandler.bind(this);
-        this.slideChangeHandler = this.slideChangeHandler.bind(this);
-        this.vibrateChangeHandler = this.vibrateChangeHandler.bind(this);
-        this.reverseChangeHandler = this.reverseChangeHandler.bind(this);
-        this.hueRotateChangeHandler = this.hueRotateChangeHandler.bind(this);
-        this.invertColorsChangeHandler = this.invertColorsChangeHandler.bind(this);
-        this.spinChangeHandler = this.spinChangeHandler.bind(this);
-        this.rotateDegreesChangeHandler = this.rotateDegreesChangeHandler.bind(this);
-        this.brodyChangeHandler = this.brodyChangeHandler.bind(this);
-        this.xAxisTransposeChangeHandler = this.xAxisTransposeChangeHandler.bind(this);
-        this.zAxisTransposeChangeHandler = this.zAxisTransposeChangeHandler.bind(this);
-        this.firstLineTextChangeHandler = this.firstLineTextChangeHandler.bind(this);
-        this.secondLineTextChangeHandler = this.secondLineTextChangeHandler.bind(this);
-        this.altTextChangeHandler = this.altTextChangeHandler.bind(this);
+        this.emoteIdentifierChanged = this.emoteIdentifierChanged.bind(this);
+        this.speedChanged = this.speedChanged.bind(this);
+        this.slideChanged = this.slideChanged.bind(this);
+        this.vibrateChanged = this.vibrateChanged.bind(this);
+        this.reverseChanged = this.reverseChanged.bind(this);
+        this.hueRotateChanged = this.hueRotateChanged.bind(this);
+        this.invertColorsChanged = this.invertColorsChanged.bind(this);
+        this.spinChanged = this.spinChanged.bind(this);
+        this.rotateDegreesChanged = this.rotateDegreesChanged.bind(this);
+        this.brodyChanged = this.brodyChanged.bind(this);
+        this.xAxisTransposeChanged = this.xAxisTransposeChanged.bind(this);
+        this.zAxisTransposeChanged = this.zAxisTransposeChanged.bind(this);
+        this.firstLineTextChanged = this.firstLineTextChanged.bind(this);
+        this.secondLineTextChanged = this.secondLineTextChanged.bind(this);
+        this.altTextChanged = this.altTextChanged.bind(this);
     }
 
     refreshEmoteObjectState() {
@@ -63,8 +63,8 @@ export class EmoteDataHolder extends React.Component<EmoteDataHolderProps, Emote
         };
     }
 
-    emoteIdentifierChangeHandler(event: React.FormEvent<HTMLInputElement>) {
-        this.props.emoteObject.emoteIdentifier = event.currentTarget.value;
+    emoteIdentifierChanged(newValue: string) {
+        this.props.emoteObject.emoteIdentifier = newValue;
 
         const newEmoteDataEntry = this.props.emoteMap.findEmote(this.props.emoteObject.emoteIdentifier);
         if (newEmoteDataEntry && newEmoteDataEntry !== this.state.currentEmoteDataEntry) {
@@ -83,73 +83,73 @@ export class EmoteDataHolder extends React.Component<EmoteDataHolderProps, Emote
         this.refreshEmoteObjectState();
     }
 
-    speedChangeHandler(event: React.FormEvent<HTMLSelectElement>) {
-        this.props.emoteObject.speed = event.currentTarget.value;
+    speedChanged(newValue: string) {
+        this.props.emoteObject.speed = newValue;
         this.refreshEmoteObjectState();
     }
 
-    slideChangeHandler(event: React.FormEvent<HTMLInputElement>) {
-        this.props.emoteObject.slide = event.currentTarget.checked;
+    slideChanged(newValue: boolean) {
+        this.props.emoteObject.slide = newValue;
         this.refreshEmoteObjectState();
     }
 
-    vibrateChangeHandler(event: React.FormEvent<HTMLInputElement>) {
-        this.props.emoteObject.vibrate = event.currentTarget.checked;
+    vibrateChanged(newValue: boolean) {
+        this.props.emoteObject.vibrate = newValue;
         this.refreshEmoteObjectState();
     }
 
-    reverseChangeHandler(event: React.FormEvent<HTMLInputElement>) {
-        this.props.emoteObject.reverse = event.currentTarget.checked;
+    reverseChanged(newValue: boolean) {
+        this.props.emoteObject.reverse = newValue;
         this.refreshEmoteObjectState();
     }
 
-    hueRotateChangeHandler(event: React.FormEvent<HTMLInputElement>) {
-        this.props.emoteObject.hueRotate = event.currentTarget.checked;
+    hueRotateChanged(newValue: boolean) {
+        this.props.emoteObject.hueRotate = newValue;
         this.refreshEmoteObjectState();
     }
 
-    invertColorsChangeHandler(event: React.FormEvent<HTMLInputElement>) {
-        this.props.emoteObject.invertColors = event.currentTarget.checked;
+    invertColorsChanged(newValue: boolean) {
+        this.props.emoteObject.invertColors = newValue;
         this.refreshEmoteObjectState();
     }
 
-    spinChangeHandler(event: React.FormEvent<HTMLSelectElement>) {
-        this.props.emoteObject.spin = event.currentTarget.value;
+    spinChanged(newValue: string) {
+        this.props.emoteObject.spin = newValue;
         this.refreshEmoteObjectState();
     }
 
-    rotateDegreesChangeHandler(event: React.FormEvent<HTMLInputElement>) {
-        this.props.emoteObject.rotateDegrees = Number(event.currentTarget.value);
+    rotateDegreesChanged(newValue: number) {
+        this.props.emoteObject.rotateDegrees = newValue;
         this.refreshEmoteObjectState();
     }
 
-    brodyChangeHandler(event: React.FormEvent<HTMLInputElement>) {
-        this.props.emoteObject.brody = event.currentTarget.checked;
+    brodyChanged(newValue: boolean) {
+        this.props.emoteObject.brody = newValue;
         this.refreshEmoteObjectState();
     }
 
-    xAxisTransposeChangeHandler(event: React.FormEvent<HTMLInputElement>) {
-        this.props.emoteObject.xAxisTranspose = Number(event.currentTarget.value);
+    xAxisTransposeChanged(newValue: number) {
+        this.props.emoteObject.xAxisTranspose = newValue;
         this.refreshEmoteObjectState();
     }
 
-    zAxisTransposeChangeHandler(event: React.FormEvent<HTMLInputElement>) {
-        this.props.emoteObject.zAxisTranspose = Number(event.currentTarget.value);
+    zAxisTransposeChanged(newValue: number) {
+        this.props.emoteObject.zAxisTranspose = newValue;
         this.refreshEmoteObjectState();
     }
 
-    firstLineTextChangeHandler(event: React.FormEvent<HTMLInputElement>) {
-        this.props.emoteObject.firstLineText = event.currentTarget.value;
+    firstLineTextChanged(newValue: string) {
+        this.props.emoteObject.firstLineText = newValue;
         this.refreshEmoteObjectState();
     }
 
-    secondLineTextChangeHandler(event: React.FormEvent<HTMLInputElement>) {
-        this.props.emoteObject.secondLineText = event.currentTarget.value;
+    secondLineTextChanged(newValue: string) {
+        this.props.emoteObject.secondLineText = newValue;
         this.refreshEmoteObjectState();
     }
 
-    altTextChangeHandler(event: React.FormEvent<HTMLInputElement>) {
-        this.props.emoteObject.altText = event.currentTarget.value;
+    altTextChanged(newValue: string) {
+        this.props.emoteObject.altText = newValue;
         this.refreshEmoteObjectState();
     }
 
@@ -157,21 +157,21 @@ export class EmoteDataHolder extends React.Component<EmoteDataHolderProps, Emote
         return (
             <EmoteForm
                 emoteMap={this.props.emoteMap}
-                emoteIdentifierChangeHandler={this.emoteIdentifierChangeHandler}
-                speedChangeHandler={this.speedChangeHandler}
-                slideChangeHandler={this.slideChangeHandler}
-                vibrateChangeHandler={this.vibrateChangeHandler}
-                reverseChangeHandler={this.reverseChangeHandler}
-                hueRotateChangeHandler={this.hueRotateChangeHandler}
-                invertColorsChangeHandler={this.invertColorsChangeHandler}
-                spinChangeHandler={this.spinChangeHandler}
-                rotateDegreesChangeHandler={this.rotateDegreesChangeHandler}
-                brodyChangeHandler={this.brodyChangeHandler}
-                xAxisTransposeChangeHandler={this.xAxisTransposeChangeHandler}
-                zAxisTransposeChangeHandler={this.zAxisTransposeChangeHandler}
-                firstLineTextChangeHandler={this.firstLineTextChangeHandler}
-                secondLineTextChangeHandler={this.secondLineTextChangeHandler}
-                altTextChangeHandler={this.altTextChangeHandler}
+                emoteIdentifierChanged={this.emoteIdentifierChanged}
+                speedChanged={this.speedChanged}
+                slideChanged={this.slideChanged}
+                vibrateChanged={this.vibrateChanged}
+                reverseChanged={this.reverseChanged}
+                hueRotateChanged={this.hueRotateChanged}
+                invertColorsChanged={this.invertColorsChanged}
+                spinChanged={this.spinChanged}
+                rotateDegreesChanged={this.rotateDegreesChanged}
+                brodyChanged={this.brodyChanged}
+                xAxisTransposeChanged={this.xAxisTransposeChanged}
+                zAxisTransposeChanged={this.zAxisTransposeChanged}
+                firstLineTextChanged={this.firstLineTextChanged}
+                secondLineTextChanged={this.secondLineTextChanged}
+                altTextChanged={this.altTextChanged}
                 emoteObject={this.props.emoteObject}
                 currentEmoteDataEntry={this.state.currentEmoteDataEntry}
                 firstLineSupported={this.state.firstLineSupported}
