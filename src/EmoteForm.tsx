@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { EmoteObject, IEmoteDataEntry } from 'emotes';
+import { EmoteObject, IEmoteDataEntry, EmoteMap } from 'emotes';
+import { Typeahead } from 'react-bootstrap-typeahead';
 import './EmoteForm.css';
 
 interface EmoteFormProps {
+    emoteMap: EmoteMap;
     emoteObject: EmoteObject;
     currentEmoteDataEntry: IEmoteDataEntry;
     firstLineSupported: boolean;
@@ -31,20 +33,32 @@ export class EmoteForm extends React.Component<EmoteFormProps, {}> {
     }
 
     render() {
+        // const emoteIdentifierIsValid = 
+        //     this.props.emoteMap.findEmote(this.props.emoteObject.emoteIdentifier) !== null;
         return (
             <form className="form-horizontal">
                 <fieldset>
                     <div className="form-group">
                         <label className="col-md-4 control-label" htmlFor="emoteName">Emote Name</label>
                         <div className="col-md-8">
-                            <input
+                            {/* <input
                                 id="emoteName"
                                 name="emoteName"
-                                className="form-control input-md"
                                 type="text"
                                 value={this.props.emoteObject.emoteIdentifier}
                                 onChange={this.props.emoteIdentifierChangeHandler}
+                                className="form-control input-md"
+                                style={{backgroundColor: emoteIdentifierIsValid ? 'lightgreen' : 'red'}}
                                 placeholder="emote name (bpsign, ajlie, etc)"
+                            /> */}
+                            <Typeahead
+                                onChange={(selected) => {
+                                    this.props.emoteObject.emoteIdentifier = selected[0];
+                                }}
+                                maxResults={10}
+                                minLength={3}
+                                selected={[this.props.emoteObject.emoteIdentifier]}
+                                options={this.props.emoteMap.allEmoteNames}
                             />
                         </div>
                     </div>
