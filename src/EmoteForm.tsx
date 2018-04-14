@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { EmoteObject, IEmoteDataEntry, EmoteMap } from 'emotes';
-import { EmoteAutosuggest } from 'EmoteAutosuggest';
+import { EmoteAutosuggest } from './EmoteAutosuggest';
 import './EmoteForm.css';
 
 interface EmoteFormProps {
@@ -52,12 +52,6 @@ export class EmoteForm extends React.Component<EmoteFormProps, {}> {
                                 placeholder="emote name (bpsign, ajlie, etc)"
                             /> */}
                             <EmoteAutosuggest
-                                suggestions={suggestions}
-                                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                                onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                                getSuggestionValue={getSuggestionValue}
-                                renderSuggestion={renderSuggestion}
-                                inputProps={inputProps}
                             />
                         </div>
                     </div>

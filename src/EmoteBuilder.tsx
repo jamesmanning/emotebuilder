@@ -1,13 +1,10 @@
 import * as React from 'react';
-import './EmoteBuilder.css';
 import { EmoteDataHolder } from './EmoteDataHolder';
 import { EmoteArrayRender } from './EmoteArrayRender';
 import { EmoteArrayText } from './EmoteArrayText';
-import {
-    EmoteMap, EmoteObject, EmoteObjectBuilder, IEmoteDataEntry,
-    // EmoteObjectSerializer, EmoteHtml, EmoteExpansionOptions 
-} from 'emotes';
+import { EmoteMap, EmoteObject, EmoteObjectBuilder, IEmoteDataEntry } from 'emotes';
 import { bootstrapEmoteData } from './SampleData';
+import './EmoteBuilder.css';
 
 interface EmoteBuilderProps {
 }
