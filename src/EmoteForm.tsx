@@ -52,6 +52,9 @@ export class EmoteForm extends React.Component<EmoteFormProps, {}> {
                                 placeholder="emote name (bpsign, ajlie, etc)"
                             /> */}
                             <EmoteAutosuggest
+                                emoteMap={this.props.emoteMap}
+                                value={this.props.emoteObject.emoteIdentifier}
+                                onValueChanged={this.props.emoteIdentifierChanged}
                             />
                         </div>
                     </div>
@@ -213,46 +216,42 @@ export class EmoteForm extends React.Component<EmoteFormProps, {}> {
                     </div >
 
                     <div className="form-group">
-                        <label className="col-md-4 control-label" htmlFor="rotateDegrees">Rotate (0 to 359)</label>
+                        <label className="col-md-4 control-label" htmlFor="rotateDegrees">
+                            Rotate degrees (0 to 359)
+                        </label>
                         <div className="col-md-8">
-                            <div className="input-group">
-                                <input
-                                    min="0"
-                                    max="359"
-                                    className="form-control"
-                                    id="rotateDegrees"
-                                    name="rotateDegrees"
-                                    type="number"
-                                    value={this.props.emoteObject.rotateDegrees.toString()}
-                                    onChange={event => 
-                                        this.props.rotateDegreesChanged(Number(event.currentTarget.value))}
-                                    placeholder="degrees to rotate"
-                                />
-                                <span className="input-group-addon">degrees</span>
-                            </div>
+                            <input
+                                min="0"
+                                max="359"
+                                className="form-control"
+                                id="rotateDegrees"
+                                name="rotateDegrees"
+                                type="number"
+                                value={this.props.emoteObject.rotateDegrees.toString()}
+                                onChange={event =>
+                                    this.props.rotateDegreesChanged(Number(event.currentTarget.value))}
+                                placeholder="degrees to rotate"
+                            />
                         </div>
                     </div>
 
                     <div className="form-group">
                         <label className="col-md-4 control-label" htmlFor="xAxisTranspose">
-                            x axis shift (-150 to 150)
+                            x axis shift in pixels (-150 to 150)
                         </label>
                         <div className="col-md-8">
-                            <div className="input-group">
-                                <input
-                                    min="-150"
-                                    max="150"
-                                    className="form-control"
-                                    id="xAxisTranspose"
-                                    name="xAxisTranspose"
-                                    type="number"
-                                    value={this.props.emoteObject.xAxisTranspose.toString()}
-                                    onChange={event =>
-                                        this.props.xAxisTransposeChanged(Number(event.currentTarget.value))}
-                                    placeholder="x axis shift"
-                                />
-                                <span className="input-group-addon">pixels</span>
-                            </div>
+                            <input
+                                min="-150"
+                                max="150"
+                                className="form-control"
+                                id="xAxisTranspose"
+                                name="xAxisTranspose"
+                                type="number"
+                                value={this.props.emoteObject.xAxisTranspose.toString()}
+                                onChange={event =>
+                                    this.props.xAxisTransposeChanged(Number(event.currentTarget.value))}
+                                placeholder="x axis shift"
+                            />
                         </div>
                     </div>
 
