@@ -37,7 +37,7 @@ export class EmoteBuilder extends React.Component<EmoteBuilderProps, EmoteBuilde
         this.state = {
             emoteObjects: [
                 EmoteObjectBuilder.clone(this.defaultEmoteObjects[0]),
-                EmoteObjectBuilder.clone(this.defaultEmoteObjects[1]),
+                // EmoteObjectBuilder.clone(this.defaultEmoteObjects[1]),
             ],
             emoteMap: new EmoteMap(bootstrapEmoteData),
         };
