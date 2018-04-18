@@ -1,8 +1,9 @@
 import * as React from 'react';
 import * as Autosuggest from 'react-autosuggest';
 import { ChangeEvent } from 'react-autosuggest';
-import { EmoteMap } from 'emotes';
+import { EmoteMap, EmoteObjectBuilder } from 'emotes';
 import './EmoteAutosuggest.css';
+import { EmoteRender } from './EmoteRender';
 
 export class Suggestion {
     name: string;
@@ -18,6 +19,7 @@ interface EmoteAutosuggestProps {
 interface EmoteAutosuggestState {
     // value: string;
     suggestions: Suggestion[];
+    matchCount: number;
 }
 
 export class EmoteAutosuggest extends React.Component<EmoteAutosuggestProps, EmoteAutosuggestState> {
@@ -26,25 +28,16 @@ export class EmoteAutosuggest extends React.Component<EmoteAutosuggestProps, Emo
 
         this.state = {
             // value: props.value,
-            suggestions: []
+            suggestions: [],
+            matchCount: 1
         };
     }
 
-    // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
-    escapeRegexCharacters = (str: string): string => {
-        return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    }
-
     getSuggestions = (value: string): Suggestion[] => {
-        const escapedValue = this.escapeRegexCharacters(value.trim());
-
-        if (escapedValue === '') {
-            return [];
-        }
-
-        const regex = new RegExp('^' + escapedValue, 'i');
-
-        return this.props.emoteMap.emoteImages.filter(emote => regex.test(emote.name));
+        const allMatches = this.props.emoteMap.emoteImages
+            .filter(emote => emote.name.includes(value));
+        this.setState({ matchCount: allMatches.length });
+        return allMatches.slice(0, 50);
     }
 
     getSuggestionValue = (suggestion: Suggestion) => {
@@ -55,7 +48,13 @@ export class EmoteAutosuggest extends React.Component<EmoteAutosuggestProps, Emo
         return (
             <div>
                 <span>{suggestion.name}</span>
-                {/* <img src={'https://atte.fi/berrymotes/render.php?emote=' + suggestion.name} /> */}
+                <EmoteRender
+                    emoteMap={this.props.emoteMap}
+                    emoteObject={EmoteObjectBuilder.create({ emoteIdentifier: suggestion.name })}
+                />
+                {/* {this.state.matchCount < 50 && 
+                    <img src={'https://atte.fi/berrymotes/render.php?emote=' + suggestion.name} />
+                } */}
             </div>
         );
     }
@@ -82,7 +81,7 @@ export class EmoteAutosuggest extends React.Component<EmoteAutosuggestProps, Emo
     }
 
     render() {
-        const { suggestions } = this.state;
+        const { suggestions, matchCount } = this.state;
         const inputProps = {
             placeholder: 'Type emote name',
             value: this.props.value,
@@ -90,14 +89,19 @@ export class EmoteAutosuggest extends React.Component<EmoteAutosuggestProps, Emo
         };
 
         return (
-            <Autosuggest
-                suggestions={suggestions}
-                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                getSuggestionValue={this.getSuggestionValue}
-                renderSuggestion={this.renderSuggestion}
-                inputProps={inputProps}
-            />
+            <div>
+                <Autosuggest
+                    suggestions={suggestions}
+                    onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                    onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                    getSuggestionValue={this.getSuggestionValue}
+                    renderSuggestion={this.renderSuggestion}
+                    inputProps={inputProps}
+                />
+                {suggestions.length > 0 &&
+                    <span>&nbsp; <b>{matchCount}</b> match{matchCount === 1 ? '' : 'es'}</span>
+                }
+            </div>
         );
     }
 }
