@@ -5,6 +5,7 @@ import { EmoteArrayText } from './EmoteArrayText';
 import { EmoteMap, EmoteObject, EmoteObjectBuilder, IEmoteDataEntry } from 'emotes';
 import { bootstrapEmoteData } from './SampleData';
 import './EmoteBuilder.css';
+import { EmoteImportForm } from './EmoteImportForm';
 
 interface EmoteBuilderProps {
 }
@@ -55,6 +56,10 @@ export class EmoteBuilder extends React.Component<EmoteBuilderProps, EmoteBuilde
         this.setState({}); // trigger a re-render so count updates
     }
 
+    importEmotes = (emoteObjects: EmoteObject[]): void => {
+        this.setState({ emoteObjects: emoteObjects });
+    }
+
     numberOfEmotesChanged(event: React.FormEvent<HTMLSelectElement>) {
         const targetNumberOfEmotes = Number(event.currentTarget.value);
         const newEmoteObjects = this.state.emoteObjects;
@@ -98,8 +103,8 @@ export class EmoteBuilder extends React.Component<EmoteBuilderProps, EmoteBuilde
                     <div className="col-md-3">
                         <label>Number of emotes:
                             <select
-                                defaultValue={this.state.emoteObjects.length.toString()}
                                 onChange={this.numberOfEmotesChanged}
+                                value={this.state.emoteObjects.length.toString()}
                             >
                                 <option>1</option>
                                 <option>2</option>
@@ -114,13 +119,9 @@ export class EmoteBuilder extends React.Component<EmoteBuilderProps, EmoteBuilde
                         </label>
                     </div>
                     <div className="col-md-6">
-                        <form className="form-horizontal">
-                            <label>
-                                Import existing emote string:
-                                <input type="text" name="existingEmoteString" placeholder="like [](/ajlie)" />
-                            </label>
-                            <button className="btn btn-primary" type="submit">Import</button>
-                        </form>
+                        <EmoteImportForm 
+                            importCallback={this.importEmotes}
+                        />
                     </div>
                 </div>
                 {/* actual emote objects row */}
