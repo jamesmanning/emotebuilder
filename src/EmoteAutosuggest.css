@@ -4,6 +4,7 @@ body {
   
   .react-autosuggest__container {
     position: relative;
+    display: inline;
   }
   
   .react-autosuggest__input {
@@ -59,4 +60,3 @@ body {
   .react-autosuggest__suggestion--highlighted {
     background-color: #ddd;
   }
-  
