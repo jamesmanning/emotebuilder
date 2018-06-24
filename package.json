@@ -5,7 +5,7 @@
     "homepage": "http://jamesmanning.github.io/emotebuilder/",
     "dependencies": {
         "bootstrap": "^3.3.7",
-        "emotes": "^1.1.13",
+        "emotes": "^1.1.14",
         "react": "^16.3.0",
         "react-autosuggest": "^9.3.4",
         "react-bootstrap": "^0.32.1",
