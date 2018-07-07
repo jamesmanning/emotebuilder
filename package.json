@@ -2,7 +2,7 @@
     "name": "emotebuilder",
     "version": "0.1.0",
     "private": true,
-    "homepage": "http://jamesmanning.github.io/emotebuilder/",
+    "homepage": "https://jamesmanning.github.io/emotebuilder/",
     "dependencies": {
         "bootstrap": "^3.3.7",
         "emotes": "^1.1.14",
