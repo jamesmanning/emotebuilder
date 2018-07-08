@@ -2,8 +2,8 @@ import { IEmoteDataEntry } from 'emotes';
 
 export var bootstrapEmoteData = <IEmoteDataEntry[]> [
     {
-        'apng_url': 'http://backstage.berrytube.tv/marminator/images/a/-UJ20dLxrm_8r4kr.png',
-        'background-image': 'http://a.thumbs.redditmedia.com/-UJ20dLxrm_8r4kr.png',
+        'apng_url': 'https://a.thumbs.redditmedia.com/-UJ20dLxrm_8r4kr.png',
+        'background-image': 'https://a.thumbs.redditmedia.com/-UJ20dLxrm_8r4kr.png',
         'height': 140,
         'names': ['welliwashungryandwhenyoucravehands'],
         'sr': 'marmemotes',
@@ -11,8 +11,8 @@ export var bootstrapEmoteData = <IEmoteDataEntry[]> [
         'width': 126
     },
     {
-        'apng_url': 'http://backstage.berrytube.tv/marminator/images/a/1ERLWojxsUO7nFQT.png',
-        'background-image': 'http://a.thumbs.redditmedia.com/1ERLWojxsUO7nFQT.png',
+        'apng_url': 'https://a.thumbs.redditmedia.com/1ERLWojxsUO7nFQT.png',
+        'background-image': 'https://a.thumbs.redditmedia.com/1ERLWojxsUO7nFQT.png',
         'height': 140,
         'names': ['doodoodooluna'],
         'sr': 'marmemotes',
@@ -20,8 +20,8 @@ export var bootstrapEmoteData = <IEmoteDataEntry[]> [
         'width': 121
     },
     {
-        'apng_url': 'http://backstage.berrytube.tv/marminator/images/a/84ozl2WMmiYp6Euf.png',
-        'background-image': 'http://a.thumbs.redditmedia.com/84ozl2WMmiYp6Euf.png',
+        'apng_url': 'https://a.thumbs.redditmedia.com/84ozl2WMmiYp6Euf.png',
+        'background-image': 'https://a.thumbs.redditmedia.com/84ozl2WMmiYp6Euf.png',
         'height': 140,
         'names': ['ivyrage', 'ierage'],
         'sr': 'marmemotes',
@@ -71,8 +71,8 @@ export var bootstrapEmoteData = <IEmoteDataEntry[]> [
         'nsfw': true
     },
     {
-        'apng_url': 'http://backstage.berrytube.tv/marminator/images/a/E1FnMA0PMGL9qnwx.png',
-        'background-image': 'http://a.thumbs.redditmedia.com/E1FnMA0PMGL9qnwx.png',
+        'apng_url': 'https://a.thumbs.redditmedia.com/E1FnMA0PMGL9qnwx.png',
+        'background-image': 'https://a.thumbs.redditmedia.com/E1FnMA0PMGL9qnwx.png',
         'height': 140,
         'names': ['keystrokeguitar'],
         'sr': 'marmemotes',
