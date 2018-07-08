@@ -50,7 +50,7 @@ export class EmoteBuilder extends React.Component<EmoteBuilderProps, EmoteBuilde
     }
 
     async populateEmoteMap() {
-        const response = await fetch('//berrymotes.com/assets/berrymotes_json_data.json');
+        const response = await fetch('https://cdn.berrytube.tv/berrymotes/data/berrymotes_json_data.json');
         const emoteData: IEmoteDataEntry[] = await response.json();
         this.state.emoteMap.loadData(emoteData);
         this.setState({}); // trigger a re-render so count updates
